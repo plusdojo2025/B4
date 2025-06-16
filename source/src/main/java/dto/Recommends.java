@@ -1,14 +1,15 @@
 package dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Recommends implements Serializable {
 	private int id;
 	private int book_id;
 	private int user_id;
 	private String comment;
-	private String created_at;
-	private String updated_at;
+	LocalDateTime created_at = LocalDateTime.now();
+	LocalDateTime updated_at = LocalDateTime.now();
 	
 	public int getId() {
 		return id;
@@ -34,16 +35,16 @@ public class Recommends implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public String getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(String created_at) {
+	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	public String getUpdated_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
-	public void setUpdated_at(String updated_at) {
+	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
 	
@@ -52,11 +53,9 @@ public class Recommends implements Serializable {
 		this.book_id = 0;
 		this.user_id = 0;
 		this.comment = "";
-		this.created_at = "";
-		this.updated_at = "";
 	}
 	
-	public Recommends(int id, int book_id, int user_id, String comment, String created_at, String updated_at) {
+	public Recommends(int id, int book_id, int user_id, String comment, LocalDateTime created_at, LocalDateTime updated_at) {
 		this.id = id;
 		this.book_id = book_id;
 		this.user_id = user_id;

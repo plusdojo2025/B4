@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Users implements Serializable {
 	private int id;
@@ -12,8 +13,8 @@ public class Users implements Serializable {
 	private int school_class;
 	private int torophy_id;
 	private int status_id;
-	private String created_at;
-	private String updated_at;
+	LocalDateTime created_at = LocalDateTime.now();
+	LocalDateTime updated_at = LocalDateTime.now();
 	
 	
 	public int getId() {
@@ -70,16 +71,16 @@ public class Users implements Serializable {
 	public void setStatus_id(int status_id) {
 		this.status_id = status_id;
 	}
-	public String getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(String created_at) {
+	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	public String getUpdated_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
-	public void setUpdated_at(String updated_at) {
+	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
 	
@@ -93,12 +94,10 @@ public class Users implements Serializable {
 		this.school_class = 0;
 		this.torophy_id = 0;
 		this.status_id = 0;
-		this.created_at = "";
-		this.updated_at = "";
 		}
 	
 	public Users(int id, int user_type_id, String name, String password, String mail_address, int grade,
-			int school_class, int torophy_id, int status_id, String created_at, String updated_at) {
+			int school_class, int torophy_id, int status_id, LocalDateTime created_at, LocalDateTime updated_at) {
 		this.id = id;
 		this.user_type_id = user_type_id;
 		this.name = name;

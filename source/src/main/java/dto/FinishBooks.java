@@ -3,22 +3,35 @@ package dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class UserTypes implements Serializable {
+public class FinishBooks implements Serializable {
 	private int id;
-	private int type;
+	private int book_id;
+	private int user_id;
+	private String type;
 	LocalDateTime created_at = LocalDateTime.now();
 	LocalDateTime updated_at = LocalDateTime.now();
-	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getType() {
+	public int getBook_id() {
+		return book_id;
+	}
+	public void setBook_id(int book_id) {
+		this.book_id = book_id;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public String getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public LocalDateTime getCreated_at() {
@@ -34,13 +47,18 @@ public class UserTypes implements Serializable {
 		this.updated_at = updated_at;
 	}
 	
-	public UserTypes() {
+	public FinishBooks() {
 		this.id = 0;
-		this.type = 0;
+		this.book_id = 0;
+		this.user_id = 0;
+		this.type = "";
 	}
 	
-	public UserTypes(int id, int type, LocalDateTime created_at, LocalDateTime updated_at) {
+	public FinishBooks(int id, int book_id, int user_id, String type, LocalDateTime created_at,
+			LocalDateTime updated_at) {
 		this.id = id;
+		this.book_id = book_id;
+		this.user_id = user_id;
 		this.type = type;
 		this.created_at = created_at;
 		this.updated_at = updated_at;

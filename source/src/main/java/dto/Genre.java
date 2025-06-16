@@ -3,9 +3,9 @@ package dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class UserTypes implements Serializable {
+public class Genre implements Serializable {
 	private int id;
-	private int type;
+	private String genre_name;
 	LocalDateTime created_at = LocalDateTime.now();
 	LocalDateTime updated_at = LocalDateTime.now();
 	
@@ -15,11 +15,11 @@ public class UserTypes implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getType() {
-		return type;
+	public String getGenre_name() {
+		return genre_name;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setGenre_name(String genre_name) {
+		this.genre_name = genre_name;
 	}
 	public LocalDateTime getCreated_at() {
 		return created_at;
@@ -34,14 +34,13 @@ public class UserTypes implements Serializable {
 		this.updated_at = updated_at;
 	}
 	
-	public UserTypes() {
+	public Genre() {
 		this.id = 0;
-		this.type = 0;
+		this.genre_name = "";
 	}
-	
-	public UserTypes(int id, int type, LocalDateTime created_at, LocalDateTime updated_at) {
+	public Genre(int id, String genre_name, LocalDateTime created_at, LocalDateTime updated_at) {
 		this.id = id;
-		this.type = type;
+		this.genre_name = genre_name;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}

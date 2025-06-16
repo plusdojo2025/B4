@@ -3,9 +3,9 @@ package dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class UserTypes implements Serializable {
+public class Reaction implements Serializable {
 	private int id;
-	private int type;
+	private int reaction;
 	LocalDateTime created_at = LocalDateTime.now();
 	LocalDateTime updated_at = LocalDateTime.now();
 	
@@ -15,11 +15,11 @@ public class UserTypes implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getType() {
-		return type;
+	public int getReaction() {
+		return reaction;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setReaction(int reaction) {
+		this.reaction = reaction;
 	}
 	public LocalDateTime getCreated_at() {
 		return created_at;
@@ -34,16 +34,17 @@ public class UserTypes implements Serializable {
 		this.updated_at = updated_at;
 	}
 	
-	public UserTypes() {
+	public Reaction() {
 		this.id = 0;
-		this.type = 0;
+		this.reaction = 0;
+		
 	}
-	
-	public UserTypes(int id, int type, LocalDateTime created_at, LocalDateTime updated_at) {
+	public Reaction(int id, int reaction, LocalDateTime created_at, LocalDateTime updated_at) {
 		this.id = id;
-		this.type = type;
+		this.reaction = reaction;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
+	
 	
 }
