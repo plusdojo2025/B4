@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class ProgressServlet extends HttpServlet {
 		int month = Integer.parseInt(request.getParameter("month"));
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.select(0, user_id, 0, 0, 0, null, null, month);
+		List<Progress> progressList = proDao.select(new Progress(0, user_id, 0, 0, 0, LocalDateTime.now(), LocalDateTime.now(), month));
 		
 		request.setAttribute("progressList", progressList);
 		
