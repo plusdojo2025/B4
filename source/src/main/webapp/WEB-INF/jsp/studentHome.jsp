@@ -19,18 +19,18 @@
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
 
-<h2>2025年6月16日</h2>
+<h2>2025年6月17日</h2>
 
 <form id="opinion_form" method="POST" action="/B4/OpinionServlet">
 <input type="submit" name="submit" value="目安箱">
 </form>
 
-<form id="goal_form" method="POST" action="/B4/ProgressServlet">
+<form id="goal_form" method="POST">
 もくひょう<input type="text" name="goal_page">
 <input type="submit" name="submit" value="OK">
 </form>
 
-<form id="read_form" method="POST" action="/B4/ProgressServlet">
+<form id="read_form" method="POST">
 きろく<input type="text" name="read_page">
 <input type="submit" name="submit" value="OK">
 </form>

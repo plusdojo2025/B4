@@ -30,6 +30,16 @@
 
 <h3>いままでのきろく</h3>
 
+<c:forEach var="pro" items="${progressList}">
+    <%-- <form method="POST" action="/webapp1/UpdateDeleteServlet" data-name="${e.name}"> --%>
+	<input type="hidden" name="number" value="${pro.id}">
+	<p class="item" id="p1">${pro.user_id}</p>
+	<p class="item" id="p4">${pro.month}</p>
+	<p class="item" id="p3">${pro.target_page}</p>
+	<p class="item" id="p4">${pro.read_page}</p>
+
+	</c:forEach>
+
 <h3>プロフィール</h3>
 
 <h3>好きな○○</h3>
