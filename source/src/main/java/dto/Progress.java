@@ -5,12 +5,13 @@ import java.time.LocalDateTime;
 
 public class Progress implements Serializable {
 	private int id;
-	private int book_id;
 	private int user_id;
+	private int book_id;
 	private int target_page;
 	private int read_page;
 	LocalDateTime created_at = LocalDateTime.now();
 	LocalDateTime updated_at = LocalDateTime.now();
+	public int month;
 	
 	public int getId() {
 		return id;
@@ -18,17 +19,18 @@ public class Progress implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getBook_id() {
-		return book_id;
-	}
-	public void setBook_id(int book_id) {
-		this.book_id = book_id;
-	}
 	public int getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public int getBook_id() {
+		return book_id;
+	}
+	public void setBook_id(int book_id) {
+		this.book_id = book_id;
 	}
 	public int getTarget_page() {
 		return target_page;
@@ -54,23 +56,32 @@ public class Progress implements Serializable {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
+	public int getMonth() {
+		return updated_at.getMonthValue();
+	}
+	public void setMonth(int month) {
+		this.month = month;
+	}
 	
 	public Progress() {
 		this.id = 0;
-		this.book_id = 0;
 		this.user_id = 0;
+		this.book_id = 0;
 		this.target_page = 0;
 		this.read_page = 0;
+		this.month = 0;
+		
 	}
-	public Progress(int id, int book_id, int user_id, int target_page, int read_page, LocalDateTime created_at,
-			LocalDateTime updated_at) {
+	public Progress(int id, int user_id, int book_id, int target_page, int read_page, LocalDateTime created_at,
+			LocalDateTime updated_at, int month) {
 		this.id = id;
-		this.book_id = book_id;
 		this.user_id = user_id;
+		this.book_id = book_id;
 		this.target_page = target_page;
 		this.read_page = read_page;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
+		this.month = month;
 	}
 	
 	

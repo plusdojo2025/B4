@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ProgressDAO;
+
 /**
  * Servlet implementation class TeacherHomeServlet
  */
@@ -44,6 +46,17 @@ public class TeacherHomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		request.setCharacterEncoding("UTF-8");
+		int id = Integer.parseInt(request.getParameter("id"));
+		int book_id = Integer.parseInt(request.getParameter("book_id"));
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		int target_page = Integer.parseInt(request.getParameter("target_page"));
+		int read_page = Integer.parseInt(request.getParameter("read_page"));
+		
+		ProgressDAO proDao = new ProgressDAO();
+		
+		
 		doGet(request, response);
 	}
 
