@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="model.Progress" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%
-    List<Progress> progressList = (List<Progress>) request.getAttribute("progressList");
-    SimpleDateFormat sdf = new SimpleDateFormat("d"); // 日のみ
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,8 +30,16 @@
 
 <h2>6月の成績表</h2>
 
-<canvas id="readingChart" width="600" height="300"></canvas>
+ <c:forEach var="pro" items="${progressList}">
+    <%-- <form method="POST" action="/webapp1/UpdateDeleteServlet" data-name="${e.name}"> --%>
+	<input type="hidden" name="number" value="${pro.id}">
+	<p class="item" id="p1">${pro.user_id}</p>
+	<p class="item" id="p4">${pro.month}</p>
+	<p class="item" id="p3">${pro.target_page}</p>
+	<p class="item" id="p4">${pro.read_page}</p>
 
+	</c:forEach>
+   	
 <h3>過去の読書記録</h3>
 
 <h3>プロフィール</h3>
@@ -56,38 +57,6 @@ document.getElementById('form_month').select.onchange = function() {
 	location.href = document.getElementById('form_month').select.value;
 }
 </script>
- <script>
-        const labels = [
-            <% for (Progress log : progressList) { %>
-                "<%= sdf.format(log.getUpdated_at()) %>",
-            <% } %>
-        ];
-
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: '読んだページ数',
-                data: [
-                    <% for (Progress log : progressList) { %>
-                        <%= log.getRead_page() %>,
-                    <% } %>
-                ],
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        };
-
-        new Chart(document.getElementById('readingChart'), {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-    </script>
-
+ 
 </body>
 </html>

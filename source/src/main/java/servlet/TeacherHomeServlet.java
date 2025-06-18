@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ProgressDAO;
+import dto.Progress;
 
 /**
  * Servlet implementation class TeacherHomeServlet
@@ -48,16 +50,12 @@ public class TeacherHomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		request.setCharacterEncoding("UTF-8");
-		int id = Integer.parseInt(request.getParameter("id"));
-		int book_id = Integer.parseInt(request.getParameter("book_id"));
-		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		int target_page = Integer.parseInt(request.getParameter("target_page"));
 		int read_page = Integer.parseInt(request.getParameter("read_page"));
 		
 		ProgressDAO proDao = new ProgressDAO();
-		
-		
-		doGet(request, response);
+		proDao.insert(new Progress(0, 0, 0, target_page, read_page, LocalDateTime.now(), LocalDateTime.now(), 0));
+		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
 	}
 
 }

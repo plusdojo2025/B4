@@ -15,5 +15,10 @@
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
+<h2>6月17日</h2>
+<p>目標　ページ</p>
+<p>進捗　ページ</p>
+
+<h2>成績表</h2>
 </body>
 </html>
