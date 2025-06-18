@@ -11,7 +11,7 @@ import java.util.List;
 import dto.Progress;
 
 public class ProgressDAO {
-	public List<Progress> select(Progress prog) {
+	public List<Progress> select(int user_id, int month) {
 		Connection conn = null;
 		List<Progress> progressList = new ArrayList<Progress>();
 
@@ -29,8 +29,8 @@ public class ProgressDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, prog.getUser_id());
-			pStmt.setInt(2, prog.getMonth());	// SQL文を実行し、結果表を取得する
+			pStmt.setInt(1, user_id);
+			pStmt.setInt(2, month);	// SQL文を実行し、結果表を取得する
 			
 			ResultSet rs = pStmt.executeQuery();
 
@@ -70,7 +70,7 @@ public class ProgressDAO {
 		return progressList;
 	}
 	
-	public boolean insert(Progress prog) {
+	public boolean insert(int target_page, int read_page) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -84,13 +84,13 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "INSERT INTO Progress VALUES (0, 0, 0, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)";
+			String sql = "INSERT INTO Progress VALUES (0, 0, 0, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			
-			pStmt.setInt(1, prog.getTarget_page());
-			pStmt.setInt(2, prog.getRead_page());
+			pStmt.setInt(1, target_page);
+			pStmt.setInt(2, read_page);
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
