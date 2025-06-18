@@ -31,10 +31,9 @@
 <h2>6月の成績表</h2>
 
  <c:forEach var="pro" items="${progressList}">
-    <%-- <form method="POST" action="/webapp1/UpdateDeleteServlet" data-name="${e.name}"> --%>
 	<input type="hidden" name="number" value="${pro.id}">
 	<p class="item" id="p1">${pro.user_id}</p>
-	<p class="item" id="p4">${pro.month}</p>
+	<p class="item" id="p2">${pro.month}</p>
 	<p class="item" id="p3">${pro.target_page}</p>
 	<p class="item" id="p4">${pro.read_page}</p>
 

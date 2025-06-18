@@ -29,7 +29,6 @@
 <h3>過去の読書記録</h3>
 
 <c:forEach var="pro" items="${progressList}">
-    <%-- <form method="POST" action="/webapp1/UpdateDeleteServlet" data-name="${e.name}"> --%>
 	<input type="hidden" name="number" value="${pro.id}">
 	<p class="item" id="p1">${pro.user_id}</p>
 	<p class="item" id="p4">${pro.month}</p>
