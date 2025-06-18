@@ -57,6 +57,28 @@ public class IdPwDAO {
         }
         return typeId;
     }
+    
+    public boolean authenticate(String id, String pw) {
+        boolean isAuthenticated = false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, password)) {
+                String sql = "SELECT COUNT(*) FROM users WHERE id = ? AND password = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, id);
+                stmt.setString(2, pw);
+
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    isAuthenticated = rs.getInt(1) > 0;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return isAuthenticated;
+    }
+
 }
 
 

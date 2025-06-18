@@ -16,8 +16,11 @@
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
 <h2>6月17日</h2>
+
+<c:forEach var="pro" items="${progressList}" >
 <p>目標　ページ</p>
 <p>進捗　ページ</p>
+</c:forEach>
 
 <h2>成績表</h2>
 </body>

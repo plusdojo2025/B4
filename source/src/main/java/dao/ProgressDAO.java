@@ -11,7 +11,7 @@ import java.util.List;
 import dto.Progress;
 
 public class ProgressDAO {
-	public List<Progress> select(Progress prog) {
+	public List<Progress> select(int user_id, int month) {
 		Connection conn = null;
 		List<Progress> progressList = new ArrayList<Progress>();
 
@@ -20,17 +20,17 @@ public class ProgressDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT id, user_id, target_page, read_page, MONTH(updated_at) FROM progress WHERE user_id =? AND MONTH(updated_at) = ? GROUP BY update_at ORDER BY update_at";
+			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) FROM progress JOIN users ON progress.user_id = users.id WHERE user_id =? AND MONTH(progress.updated_at) = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, prog.getUser_id());
-			pStmt.setInt(2, prog.getMonth());	// SQL文を実行し、結果表を取得する
+			pStmt.setInt(1, user_id);
+			pStmt.setInt(2, month);	// SQL文を実行し、結果表を取得する
 			
 			ResultSet rs = pStmt.executeQuery();
 
@@ -38,8 +38,8 @@ public class ProgressDAO {
 			while (rs.next()) {
 				Progress progress = new Progress(
 						rs.getInt("id"), 
-						rs.getInt("book_id"), 
 						rs.getInt("user_id"), 
+						rs.getInt("book_id"), 
 						rs.getInt("target_page"), 
 						rs.getInt("read_page"),
 						rs.getTimestamp("created_at").toLocalDateTime(),
@@ -70,7 +70,7 @@ public class ProgressDAO {
 		return progressList;
 	}
 	
-	public boolean insert(Progress prog) {
+	public boolean insert(int target_page, int read_page) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -79,18 +79,18 @@ public class ProgressDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "INSERT INTO Progress VALUES (0, 0, 0, ?, ?, 0, 0, 0)";
+			String sql = "INSERT INTO Progress VALUES (0, 0, 0, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			
-			pStmt.setInt(1, prog.getTarget_page());
-			pStmt.setInt(2, prog.getRead_page());
+			pStmt.setInt(1, target_page);
+			pStmt.setInt(2, read_page);
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -127,12 +127,12 @@ public class ProgressDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT id, book_id, user_id, target_page, read_page, FROM progress WHERE id =? ";
+			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) FROM progress JOIN users ON progress.user_id = users.id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -142,8 +142,8 @@ public class ProgressDAO {
 			while (rs.next())  {
 				Progress progress = new Progress(
 						rs.getInt("id"), 
-						rs.getInt("book_id"), 
 						rs.getInt("user_id"), 
+						rs.getInt("book_id"), 
 						rs.getInt("target_page"), 
 						rs.getInt("read_page"),
 						rs.getTimestamp("created_at").toLocalDateTime(),

@@ -28,6 +28,15 @@
 
 <h3>過去の読書記録</h3>
 
+<c:forEach var="pro" items="${progressList}">
+	<input type="hidden" name="number" value="${pro.id}">
+	<p class="item" id="p1">${pro.user_id}</p>
+	<p class="item" id="p4">${pro.month}</p>
+	<p class="item" id="p3">${pro.target_page}</p>
+	<p class="item" id="p4">${pro.read_page}</p>
+
+	</c:forEach>
+
 <h3>プロフィール</h3>
 
 <h3>読書傾向</h3>

@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.ProgressDAO;
 import dto.Progress;
@@ -40,11 +40,12 @@ public class ProgressServlet extends HttpServlet {
 //			return;
 //		}
 		request.setCharacterEncoding("UTF-8");
-		int user_id = Integer.parseInt(request.getParameter("user_id"));
-		int month = Integer.parseInt(request.getParameter("month"));
+		
+		int user_id = 1;
+		int month = 6;
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.select(new Progress(0, user_id, 0, 0, 0, LocalDateTime.now(), LocalDateTime.now(), month));
+		List<Progress> progressList = proDao.select(user_id, month);
 		
 		request.setAttribute("progressList", progressList);
 		
@@ -73,7 +74,19 @@ public class ProgressServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+//		if (session.getAttribute("id") == null) {
+//			response.sendRedirect("/webapp/LoginServlet");
+//			return;
+//		}
+		
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.selectAll();
+
+		// 検索結果をセッションスコープに格納する
+		session.setAttribute("progressList", progressList);
+		
+		request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
 	}
 
 }

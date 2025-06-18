@@ -1,13 +1,14 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.ProgressDAO;
 import dto.Progress;
@@ -34,11 +35,16 @@ public class TeacherHomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.selectAll();
+
+		// 検索結果をセッションスコープに格納する
+		session.setAttribute("progressList", progressList);
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
 	}
@@ -49,13 +55,7 @@ public class TeacherHomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		request.setCharacterEncoding("UTF-8");
-		int target_page = Integer.parseInt(request.getParameter("target_page"));
-		int read_page = Integer.parseInt(request.getParameter("read_page"));
-		
-		ProgressDAO proDao = new ProgressDAO();
-		proDao.insert(new Progress(0, 0, 0, target_page, read_page, LocalDateTime.now(), LocalDateTime.now(), 0));
-		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
+		doGet(request, response);
 	}
 
 }

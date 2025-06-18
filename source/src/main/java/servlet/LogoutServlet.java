@@ -13,16 +13,14 @@ import javax.servlet.http.HttpSession;
 public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public LogoutServlet() {
-        super();
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false); 
+        // セッションを無効化
+        HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate(); 
+            session.invalidate();
         }
-        response.sendRedirect("LoginServlet"); // ログイン画面に戻る
+
+        // ログイン画面にリダイレクト
+        response.sendRedirect("LoginServlet");
     }
 }
-
