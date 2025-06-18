@@ -10,9 +10,11 @@
 <% } %>
 
 <form action="LoginServlet" method="post">
-    ID: <input type="text" name="id" required /><br/>
-    パスワード: <input type="password" name="pw" required /><br/>
+    ID: <input type="text" name="loginId" required /><br/>
+    パスワード: <input type="password" name="password" required /><br/>
     <input type="submit" value="ログイン" />
 </form>
+
+
 </body>
 </html>
