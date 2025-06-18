@@ -1,12 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
-<head><title>プロフィール種別選択</title></head>
+<head><title>プロフィール選択</title></head>
 <body>
-    <h2>どちらとしてログインしますか？</h2>
-    <form action="LoginProfileServlet" method="post">
-        <input type="radio" name="profileType" value="2" required> 保護者<br>
-        <input type="radio" name="profileType" value="3"> 生徒<br><br>
-        <input type="submit" value="決定">
-    </form>
+
+<h2>プロフィール選択</h2>
+
+<form action="LoginProfileServlet" method="post">
+    <label for="profileType">プロフィールを選択してください：</label><br><br>
+    <input type="radio" id="parent" name="profileType" value="2" required> 親<br>
+    <input type="radio" id="child" name="profileType" value="3"> 子供<br><br>
+
+    <input type="submit" value="選択">
+</form>
+
 </body>
 </html>

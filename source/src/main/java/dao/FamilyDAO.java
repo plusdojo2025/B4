@@ -11,17 +11,17 @@ import java.util.List;
 import dto.User;
 
 public class FamilyDAO {
-    private final String url = "jdbc:mysql://localhost:3306/webapp2?useSSL=false&serverTimezone=GMT%2B9&characterEncoding=utf8";
+    private final String url = "jdbc:mysql://localhost:3306/B4?useSSL=false&serverTimezone=GMT%2B9&characterEncoding=utf8";
     private final String dbUser = "root";
     private final String dbPassword = "password";
 
-    // 保護者IDから子どもを取得
+   
     public List<User> getChildrenByParentId(int parentId) {
         List<User> children = new ArrayList<>();
 
         String sql = "SELECT u.* FROM users u " +
-                     "JOIN familys f ON u.id = f.child_user_id " +
-                     "WHERE f.parent_user_id = ?";
+                     "JOIN familys f ON u.id = f.user2_id " +
+                     "WHERE f.user1_id = ?";
 
         try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -45,13 +45,13 @@ public class FamilyDAO {
         return children;
     }
 
-    // 生徒IDから保護者を取得
+    
     public User getParentByChildId(int childId) {
         User parent = null;
 
         String sql = "SELECT u.* FROM users u " +
-                     "JOIN familys f ON u.id = f.parent_user_id " +
-                     "WHERE f.child_user_id = ?";
+                     "JOIN familys f ON u.id = f.user1_id " +
+                     "WHERE f.user2_id = ?";
 
         try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -72,6 +72,32 @@ public class FamilyDAO {
         }
 
         return parent;
+    }
+
+   
+    public int getFamilyIdByUserId(int userId) {
+        int familyId = -1;
+
+        String sql = "SELECT id FROM familys WHERE user1_id = ? OR user2_id = ?";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setInt(1, userId);
+                stmt.setInt(2, userId);
+
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    familyId = rs.getInt("id");
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return familyId;
     }
 }
 
