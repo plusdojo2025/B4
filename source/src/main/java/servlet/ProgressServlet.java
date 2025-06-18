@@ -79,6 +79,7 @@ public class ProgressServlet extends HttpServlet {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
+		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.selectAll();
 
