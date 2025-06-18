@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>せいせき | 生徒ページ</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
 <h1>よも～にんぐ</h1>
@@ -26,19 +27,14 @@
 </select>
 </form>
 
-<h2>6月のせいせき</h2>
-
-<h3>いままでのきろく</h3>
-
 <c:forEach var="pro" items="${progressList}">
-    <%-- <form method="POST" action="/webapp1/UpdateDeleteServlet" data-name="${e.name}"> --%>
-	<input type="hidden" name="number" value="${pro.id}">
-	<p class="item" id="p1">${pro.user_id}</p>
-	<p class="item" id="p4">${pro.month}</p>
-	<p class="item" id="p3">${pro.target_page}</p>
-	<p class="item" id="p4">${pro.read_page}</p>
+	<input type="hidden" name="id" value="${pro.id}">
+	<p>${pro.month}月の成績表</p>
+	<h3>過去の読書記録</h3>
+	<p>${pro.target_page}</p>
+	<p>${pro.read_page}</p>
 
-	</c:forEach>
+</c:forEach>
 
 <h3>プロフィール</h3>
 

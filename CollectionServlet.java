@@ -2,6 +2,7 @@ package servlet;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -34,22 +35,32 @@ public class CollectionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/jsp/collection.jsp").forward(request, response);
-	
-		
+		int userId=1;
+		int rankingId=1;
+
 	//リクエストパラメーターからステータス名を取得
 	String statusName = request.getParameter("statusName");
+	String trophyphoto =request.getParameter("trophyPhoto");
 	
 	//DAOを使ってデータを取得
     CollectionDAO dao = new CollectionDAO();
     List<dto.Collection> collectionList = null;
 	try {
-		collectionList = dao.selectByUserId(1);
 		
-		
-	} catch (ClassNotFoundException e1) {
+		 if (statusName != null && !statusName.isEmpty()) {
+	            // ステータス名で検索（userIdは例で0)
+	            collectionList = dao.selectByStatusName(statusName, 0);
+	        } else {
+	            // ユーザーIDで一覧取得（例：userId=1）
+	            collectionList = dao.selectByUserId(1);
+	            
+	            List<Collection> statusList = new ArrayList<>();
+	            List<Collection> trophyList = new ArrayList<>();
+	        }         
+	}catch (ClassNotFoundException e1) {
 		// TODO 自動生成された catch ブロック
 		e1.printStackTrace();
+		collectionList = new ArrayList<>();
 	}
 	
 	  System.out.println("件数: " + collectionList.size());
@@ -57,25 +68,27 @@ public class CollectionServlet extends HttpServlet {
           System.out.println("ステータス名: " + c.getStatusName());
       }
       
+      System.out.println("件数: " + collectionList.size());
+      for (Collection c : collectionList) {
+          System.out.println("トロフィー: " + c.getTrophyPhoto());
+      }
+      
+      // JSPにデータを渡す
     request.setAttribute("collectionList", collectionList);
-    
-    try {
-    	if (statusName != null && !statusName.isEmpty()) {
-    	collectionList = dao.selectByStatusName(statusName, 0);
-    	}
-    }catch(ClassNotFoundException e) {
-    e.printStackTrace();
-    }
+    request.setAttribute("statusName", statusName);
+    request.setAttribute("trophyPhoto", trophyphoto);
+  
+//    try {
+//    	if (statusName != null && !statusName.isEmpty()) {
+//    	collectionList = dao.selectByStatusName(statusName, 0);
+//    	}
+//    }catch(ClassNotFoundException e) {
+ //   e.printStackTrace();
+ //   }
    
-	
-    // JSPにデータを渡す
-    request.setAttribute("collectionList", collectionList);
-    request.setAttribute("statusName", statusName); // 表示用に渡しておく
-
     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/collection.jsp");
     dispatcher.forward(request, response);
-	}
-
+	
 
 /**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -85,3 +98,4 @@ public class CollectionServlet extends HttpServlet {
 	//	doGet(request response);
 	}
 
+}

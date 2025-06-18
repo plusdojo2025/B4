@@ -33,19 +33,26 @@ public class ParentHomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		
+		int user_id = 1;
+		int month = 6;
+		int day = 17;
+		
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.selectToday(user_id, month, day);
+		
+		session.setAttribute("progressList", progressList);
+		
+		request.getRequestDispatcher("/WEB-INF/jsp/parentHome.jsp").forward(request, response);
+		
 //		if (session.getAttribute("id") == null) {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectAll();
-
-		// 検索結果をセッションスコープに格納する
-		session.setAttribute("progressList", progressList);
 		
-		// レイアウトページにフォワードする
-		request.getRequestDispatcher("/WEB-INF/jsp/parentHome.jsp").forward(request, response);
 		
 	}
 
@@ -54,7 +61,16 @@ public class ParentHomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.selectAll();
+
+		// 検索結果をセッションスコープに格納する
+		session.setAttribute("progressList", progressList);
+		
+		// レイアウトページにフォワードする
+		request.getRequestDispatcher("/WEB-INF/jsp/parentHome.jsp").forward(request, response);
 	}
 
 }
