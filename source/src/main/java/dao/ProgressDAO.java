@@ -25,7 +25,7 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT id, user_id, target_page, read_page, MONTH(updated_at) FROM progress WHERE user_id =? AND MONTH(updated_at) = ? GROUP BY updated_at ORDER BY updated_at";
+			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) FROM progress JOIN users ON progress.user_id = users.id WHERE user_id =? AND MONTH(progress.updated_at) = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -132,7 +132,7 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT id, book_id, user_id, target_page, read_page, created_at, updated_at, MONTH(updated_at) FROM progress WHERE id =? ";
+			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) FROM progress JOIN users ON progress.user_id = users.id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

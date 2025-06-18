@@ -34,18 +34,22 @@ public class ProgressServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
-	HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
-//		response.sendRedirect("/webapp/LoginServlet");
-//		return;
-//	}
-	ProgressDAO proDao = new ProgressDAO();
-	List<Progress> progressList = proDao.selectAll();
-
-	// 検索結果をセッションスコープに格納する
-	session.setAttribute("progressList", progressList);
-	
-	request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
+//			response.sendRedirect("/webapp/LoginServlet");
+//			return;
+//		}
+		request.setCharacterEncoding("UTF-8");
+		
+		int user_id = 1;
+		int month = 6;
+		
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.select(user_id, month);
+		
+		request.setAttribute("progressList", progressList);
+		
+		request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
 		
 //		HttpSession session = request.getSession();
 //        String userTypes = (String) session.getAttribute("UserTypes");
