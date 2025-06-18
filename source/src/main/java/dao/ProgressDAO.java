@@ -20,12 +20,12 @@ public class ProgressDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT id, user_id, target_page, read_page, MONTH(updated_at) FROM progress WHERE user_id =? AND MONTH(updated_at) = ? GROUP BY update_at ORDER BY update_at";
+			String sql = "SELECT id, user_id, target_page, read_page, MONTH(updated_at) FROM progress WHERE user_id =? AND MONTH(updated_at) = ? GROUP BY updated_at ORDER BY updated_at";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -38,8 +38,8 @@ public class ProgressDAO {
 			while (rs.next()) {
 				Progress progress = new Progress(
 						rs.getInt("id"), 
-						rs.getInt("book_id"), 
 						rs.getInt("user_id"), 
+						rs.getInt("book_id"), 
 						rs.getInt("target_page"), 
 						rs.getInt("read_page"),
 						rs.getTimestamp("created_at").toLocalDateTime(),
@@ -79,12 +79,12 @@ public class ProgressDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "INSERT INTO Progress VALUES (0, 0, 0, ?, ?, 0, 0, 0)";
+			String sql = "INSERT INTO Progress VALUES (0, 0, 0, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -127,7 +127,7 @@ public class ProgressDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
@@ -142,8 +142,8 @@ public class ProgressDAO {
 			while (rs.next())  {
 				Progress progress = new Progress(
 						rs.getInt("id"), 
-						rs.getInt("book_id"), 
 						rs.getInt("user_id"), 
+						rs.getInt("book_id"), 
 						rs.getInt("target_page"), 
 						rs.getInt("read_page"),
 						rs.getTimestamp("created_at").toLocalDateTime(),
