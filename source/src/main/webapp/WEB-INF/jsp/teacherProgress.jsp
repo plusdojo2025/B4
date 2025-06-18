@@ -22,22 +22,22 @@
 
 
 <form id ="form" method="POST" action="/B4/ProgressServlet">
+
 <select id="select_month" name="month">
 <c:forEach  begin="1" end="12" step="1" var="i">
 	<option><c:out value="${i}" /></option>  
 	</c:forEach>
 </select>
 
-<h2>6月の成績表</h2>
 
  <c:forEach var="pro" items="${progressList}">
 	<input type="hidden" name="number" value="${pro.id}">
-	<p class="item" id="p1">${pro.user_id}</p>
-	<p class="item" id="p2">${pro.month}</p>
-	<p class="item" id="p3">${pro.target_page}</p>
-	<p class="item" id="p4">${pro.read_page}</p>
+	<p>${pro.user_id}</p>
+	<p>${pro.month}月の成績表</p>
+	<p>${pro.target_page}</p>
+	<p>${pro.read_page}</p>
 
-	</c:forEach>
+</c:forEach>
    	
 <h3>過去の読書記録</h3>
 
@@ -53,8 +53,8 @@
 </form>
 
 <script>
-document.getElementById('form_month').select.onchange = function() {
-	location.href = document.getElementById('form_month').select.value;
+document.getElementById('form').select.onchange = function() {
+	location.href = document.getElementById('form').select.value;
 }
 </script>
  

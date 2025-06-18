@@ -132,7 +132,7 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT id, book_id, user_id, target_page, read_page, FROM progress WHERE id =? ";
+			String sql = "SELECT id, book_id, user_id, target_page, read_page, created_at, updated_at, MONTH(updated_at) FROM progress WHERE id =? ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
