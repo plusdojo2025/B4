@@ -38,6 +38,10 @@ public class BookListServlet extends HttpServlet {
 
         // 仮のユーザータイプ
         session.setAttribute("userType", "student");
+        //仮のユーザID
+        session.setAttribute("userId", 1);
+        //戻り先サーブレットの保持
+        session.setAttribute("lastList", "BookListServlet");
 
         // 検索条件の取得
         String title = request.getParameter("title");
@@ -65,38 +69,16 @@ public class BookListServlet extends HttpServlet {
         request.setAttribute("bookList", bookList);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", (int) Math.ceil((double) totalCount / LIMIT));
+        //　条件の保持
+        session.setAttribute("title", title);
+        session.setAttribute("genreId", genreIdStr);
+        session.setAttribute("currentPage", page);
+
 
         // JSPへ
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/studentBookList.jsp");
         dispatcher.forward(request, response);
     }
-
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		//ユーザのタイプ仮入れ
-//		HttpSession session = request.getSession();
-//		session.setAttribute("userType", "student");  // "student", "parent", "teacher" のどれか
-//		
-//		BookDAO dao = new BookDAO();
-//        
-//        //ページネーション
-//        final int LIMIT = 1;
-//        int page = 1;
-//
-//        String pageParam = request.getParameter("page");
-//        if (pageParam != null) {
-//            page = Integer.parseInt(pageParam);
-//        }
-//
-//        List<Book> bookList = dao.selectAll(page, LIMIT);	//ページネーション付の一覧表示
-//        int totalCount = dao.countAllBooks(null, null);  // 総件数を取得
-//
-//        request.setAttribute("bookList", bookList);
-//        request.setAttribute("currentPage", page);
-//        request.setAttribute("totalPages", (int)Math.ceil((double)totalCount / LIMIT));
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/studentBookList.jsp");
-//        dispatcher.forward(request, response);
-//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -109,7 +91,10 @@ public class BookListServlet extends HttpServlet {
 
         // 仮のユーザータイプ
         session.setAttribute("userType", "student");
-
+        
+        //仮のユーザID
+        session.setAttribute("userId", 1);
+        
         // 検索条件の取得
         String title = request.getParameter("title");
         String genreIdStr = request.getParameter("genreId");
@@ -139,37 +124,6 @@ public class BookListServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/studentBookList.jsp");
 		dispatcher.forward(request, response);
-
-//	    // 検索条件を取得
-//	    String title = request.getParameter("title");
-//	    String genreIdStr = request.getParameter("genreId");
-//	    Integer genreId = null;
-//	    if (genreIdStr != null && !genreIdStr.isEmpty()) {
-//	        genreId = Integer.parseInt(genreIdStr);
-//	    }
-//
-//	    // DAOを使って検索
-//	    BookDAO dao = new BookDAO();
-//	    //ページネーション
-//        final int LIMIT = 1;
-//        int page = 1;
-//        
-//	    List<Book> bookList = dao.search(title, genreId, page, LIMIT);
-//	    int totalCount = dao.countAllBooks(title, genreId);  // 総件数を取得
-//
-//	    // 検索結果をJSPへ渡す
-//	    request.setAttribute("bookList", bookList);
-//
-//	    // 入力値の保持（フォームに再表示させたい場合）
-//	    request.setAttribute("title", title);
-//	    request.setAttribute("genreId", genreIdStr);
-//	    request.setAttribute("bookList", bookList);
-//        request.setAttribute("currentPage", page);
-//        request.setAttribute("totalPages", (int)Math.ceil((double)totalCount / LIMIT));
-//
-//	    // JSPへフォワード
-//	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/studentBookList.jsp");
-//	    dispatcher.forward(request, response);
 	}
-
+	
 }

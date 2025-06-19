@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ホーム｜よも～にんぐ</title>
+<title>コレクション｜よも～にんぐ</title>
 </head>
 <body>
 <h1 id ="logo">よも～にんぐ</h1>
@@ -62,6 +62,20 @@
 
   </table>
   
+   <table border="2">
+  <tr>
+    <th>トロフィー</th>
+    <th>獲得日時</th>
+  </tr>
+
+  <c:forEach var="coll" items="${collectionList}">
+    <tr>
+      <td> <img src="/B4/img/${coll.trophyPhoto}" alt="トロフィー画像"></td>
+      <td>${coll.createdat}</td>
+    </tr>
+  </c:forEach>
+</table>
+   
   <h2>ランキング</h2>
   <h3>4～9月のアクションランキング</h3>
 

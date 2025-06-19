@@ -36,7 +36,7 @@
 </form>
 
 <c:forEach var="book" items="${bookList}">
-        <a href="/B4/BookDetailServlet?id=${book.id}">
+        <a href="/B4/BookDetailServlet?bookId=${book.id}">
         <img src="/B4/img/${book.cover}" alt="表紙画像" width="200">
         </a>
 </c:forEach>
@@ -52,6 +52,7 @@
 
 <!-- ページをプルダウンで選択 -->
 <form action="${pageContext.request.contextPath}/BookListServlet" method="get">
+ 
   <!-- 検索条件を保持 -->
   <input type="hidden" name="title" value="${fn:escapeXml(title)}" />
   <input type="hidden" name="genreId" value="${fn:escapeXml(genreId)}" />

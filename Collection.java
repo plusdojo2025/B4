@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class Collection implements Serializable  {
 
 private int id;
-private String StatusName;
+private String statusName;
 private String trophyPhoto;
 private int rankingId;
 private String ranking_kindName;
@@ -14,14 +14,14 @@ private String type;
 private String genreName;
 private int userId;
 private int statusId;
-private LocalDateTime createdat;
-private LocalDateTime updateat;
+private LocalDateTime createdAt;
+private LocalDateTime updatedAt;
 
 
 //引数なしコンストラクタ（全フィールドデフォルト値）
 public Collection() {
     this.id = 0;
-    this.StatusName = "";
+    this.statusName = "";
     this.trophyPhoto = "";
     this.rankingId = 0;
     this.ranking_kindName = "";
@@ -29,11 +29,11 @@ public Collection() {
     this.genreName = "";
     this.userId = 0;
     this.statusId = 0;
-    this.createdat = LocalDateTime.now();
-    this.updateat = LocalDateTime.now();
+    this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
 }
 
-public Collection(int id, String StatusName, String trophyPhoto, int rankingId,
+public Collection(int id, String statusName, String trophyPhoto, int rankingId,
                   String ranking_kindName, String type,
                   String genreName, int userId, int statusId) {
    
@@ -57,14 +57,14 @@ public void setId(int id) {
  * @return statusName
  */
 public String getStatusName() {
-	return StatusName;
+	return statusName;
 }
 
 /**
  * @param statusName セットする statusName
  */
 public void setstatusName(String statusName) {
-	this.StatusName = statusName;
+	this.statusName = statusName;
 }
 
 /**
@@ -141,14 +141,14 @@ public void setStatusId(int statusId) {
  * @return createdat
  */
 public LocalDateTime getCreatedat() {
-	return createdat;
+	return createdAt;
 }
 
 /**
  * @param createdat セットする createdat
  */
 public void setCreatedat(LocalDateTime createdat) {
-	this.createdat = createdat;
+	this.createdAt = createdat;
 }
 
 /**
@@ -183,14 +183,14 @@ public void setType(String type) {
  * @return updateat
  */
 public LocalDateTime getUpdateat() {
-	return updateat;
+	return updatedAt;
 }
 
 /**
  * @param updateat セットする updateat
  */
 public void setUpdateat(LocalDateTime updateat) {
-	this.updateat = updateat;
+	this.updatedAt = updateat;
 }
 
 }

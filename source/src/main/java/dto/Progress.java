@@ -12,6 +12,7 @@ public class Progress implements Serializable {
 	LocalDateTime created_at = LocalDateTime.now();
 	LocalDateTime updated_at = LocalDateTime.now();
 	public int month;
+	public int day;
 	
 	public int getId() {
 		return id;
@@ -62,6 +63,12 @@ public class Progress implements Serializable {
 	public void setMonth(int month) {
 		this.month = month;
 	}
+	public int getDay() {
+		return updated_at.getDayOfMonth();
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
 	
 	public Progress() {
 		this.id = 0;
@@ -70,10 +77,11 @@ public class Progress implements Serializable {
 		this.target_page = 0;
 		this.read_page = 0;
 		this.month = 0;
+		this.day = 0;
 		
 	}
 	public Progress(int id, int user_id, int book_id, int target_page, int read_page, LocalDateTime created_at,
-			LocalDateTime updated_at, int month) {
+			LocalDateTime updated_at, int month, int day) {
 		this.id = id;
 		this.user_id = user_id;
 		this.book_id = book_id;
@@ -82,6 +90,7 @@ public class Progress implements Serializable {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.month = month;
+		this.day = day;
 	}
 	
 	

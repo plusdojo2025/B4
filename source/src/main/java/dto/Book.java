@@ -15,8 +15,26 @@ public class Book implements Serializable {
 	private String gets;	//手に入れた場所
 	private int page;	//ページ数
 	private String cover;	//表紙画像のファイルパス
+	private int recommendCount;	//おすすめされた人数
 	private LocalDateTime created_at;	//登録日時
 	private LocalDateTime updated_at;	//更新日時
+	
+	public Book(int id, int user_id, int genre_id, String genre_name, String title, String author, String publisher, String gets, 
+			int page, String cover, int recommendCount, LocalDateTime created_at, LocalDateTime updated_at) {
+		this.id = id;
+		this.user_id = user_id;
+		this.genre_id = genre_id;
+		this.genre_name = genre_name;
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.gets = gets;
+		this.page = page;
+		this.cover = cover;
+		this.recommendCount = recommendCount;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
 	
 	public Book(int id, int user_id, int genre_id, String genre_name, String title, String author, String publisher, String gets, 
 			int page, String cover, LocalDateTime created_at, LocalDateTime updated_at) {
@@ -45,6 +63,7 @@ public class Book implements Serializable {
 		this.gets = "";
 		this.page = 0;
 		this.cover = "";
+		this.recommendCount = 0;
 	}
 
 	public int getId() {
@@ -125,6 +144,13 @@ public class Book implements Serializable {
 
 	public void setCover(String cover) {
 		this.cover = cover;
+	}
+	
+	public void setRecommendCount(int recommendCount) {
+	    this.recommendCount = recommendCount;
+	}
+	public int getRecommendCount() {
+	    return recommendCount;
 	}
 
 	public LocalDateTime getCreated_at() {
