@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="dto.Ranking" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>よも～にんぐ</title>
+</head>
+<body>
+<h1 id ="logo">よも～にんぐ</h1>
+<ul>
+<li><a href="home.html">ホーム</a></li>
+    <li><a href="">ほんだな</a></li>
+    <li><a href="">おすすめ</a></li>
+    <li><a href="">きろく</a></li>
+    <li><a href="">せいせき</a></li>
+    <li><a href="">ログアウト</a></li>
+  </ul>
+   <h2>
+    ランキング
+  </h2>
+  <h3>
+    6月　クラス　人気な本
+  </h3>
+  <table border="1">
+        <tr>
+            <th>順位</th>
+            <th>ユーザーID</th>
+            <th>ランキング名</th>
+            <th>タイプ</th>
+            <th>ジャンルID</th>
+            <th>期間</th>
+        </tr>
+        <%
+            List<Ranking> RankList = (List<Ranking>) request.getAttribute("RankList");
+            for (Ranking r : RankList) {
+        %>
+        <tr>
+            <td><%= r.getRank_value() %></td>
+            <td><%= r.getUser_id() %></td>
+            <td><%= r.getName() %></td>
+            <td><%= r.getType() %></td>
+            <td><%= r.getGenre_id() %></td>
+            <td><%= r.getTerm() %></td>
+        </tr>
+        <% } %>
+    </table>
+</body>
+</html>
