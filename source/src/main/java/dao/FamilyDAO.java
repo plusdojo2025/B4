@@ -8,96 +8,61 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.IdPw;
 import dto.User;
 
-public class FamilyDAO {
-    private final String url = "jdbc:mysql://localhost:3306/B4?useSSL=false&serverTimezone=GMT%2B9&characterEncoding=utf8";
-    private final String dbUser = "root";
-    private final String dbPassword = "password";
+public boolean isLoginOK(IdPw idpw) {
+	Connection conn = null;
+	boolean loginResult = false;
 
-   
-    public List<User> getChildrenByParentId(int parentId) {
-        List<User> children = new ArrayList<>();
+	try {
+		// JDBCドライバを読み込む
+		Class.forName("com.mysql.cj.jdbc.Driver");
 
-        String sql = "SELECT u.* FROM users u " +
-                     "JOIN familys f ON u.id = f.user2_id " +
-                     "WHERE f.user1_id = ?";
+		// データベースに接続する
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+				"root", "password");
+		
+		// SELECT文を準備する
+					String sql = "SELECT id,type_id,name,users_id,password,mail_address,trophy_id,"
+								+ "stastuses_id,created_at,updated_at"
+								+"FROM B4"
+								+"WHERE id LIKE ? AND type_id LIKE ? AND name LIKE ? "
+								+ "users_id LIKE ? password LIKE ?";
+					PreparedStatement pStmt = conn.prepareStatement(sql);
+					pStmt.setString(1, idpw.getId());
+					pStmt.setString(2, idpw.getPw());
 
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+					// SELECT文を実行し、結果表を取得する
+					ResultSet rs = pStmt.executeQuery();
 
-            stmt.setInt(1, parentId);
+					// ユーザーIDとパスワードが一致するユーザーがいれば結果をtrueにする
+					rs.next();
+					if (rs.getInt("users_id") == 1) {
+						loginResult = true;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					loginResult = false;
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+					loginResult = false;
+				} finally {
+					// データベースを切断
+					if (conn != null) {
+						try {
+							conn.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+							loginResult = false;
+						}
+					}
+				}
 
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                User child = new User();
-                child.setId(rs.getInt("id"));
-                child.setName(rs.getString("name"));
-                child.setTypeId(rs.getInt("type_id"));
-                child.setPassword(rs.getString("password"));
-                children.add(child);
-            }
+				// 結果を返す
+				return loginResult;
+			}
+		}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return children;
-    }
-
-    
-    public User getParentByChildId(int childId) {
-        User parent = null;
-
-        String sql = "SELECT u.* FROM users u " +
-                     "JOIN familys f ON u.id = f.user1_id " +
-                     "WHERE f.user2_id = ?";
-
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, childId);
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                parent = new User();
-                parent.setId(rs.getInt("id"));
-                parent.setName(rs.getString("name"));
-                parent.setTypeId(rs.getInt("type_id"));
-                parent.setPassword(rs.getString("password"));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return parent;
-    }
-
-   
-    public int getFamilyIdByUserId(int userId) {
-        int familyId = -1;
-
-        String sql = "SELECT id FROM familys WHERE user1_id = ? OR user2_id = ?";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-                stmt.setInt(1, userId);
-                stmt.setInt(2, userId);
-
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    familyId = rs.getInt("id");
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-
-        return familyId;
-    }
-}
 

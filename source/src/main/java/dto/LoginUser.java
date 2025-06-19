@@ -1,23 +1,27 @@
 package dto;
 
-import java.io.Serializable;
+public class LoginUser {
+    private String id;
+    private String pw;
 
-public class LoginUser implements Serializable {
-	private String id; // ログイン時のID
+    public LoginUser() {}
 
-	public String getId() {
-		return id;
-	}
+    public LoginUser(String id, String pw) {
+        this.id = id;
+        this.pw = pw;
+    }
 
-	public void setUserId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public LoginUser() {
-		this(null);
-	}
-
-	public LoginUser(String id) {
-		this.id = id;
-	}
+    public String getPw() {
+        return pw;
+    }
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
 }
