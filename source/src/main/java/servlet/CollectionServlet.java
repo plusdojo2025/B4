@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.CollectionDAO;
-import dto.Collection;
 
 /**
  * Servlet implementation class CollectionServlet
@@ -39,44 +38,74 @@ public class CollectionServlet extends HttpServlet {
 		int rankingId=1;
 
 	//リクエストパラメーターからステータス名を取得
-	String statusName = request.getParameter("statusName");
-	String trophyphoto =request.getParameter("trophyPhoto");
+	//String statusName = request.getParameter("statusName");
+//	String trophyPhoto =request.getParameter("trophyPhoto");
+	//
+	
+		//useIdを使ってstatuses_logsテーブルから statuses_idを取得する
+		//statuses_idを使ってstatusesテーブルからnameを取得する
+		
+		//useIdを使ってtrophys_logsテーブルから trophy_idを取得する
+		//trophy_idを使ってtroplysテーブルからtrophy_photoを取得する
 	
 	//DAOを使ってデータを取得
-    CollectionDAO dao = new CollectionDAO();
-    List<dto.Collection> collectionList = null;
+    CollectionDAO colldao = new CollectionDAO();
+    List<dto.Collection> collectionList;
+    
+    
 	try {
 		
 		 if (statusName != null && !statusName.isEmpty()) {
-	            // ステータス名で検索（userIdは例で0)
-	            collectionList = dao.selectByStatusName(statusName, 0);
+	            // ステータス名で検索
+	            collectionList = colldao.selectByStatusName(1);
 	        } else {
+	        	
 	            // ユーザーIDで一覧取得（例：userId=1）
-	            collectionList = dao.selectByUserId(1);
+	            collectionList = colldao.selectByStatusName(1);
+//	            List<Collection> statusList = new ArrayList<>();
+	        } 
+		 
+		 if (trophyPhoto != null && !trophyPhoto.isEmpty()) {
+	            // トロフィーで検索
+	            collectionList = colldao.selectByTrophyPhoto(1);
 	            
-	            List<Collection> statusList = new ArrayList<>();
-	            List<Collection> trophyList = new ArrayList<>();
-	        }         
+	        } else {
+	            // ユーザーIDで一覧取得（例：userId=1）    
+	         collectionList = colldao.selectByTrophyPhoto(1);
+//	           List<Collection> trophyList = new ArrayList<>();
+	        }
+	
+		 
 	}catch (ClassNotFoundException e1) {
 		// TODO 自動生成された catch ブロック
 		e1.printStackTrace();
 		collectionList = new ArrayList<>();
 	}
 	
+	if (collectionList != null && !collectionList.isEmpty()) {
+	    System.out.println("件数: " + collectionList.size());
+	    for (dto.Collection c : collectionList) {
+	        System.out.println("ステータス名: " + c.getStatusName());
+	    }
+	} else {
+	    System.out.println("collectionListがnull、または中身が空です");
+	}
+	
+	
 	  System.out.println("件数: " + collectionList.size());
-      for (Collection c : collectionList) {
+      for (dto.Collection c : collectionList) {
           System.out.println("ステータス名: " + c.getStatusName());
       }
       
       System.out.println("件数: " + collectionList.size());
-      for (Collection c : collectionList) {
-          System.out.println("トロフィー: " + c.getTrophyPhoto());
+        for (dto.Collection c : collectionList) {          
+        System.out.println("トロフィー: " + c.getTrophyPhoto());
       }
       
       // JSPにデータを渡す
     request.setAttribute("collectionList", collectionList);
     request.setAttribute("statusName", statusName);
-    request.setAttribute("trophyPhoto", trophyphoto);
+    request.setAttribute("trophyPhoto", trophyPhoto);
   
 //    try {
 //    	if (statusName != null && !statusName.isEmpty()) {

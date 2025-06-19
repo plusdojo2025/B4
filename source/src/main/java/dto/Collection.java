@@ -14,30 +14,45 @@ private String type;
 private String genreName;
 private int userId;
 private int statusId;
-private LocalDateTime createdAt;
-private LocalDateTime updatedAt;
+private LocalDateTime createdAt= LocalDateTime.now();;
+private LocalDateTime updatedAt= LocalDateTime.now();;
 
 
-//引数なしコンストラクタ（全フィールドデフォルト値）
-public Collection() {
-    this.id = 0;
-    this.statusName = "";
-    this.trophyPhoto = "";
-    this.rankingId = 0;
-    this.ranking_kindName = "";
-    this.type = "";
-    this.genreName = "";
-    this.userId = 0;
-    this.statusId = 0;
-    this.createdAt = LocalDateTime.now();
-    this.updatedAt = LocalDateTime.now();
-}
+////引数なしコンストラクタ（全フィールドデフォルト値）
+//public Collection() {
+//    this.id = 0;
+//    this.statusName = "";
+//    this.trophyPhoto = "";
+//    this.rankingId = 0;
+//    this.ranking_kindName = "";
+//    this.type = "";
+//    this.genreName = "";
+//    this.userId = 0;
+//    this.statusId = 0;
+//    this.createdAt = LocalDateTime.now();
+//    this.updatedAt = LocalDateTime.now();
+//}
 
 public Collection(int id, String statusName, String trophyPhoto, int rankingId,
                   String ranking_kindName, String type,
                   String genreName, int userId, int statusId) {
+	
+	//引数なしコンストラクタ（全フィールドデフォルト値）
+	//public Collection() {
+	    this.id = id;
+	    this.statusName = statusName;
+	    this.trophyPhoto = trophyPhoto;
+	    this.rankingId = rankingId;
+	    this.ranking_kindName = ranking_kindName;
+	    this.type = type;
+	    this.genreName = genreName;
+	    this.userId = userId;
+	    this.statusId = statusId;
+	    this.createdAt = LocalDateTime.now();
+	    this.updatedAt = LocalDateTime.now();
+	}
    
-}
+
 
 /**
  * @return id
