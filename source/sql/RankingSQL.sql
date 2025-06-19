@@ -162,5 +162,64 @@ VALUES
     (2,'却下',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP),
     (3,'保留',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
     
-INSERT INTO rankings VALUES('100', '9', '01', '1', '2025/04/08', '2025/06/10');
-INSERT INTO ranking_kinds VALUES('01', 'クラス', 'クラスごとの読書量', '8', '一か月','2025/04/08', '2025/06/10');    
+   INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (1, 12, 214, 30, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (2, 5, 190, 250, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (3, 18, 280, 60, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (4, 7, 160, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (5, 3, 220, 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (6, 21, 145, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (7, 9, 260, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (8, 11, 310, 220, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (9, 14, 230, 15, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (10, 6, 180, 300, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (1, 5, 120, 30, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (2, 11, 280, 190, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (3, 7, 200, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (4, 3, 160, 250, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (5, 14, 210, 130, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (6, 2, 260, 80, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (7, 6, 300, 290, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (8, 19, 220, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (9, 1, 190, 170, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (10, 17, 230, 100, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (1, 9, 140, 300, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (2, 12, 250, 60, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (3, 21, 180, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (4, 10, 160, 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (5, 4, 100, 270, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (6, 8, 300, 110, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (7, 13, 90, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (8, 15, 275, 130, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (9, 16, 150, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (10, 18, 210, 290, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (1, 20, 100, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (2, 5, 260, 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (3, 6, 180, 270, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (4, 11, 150, 40, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (5, 14, 230, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (6, 2, 290, 190, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (7, 16, 250, 30, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (8, 1, 270, 300, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (9, 3, 120, 80, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (10, 19, 300, 70, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (1, 7, 110, 130, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (2, 13, 280, 260, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (3, 4, 240, 140, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (4, 8, 300, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (5, 15, 290, 100, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (6, 17, 200, 220, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (7, 20, 180, 150, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (8, 9, 260, 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (9, 12, 90, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO progress(user_id, book_id, target_page, read_page, created_at, updated_at) VALUES (10, 21, 150, 210, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO users (type_id, name, password, mail_address, grade, school_class, trophy_id, statuses_id, created_at, updated_at) VALUES
+(1, '佐藤 太郎', 'pass123', 'sato@example.com', 1, 1, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, '鈴木 花子', 'pass123', 'suzuki@example.com', 1, 2, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, '高橋 次郎', 'pass123', 'takahashi@example.com', 2, 1, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, '田中 美咲', 'pass123', 'tanaka@example.com', 2, 2, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, '伊藤 太一', 'pass123', 'ito@example.com', 3, 1, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, '山本 彩', 'pass123', 'yamamoto@example.com', 3, 2, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, '中村 拓海', 'pass123', 'nakamura@example.com', 1, 3, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, '小林 桃子', 'pass123', 'kobayashi@example.com', 2, 3, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, '加藤 慎一', 'pass123', 'kato@example.com', 3, 3, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, '渡辺 愛', 'pass123', 'watanabe@example.com', 1, 4, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

@@ -12,12 +12,11 @@
 <h1 id ="logo">よも～にんぐ</h1>
 <ul>
 <li><a href="home.html">ホーム</a></li>
-    <li><a href="">登録</a></li>
-    <li><a href="">一覧</a></li>
+    <li><a href="">ほんだな</a></li>
     <li><a href="">おすすめ</a></li>
-    <li><a href="">目安箱</a></li>
-    <li><a href="">ランキング</a></li>
-     <li><a href="">ログアウト</a></li>
+    <li><a href="">きろく</a></li>
+    <li><a href="">せいせき</a></li>
+    <li><a href="">ログアウト</a></li>
   </ul>
    <h2>
     ランキング

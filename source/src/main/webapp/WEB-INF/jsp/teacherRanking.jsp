@@ -27,34 +27,23 @@
   </h3>
   <table border="1">
         <tr>
-            <th>順位</th>
+            
             <th>ユーザーID</th>
-            <th>ランキング名</th>
-            <th>タイプ</th>
-            <th>ジャンルID</th>
-            <th>期間</th>
+            <th>氏名</th>
+            <th>読んだページ数</th>
         </tr>
-        <%
-    List<Ranking> RankList = (List<Ranking>) request.getAttribute("RankList");
-    if (RankList != null) {
-        for (Ranking r : RankList) {
-%>
-        <tr>
-            <td><%= r.getRank_value() %></td>
-            <td><%= r.getUser_id() %></td>
-            <td><%= r.getName() %></td>
-            <td><%= r.getType() %></td>
-            <td><%= r.getGenre_id() %></td>
-            <td><%= r.getTerm() %></td>
-        </tr>
-<%
-        }
-    } else {
-%>
-        <tr><td colspan="6">ランキングデータが存在しません。</td></tr>
-<%
-    }
-%>
+      <c:if test="${not empty RankList}">
+  <c:forEach var="r" items="${RankList}">
+    <tr>
+        <td>${r.user_id}</td>
+        <td>${r.name}</td>
+        <td>${r.page}</td>
+    </tr>
+  </c:forEach>
+</c:if>
+<c:if test="${empty RankList}">
+  <tr><td colspan="6">ランキングデータが見つかりません。</td></tr>
+</c:if>
     </table>
 </body>
 </html>

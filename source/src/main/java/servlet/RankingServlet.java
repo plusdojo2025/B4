@@ -31,11 +31,11 @@ public class RankingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/jsp/Ranking.jsp").forward(request, response);
+		
 		// DAOを呼び出してランキングデータを取得
+		
 		RankingDAO dao = new RankingDAO();
-		List<Ranking> RankList = dao.select();
+		List<Ranking> RankList = dao.select(1);
 
 		// 取得したリストをリクエストスコープに保存
 		request.setAttribute("RankList", RankList);
