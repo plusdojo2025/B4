@@ -25,17 +25,26 @@
 <input type="submit" name="submit" value="目安箱">
 </form>
 
-<form id="goal_form" method="POST">
-もくひょう<input type="text" name="goal_page">
-<input type="submit" name="submit" value="OK">
-</form>
 
-<form id="read_form" method="POST">
+<c:forEach var="pro" items="${progressList}">
+	<input type="hidden" name="id" value="${pro.id}">
+	<p>${pro.book_id}</p>
+</c:forEach>
+
+<form id="goal_form" method="POST" action="/B4/studentHomeServlet">
+
+もくひょう<input type="text" name="goal_page">
+<input type="submit" name="submit" value="もくひょうOK"><br>
+
 きろく<input type="text" name="read_page">
-<input type="submit" name="submit" value="OK">
+<input type="submit" name="submit" value="きろくOK">
 </form>
 
 <h2>ランキング</h2>
+
+<h2>今日のおすすめ</h2>
+
+<h2>今日の先生の本</h2>
 
 </body>
 </html>

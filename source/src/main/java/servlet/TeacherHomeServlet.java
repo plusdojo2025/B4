@@ -36,14 +36,15 @@ public class TeacherHomeServlet extends HttpServlet {
 		
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
-//			return;
-//		}
+		request.setCharacterEncoding("UTF-8");
+		
+		int user_id = 1;
+		int month = 6;
+		int day = 17;
+		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectAll();
-
-		// 検索結果をセッションスコープに格納する
+		List<Progress> progressList = proDao.selectToday(user_id, month, day);
+		
 		session.setAttribute("progressList", progressList);
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
@@ -54,8 +55,18 @@ public class TeacherHomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+//		if (session.getAttribute("id") == null) {
+//			response.sendRedirect("/webapp/LoginServlet");
+//			return;
+//		}
 		
-		doGet(request, response);
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.selectAll();
+
+		// 検索結果をセッションスコープに格納する
+		session.setAttribute("progressList", progressList);
+		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
 	}
 
 }
