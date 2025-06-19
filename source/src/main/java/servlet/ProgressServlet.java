@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import dao.ProgressDAO;
 import dto.Progress;
@@ -39,6 +44,7 @@ public class ProgressServlet extends HttpServlet {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
+		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
 		
 		int user_id = 1;
@@ -47,7 +53,26 @@ public class ProgressServlet extends HttpServlet {
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.select(user_id, month);
 		
-		request.setAttribute("progressList", progressList);
+
+        List<Integer> labels = new ArrayList<>();
+        List<Integer> readData = new ArrayList<>();
+        List<Integer> targetData = new ArrayList<>();
+		
+		for(Progress pro : progressList) {
+			labels.add(pro.getDay());
+			targetData.add(pro.getTarget_page());
+			readData.add(pro.getRead_page());
+		}
+		
+		Map<String, Object> chartData = new HashMap<>();
+        chartData.put("labels", labels);
+        chartData.put("readData", readData);
+        chartData.put("targetData", targetData);
+
+        String json = new Gson().toJson(chartData);
+
+		session.setAttribute("progressList", progressList);
+        session.setAttribute("chartData", json);
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
 		

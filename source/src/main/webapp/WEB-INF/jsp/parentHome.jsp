@@ -16,22 +16,63 @@
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
-<h2>6月17日</h2>
+<label>
+    <input type="date" name="startDate">
+    </label>
+</label>
 
 <c:forEach var="pro" items="${progressList}" >
 <p>目標${pro.target_page}ページ</p>
 <p>進捗${pro.read_page}ページ</p>
 
-</c:forEach>
-
 <h2>成績表</h2>
-<c:forEach var="pro" items="${progressList}">
 	<input type="hidden" name="id" value="${pro.id}">
 	<p>${pro.month}月の成績表</p>
-	<p>${pro.target_page}</p>
-	<p>${pro.read_page}</p>
-
 </c:forEach>
+
+<script>
+const chartData = JSON.parse('<%= session.getAttribute("chartData") %>');
+
+window.onload = function () {
+    let context = document.querySelector("#read_book_chart").getContext('2d')
+    new Chart(context, {
+      type: 'line',
+      data: {
+        labels: chartData.labels,
+        datasets: [{
+          label: "目標",
+          data: chartData.targetData,
+          borderColor: 'rgba(60, 160, 220, 0.8)'
+        }, {
+          label: "読了",
+          data: chartData.readData,
+          borderColor: 'rgba(60, 190, 20, 0.8)'
+        }],
+      },
+      options: {
+        responsive: false,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: '日付'
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'ページ数'
+                }
+            }
+        }
+      }
+    })
+  }
+</script>
+
+<canvas id="read_book_chart" width="500" height="500"></canvas>
+
    	
 </body>
 </html>

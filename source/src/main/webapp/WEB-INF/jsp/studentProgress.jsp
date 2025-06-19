@@ -19,26 +19,90 @@
 <p><a href="/B4/ProgressServlet">せいせき</a></p>
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
+
 <form id ="form" method="POST" action="/B4/ProgressServlet">
-<select id="select_month" name="month">
-<c:forEach  begin="1" end="12" step="1" var="i">
-	<option><c:out value="${i}" /></option>  
-	</c:forEach>
+
+<select id="select_month">
+  <option value="">-- 選択してください --</option>
+  <option value="1">1月</option>
+  <option value="2">2月</option>
+  <option value="3">3月</option>
+  <option value="4">4月</option>
+  <option value="5">5月</option>
+  <option value="6">6月</option>
+  <option value="7">7月</option>
+  <option value="8">8月</option>
+  <option value="9">9月</option>
+  <option value="10">10月</option>
+  <option value="11">11月</option>
+  <option value="12">12月</option>
 </select>
-</form>
 
-<c:forEach var="pro" items="${progressList}">
-	<input type="hidden" name="id" value="${pro.id}">
-	<p>${pro.month}月の成績表</p>
-	<h3>過去の読書記録</h3>
-	<p>${pro.target_page}</p>
-	<p>${pro.read_page}</p>
+<h2 id="output"></h2>
 
-</c:forEach>
+<script>
+  const select = document.getElementById('select_month');
+  const output = document.getElementById('output');
+
+  select.addEventListener('change', () => {
+    const month = select.value;
+    if (month) {
+      output.textContent = month + '月の成績';
+    } else {
+      output.textContent = '';
+    }
+  });
+</script>
+
+<h3>過去の読書記録</h3>
+
+<script>
+const chartData = JSON.parse('<%= session.getAttribute("chartData") %>');
+
+window.onload = function () {
+    let context = document.querySelector("#read_book_chart").getContext('2d')
+    new Chart(context, {
+      type: 'line',
+      data: {
+        labels: chartData.labels,
+        datasets: [{
+          label: "目標",
+          data: chartData.targetData,
+          borderColor: 'rgba(60, 160, 220, 0.8)'
+        }, {
+          label: "読了",
+          data: chartData.readData,
+          borderColor: 'rgba(60, 190, 20, 0.8)'
+        }],
+      },
+      options: {
+        responsive: false,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: '日付'
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'ページ数'
+                }
+            }
+        }
+      }
+    })
+  }
+</script>
+
+<canvas id="read_book_chart" width="500" height="500"></canvas>
 
 <h3>プロフィール</h3>
 
 <h3>好きな○○</h3>
+</form>
 
 <script>
 document.getElementById('form_month').select.onchange = function() {

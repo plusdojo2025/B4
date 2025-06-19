@@ -38,12 +38,11 @@ public class TeacherHomeServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
 		
-		int user_id = 1;
 		int month = 6;
 		int day = 17;
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectToday(user_id, month, day);
+		List<Progress> progressList = proDao.selectTeacherHome( month, day);
 		
 		session.setAttribute("progressList", progressList);
 		

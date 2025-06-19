@@ -21,21 +21,16 @@
 <h2>6月の読書情報</h2>
 
 <form method="POST" action="/B4/TeacherHomeServlet">
+<table>
+<tr><th>名前</th><th>読んだ本</th><th>目標ページ数</th><th>読んだページ数</th></tr>
 <c:forEach var="pro" items="${progressList}" >
 	<input type="hidden" name="id" value="${pro.id}">
-	<p>名前${pro.user_id}</p>
-	<p>読んだ本${pro.user_id}</p>
-	<p>目標ページ数${pro.target_page}</p>
-	<p>読んだページ数${pro.read_page}</p>
+	<tr><th><a href="/B4/ProgressServlet">${pro.user_id}</a></th><th>${pro.book_id}</th><th>${pro.target_page}</th><th>${pro.read_page}</th></tr>
 </c:forEach>
+</table>
 </form>
 
 <h3>過去の読書記録</h3>
-
-<h3>プロフィール</h3>
-
-
-<h3>読書傾向</h3>
 
 
 </body>
