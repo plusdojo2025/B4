@@ -384,7 +384,7 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-            String sql = "INSERT INTO finish_book (book_id) VALUES (0, ?, 0, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+            String sql = "INSERT INTO finish_books VALUES (0, ?, 0, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -422,7 +422,7 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-    		String sql = "SELECT COUNT(*) FROM finish_book WHERE book_id = ?";
+    		String sql = "SELECT COUNT(*) FROM finish_books WHERE book_id = ?";
     		PreparedStatement pStmt = conn.prepareStatement(sql);
     		
     		pStmt.setInt(1, bookId);
