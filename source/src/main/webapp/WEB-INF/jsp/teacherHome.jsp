@@ -10,7 +10,7 @@
 <body>
 <h1>よも～にんぐ</h1>
 <hr>
-<p><a href="/B4/studentHomeServlet">ホーム</a></p>
+<p><a href="/B4/TeacherHomeServlet">ホーム</a></p>
 <p><a href="/B4/UpdateDeleteServlet">登録</a></p>
 <p><a href="/B4/BookListServlet">一覧</a></p>
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
