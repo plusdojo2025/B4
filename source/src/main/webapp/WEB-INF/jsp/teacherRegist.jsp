@@ -9,6 +9,19 @@
 </head>
 <body>
 
+<header>
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
+<p><a href="<c:url value='/RegistServlet' />">登録</a></p>
+<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
+<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
+<p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
+<p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
+<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
+</header>
+
 <h2>本の登録フォーム</h2>
 
 <c:if test="${not empty message}">
@@ -45,7 +58,7 @@
   <option value="14" <c:if test="${param.genreId == '14'}">selected</c:if>>雑学</option>
   <option value="15" <c:if test="${param.genreId == '15'}">selected</c:if>>その他</option>    
   </select>
-  </label>
+  </label><br>
   <label>表紙画像：<input type="file" name="cover" accept="image/*"></label><br>
   <input type="submit" value="登録">
 </form>
