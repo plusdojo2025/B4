@@ -82,19 +82,19 @@ public class StudentHomeServlet extends HttpServlet {
 //		if (request.getParameter("submit").equals("OK")) {
 		if(read_page == 0) {
 			if(proDao.insert_target(user_id,book_id, target_page)) {
-				request.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
+				session.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
 			}
 		}else {
 			
 			proDao.update_read(user_id, book_id, read_page);
-				System.out.println("aaaa");
-//				int totalRead = proDao.getTotalPagesRead(user_id, book_id);
-//				int totalPages = proDao.getBookTotalPages(book_id);
-//		            // 読了判定（重複登録防止）
-//		            if (totalRead >= totalPages && !proDao.isAlreadyFinished(user_id, book_id)) {
-//		                proDao.insertFinishedBook(user_id, book_id);
+				int totalRead = proDao.getTotalPagesRead(user_id, book_id);
+				int totalPages = proDao.getBookTotalPages(book_id);
+		            // 読了判定（重複登録防止）
+		            if (totalRead >= totalPages && !proDao.isAlreadyFinished(user_id, book_id)) {
+		                proDao.insertFinishedBook(user_id, book_id);
+		            }       
 		            
-					request.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
+					session.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
 			
 		}
 		

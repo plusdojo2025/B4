@@ -260,9 +260,10 @@ public class ProgressDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, user_id);
-			pStmt.setInt(2, book_id);
-			pStmt.setInt(3, read_page);
+			pStmt.setInt(1, read_page);
+			pStmt.setInt(2, user_id);
+			pStmt.setInt(3, book_id);
+
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
