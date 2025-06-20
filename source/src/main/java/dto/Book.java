@@ -36,6 +36,20 @@ public class Book implements Serializable {
 		this.updated_at = updated_at;
 	}
 	
+	public Book(int id, String title, String author, String publisher, String gets, 
+			int page, int genre_id, String cover, LocalDateTime created_at, LocalDateTime updated_at) {
+		this.id = id;
+		this.genre_id = genre_id;
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.gets = gets;
+		this.page = page;
+		this.cover = cover;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	
 	public Book(int id, int user_id, int genre_id, String genre_name, String title, String author, String publisher, String gets, 
 			int page, String cover, LocalDateTime created_at, LocalDateTime updated_at) {
 		this.id = id;
@@ -51,6 +65,22 @@ public class Book implements Serializable {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
+	
+	public Book(int id, String title, String author, String publisher,
+            String gets, int page, String genre_name, String cover,
+            LocalDateTime created_at, LocalDateTime updated_at) {
+	    this.id = id;
+	    this.title = title;
+	    this.author = author;
+	    this.publisher = publisher;
+	    this.gets = gets;
+	    this.page = page;
+	    this.genre_name = genre_name;
+	    this.cover = cover;
+	    this.created_at = created_at;
+	    this.updated_at = updated_at;
+	}
+
 	
 	public Book() {
 		this.id = 0;
