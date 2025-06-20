@@ -298,11 +298,11 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT SUM(read_page) FROM progress WHERE book_id = ?";
+			String sql = "SELECT SUM(read_page) FROM progress WHERE user_id = ? AND book_id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, book_id);
+			pStmt.setInt(2, book_id);
 			
 			ResultSet rs = pStmt.executeQuery();
 
@@ -413,7 +413,7 @@ public class ProgressDAO {
 		return result;
     }
     
-    public boolean isAlreadyFinished(int bookId) {
+    public boolean isAlreadyFinished(int book_id) {
     	Connection conn = null;
     	boolean result = false;
     	
@@ -425,7 +425,7 @@ public class ProgressDAO {
     		String sql = "SELECT COUNT(*) FROM finish_books WHERE book_id = ?";
     		PreparedStatement pStmt = conn.prepareStatement(sql);
     		
-    		pStmt.setInt(1, bookId);
+    		pStmt.setInt(1, book_id);
             ResultSet rs = pStmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1) > 0;
