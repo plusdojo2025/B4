@@ -26,50 +26,22 @@ public class BookDAO {
 						"root", "password");
 
 				// SQL文を準備する
-				String sql = "INSERT INTO books (title, author, publisher, gets, page, genre_name, cover) "
-				           + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+				String sql = "INSERT INTO books (title, author, publisher, gets, page, genre_id, cover, user_id, created_at, updated_at) "
+				           + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
 				// SQL文を完成させる
-				if (card.getTitle() != null) {
-					pStmt.setString(1, card.getTitle());
-				} else {
-					pStmt.setString(1, "%");
-				}
-				if (card.getAuthor() != null) {
-					pStmt.setString(2, card.getAuthor());
-				} else {
-					pStmt.setString(2, "%");
-				}
-				if (card.getPublisher() != null) {
-					pStmt.setString(3, card.getPublisher());
-				} else {
-					pStmt.setString(3, "%");
-				}
-				if (card.getGets() != null) {
-					pStmt.setString(4, card.getGets());
-				} else {
-					pStmt.setString(4, "%");
-				}
-				if (card.getPage() != 0) {
-					pStmt.setInt(5, card.getPage());
-				} else {
-					pStmt.setString(5, "%");
-				}
-				if (card.getGenre_Name() != null) {
-					pStmt.setString(6, card.getGenre_Name());
-				} else {
-					pStmt.setString(6, "%");
-				}
-				if (card.getCover() != null) {
-					pStmt.setString(7, card.getCover());
-				} else {
-					pStmt.setString(7, "%");
-				}
-				// SQL文を実行する
-				if (pStmt.executeUpdate() == 1) {
-					result = true;
-				}
+				pStmt.setString(1, card.getTitle() != null ? card.getTitle() : "");
+		        pStmt.setString(2, card.getAuthor() != null ? card.getAuthor() : "");
+		        pStmt.setString(3, card.getPublisher() != null ? card.getPublisher() : "");
+		        pStmt.setString(4, card.getGets() != null ? card.getGets() : "");
+		        pStmt.setInt(5, card.getPage());
+		        pStmt.setInt(6, card.getGenre_id());
+		        pStmt.setString(7, card.getCover() != null ? card.getCover() : "");
+		        pStmt.setInt(8, card.getUser_id());		        
+		        if (pStmt.executeUpdate() == 1) {
+		            result = true;
+		        }
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
