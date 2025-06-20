@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.ProgressDAO;
 import dto.Progress;
+import dto.Result;
 
 /**
  * Servlet implementation class StudentHomeServlet
@@ -69,21 +70,31 @@ public class StudentHomeServlet extends HttpServlet {
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.selectAll();
 
-		// 検索結果をセッションスコープに格納する
 		session.setAttribute("progressList", progressList);
-		
+
+		int book_id = Integer.parseInt(request.getParameter("book_id"));
 		int target_page = Integer.parseInt(request.getParameter("target_page"));
 		int read_page = Integer.parseInt(request.getParameter("read_page"));
 		
-		if (request.getParameter("submit").equals("もくひょうOK")) {
-			proDao.insert_target(target_page);
+		if (request.getParameter("submit").equals("OK")) {
+			if(proDao.insert_target(book_id, target_page)) {
+				request.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
+			}
 		}
 		
-		if (request.getParameter("submit").equals("きろくOK")) {
-			proDao.insert_read(read_page);
+		if (request.getParameter("submit").equals("OK")) {
+			if(proDao.update_read(read_page)) {
+				int totalRead = proDao.getTotalPagesRead(book_id);
+		        int totalPages = proDao.getBookTotalPages(book_id);
+	            // 読了判定（重複登録防止）
+	            if (totalRead >= totalPages && !proDao.isAlreadyFinished(book_id)) {
+	                proDao.insertFinishedBook(book_id);
+	            }
+				request.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
+			}
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/StudentHome.jsp").forward(request, response);
 		
 	}
 

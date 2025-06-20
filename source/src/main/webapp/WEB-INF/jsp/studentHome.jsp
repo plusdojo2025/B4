@@ -11,7 +11,7 @@
 <h1>よも～にんぐ</h1>
 <hr>
 <p><a href="/B4/CollectionServlet">コレクション</a></p>
-<p><a href="/B4/studentHomeServlet">ホーム</a></p>
+<p><a href="/B4/StudentHomeServlet">ホーム</a></p>
 <p><a href="/B4/BookListServlet">ほんだな</a></p>
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
 <p><a href="/B4/RecordServlet">きろく</a></p>
@@ -31,13 +31,13 @@
 	<p>${pro.book_id}</p>
 </c:forEach>
 
-<form id="goal_form" method="POST" action="/B4/studentHomeServlet">
+<form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
 
 もくひょう<input type="text" name="goal_page">
-<input type="submit" name="submit" value="もくひょうOK"><br>
+<input type="submit" name="submit" value="OK"><br>
 
 きろく<input type="text" name="read_page">
-<input type="submit" name="submit" value="きろくOK">
+<input type="submit" name="submit" value="OK">
 </form>
 
 <h2>ランキング</h2>

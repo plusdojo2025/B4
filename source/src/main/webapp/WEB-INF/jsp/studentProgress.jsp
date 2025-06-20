@@ -66,11 +66,11 @@ window.onload = function () {
       data: {
         labels: chartData.labels,
         datasets: [{
-          label: "目標",
+          label: "もくひょう",
           data: chartData.targetData,
           borderColor: 'rgba(60, 160, 220, 0.8)'
         }, {
-          label: "読了",
+          label: "きろく",
           data: chartData.readData,
           borderColor: 'rgba(60, 190, 20, 0.8)'
         }],
@@ -81,14 +81,14 @@ window.onload = function () {
             x: {
                 title: {
                     display: true,
-                    text: '日付'
+                    text: '日にち'
                 }
             },
             y: {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'ページ数'
+                    text: 'ページ'
                 }
             }
         }

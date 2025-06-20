@@ -11,7 +11,7 @@
 <body>
 <h1>よも～にんぐ</h1>
 <hr>
-<p><a href="/B4/parentHomeServlet">ホーム</a></p>
+<p><a href="/B4/ParentHomeServlet">ホーム</a></p>
 <p><a href="/B4/BookListServlet">一覧</a></p>
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
@@ -27,7 +27,7 @@
 
 <h2>成績表</h2>
 	<input type="hidden" name="id" value="${pro.id}">
-	<p>${pro.month}月の成績表</p>
+	<h3>${pro.month}月の成績表</h3>
 </c:forEach>
 
 <script>
