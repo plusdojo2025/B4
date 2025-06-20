@@ -5,23 +5,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/collection.css">
 <meta charset="UTF-8">
 <title>コレクション｜よも～にんぐ</title>
 </head>
-<body>
-<h1 id ="logo">よも～にんぐ</h1>
-
-<div class="box13">
-  <ul id="nav">
+<body id="top">
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
+ <div class="logo">よも～にんぐ</div>
+ <nav class="nav">
+  <ul >
     <li><a href="home.html">ホーム</a></li>
     <li><a href="">ほんだな</a></li>
     <li><a href="">おすすめ</a></li>
-    <li><a href="">グループ</a></li>
     <li><a href="">きろく</a></li>
     <li><a href="">せいせき</a></li>
-     <li><a href="">ログアウト</a></li>
+     <li><button class="logout-btn" onclick="location.href='logout.html'">ログアウト</button></li>
   </ul>
-  </div>
+  </nav>
+ </header>
+ <!-- ヘッダー　-->
+ <main class="main-content">
 <h2>ゲットしたステータス</h2>
 
   <ul>
@@ -78,8 +85,13 @@
    
   <h2>ランキング</h2>
   <h3>4～9月のアクションランキング</h3>
-
+</main>
   <!-- メイン（ここまで） -->
+
   <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+</div>
 </body>
 </html> 
