@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,23 +20,21 @@ import dto.User;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
         dispatcher.forward(request, response);
     }
 
-  
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         String idStr = request.getParameter("users_id");
         String pw = request.getParameter("password");
-        
+        System.out.println("入力されたパスワード：" + pw);
 
-        // IDまたはパスワードが空ならlogin.jspにエラーメッセージ表示
         if (idStr == null || idStr.isEmpty() || pw == null || pw.isEmpty()) {
             request.setAttribute("errorMessage", "IDとパスワードは必須です。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
@@ -43,9 +42,9 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        int userId = 0;
+        int usersId = 0;
         try {
-            userId = Integer.parseInt(idStr);
+            usersId = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
             request.setAttribute("errorMessage", "IDは数字で入力してください。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
@@ -54,32 +53,36 @@ public class LoginServlet extends HttpServlet {
         }
 
         IdPwDAO iDao = new IdPwDAO();
-
-        // ログイン認証
-        if (iDao.isLoginOK(new IdPw(String.valueOf(userId), pw))) {
-            UserDAO userDao = new UserDAO();
-            User user = userDao.findById(String.valueOf(userId));
-
-            if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-
-                if (user.getTypeId() == 1) {
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
-                    dispatcher.forward(request, response);
-                    return;
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/LoginProfileServlet");
-                    return;
-                }
-            } else {
-                request.setAttribute("errorMessage", "IDまたはパスワードに誤りがあります。");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-                dispatcher.forward(request, response);
-            }
-        } else {
-            // 認証に失敗した場合もここでエラーメッセージ
+        if (!iDao.isLoginOK(new IdPw(String.valueOf(usersId), pw))) {
+            // 失敗
             request.setAttribute("errorMessage", "IDまたはパスワードに誤りがあります。");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        UserDAO userDao = new UserDAO();
+        List<User> userList = userDao.findByUsersId(usersId);
+
+        if (userList.size() == 1) {
+            User user = userList.get(0);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+
+            if (user.getTypeId() == 1) {
+                response.sendRedirect(request.getContextPath() + "/AdminServlet");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/LoginProfileServlet");
+            }
+        } else if (userList.size() > 1) {
+            HttpSession session = request.getSession();
+            session.setAttribute("users_id", usersId);
+
+            request.setAttribute("userList", userList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/select_account.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            request.setAttribute("errorMessage", "該当するアカウントが見つかりません。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
         }

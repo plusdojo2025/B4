@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.BookDAO;
 import dto.Book;
+import dto.User;
 
 /**
  * Servlet implementation class BookListServlet
@@ -33,14 +34,28 @@ public class BookListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
+    	
+    	// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
 
-        // 仮のユーザータイプ
-        session.setAttribute("userType", "student");
-        //仮のユーザID
-        session.setAttribute("userId", 1);
-        //戻り先サーブレットの保持
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+
+//        int userId = user.getId(); // ユニークID
+//        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+//        int grade = user.getGrade(); // 学年
+//        int schoolClass = user.getSchoolClass(); // クラス
+        
+        request.setCharacterEncoding("UTF-8");
+        
         session.setAttribute("lastList", "BookListServlet");
 
         // 検索条件の取得
@@ -73,10 +88,26 @@ public class BookListServlet extends HttpServlet {
         session.setAttribute("title", title);
         session.setAttribute("genreId", genreIdStr);
         session.setAttribute("currentPage", page);
-
-
-        // JSPへ
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/studentBookList.jsp");
+        
+        String view = "/WEB-INF/jsp/studentBookList.jsp";
+        
+        if (user != null) {
+            switch (user.getTypeId()) {
+                case 1:
+                    view = "/WEB-INF/jsp/teacherBookList.jsp";
+                    break;
+                case 2:
+                    view = "/WEB-INF/jsp/parentBookList.jsp";
+                    break;
+                case 3:
+                    view = "/WEB-INF/jsp/studentBookList.jsp";
+                    break;
+                default:
+                    view = "/WEB-INF/jsp/studentBookList.jsp";
+            }
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
     }
 
@@ -85,15 +116,24 @@ public class BookListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-
-        // 仮のユーザータイプ
-        session.setAttribute("userType", "student");
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
         
-        //仮のユーザID
-        session.setAttribute("userId", 1);
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+
+//        int userId = user.getId(); // ユニークID
+//        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+//        int grade = user.getGrade(); // 学年
+//        int schoolClass = user.getSchoolClass(); // クラス
         
         // 検索条件の取得
         String title = request.getParameter("title");
@@ -122,8 +162,26 @@ public class BookListServlet extends HttpServlet {
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", (int) Math.ceil((double) totalCount / LIMIT));
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/studentBookList.jsp");
-		dispatcher.forward(request, response);
+		String view = "/WEB-INF/jsp/studentBookList.jsp";
+        
+        if (user != null) {
+            switch (user.getTypeId()) {
+                case 1:
+                    view = "/WEB-INF/jsp/teacherBookList.jsp";
+                    break;
+                case 2:
+                    view = "/WEB-INF/jsp/parentBookList.jsp";
+                    break;
+                case 3:
+                    view = "/WEB-INF/jsp/studentBookList.jsp";
+                    break;
+                default:
+                    view = "/WEB-INF/jsp/studentBookList.jsp";
+            }
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+        dispatcher.forward(request, response);
 	}
 	
 }

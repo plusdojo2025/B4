@@ -223,3 +223,264 @@ INSERT INTO users (type_id, name, password, mail_address, grade, school_class, t
 (1, '小林 桃子', 'pass123', 'kobayashi@example.com', 2, 3, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (2, '加藤 慎一', 'pass123', 'kato@example.com', 3, 3, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (1, '渡辺 愛', 'pass123', 'watanabe@example.com', 1, 4, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+drop table finish_books;
+
+drop table books;
+
+CREATE TABLE finish_books(
+    id int auto_increment primary key,
+    book_id int ,
+    user_id int ,
+    type_id int DEFAULT 1,
+    created_at timestamp,
+    updated_at timestamp);
+
+
+CREATE TABLE finish_books_type(
+    id int auto_increment primary key,
+    type varchar(3),
+    created_at timestamp,
+    updated_at timestamp);
+
+CREATE TABLE books(
+    id int auto_increment primary key,
+    title varchar(100) not null,
+    author varchar(100),
+    publisher varchar(100),
+    user_id int not null,
+    gets varchar(100),
+    page int not null,
+    genre_id int not null,
+    cover varchar(100),
+    created_at timestamp,
+    updated_at timestamp );
+
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (12, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (12, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (12, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (7, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (12, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (9, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (9, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (7, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (7, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (17, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (9, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (11, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (12, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (7, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (14, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (7, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (12, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (9, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (7, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (11, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 8, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 10, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (15, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (4, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (16, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (21, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (3, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (6, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (11, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (13, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 5, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (8, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (2, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (10, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (1, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (5, 6, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (7, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (18, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (20, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (19, 7, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (11, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO finish_books (book_id, user_id, type_id, created_at, updated_at) VALUES (11, 9, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+(1, 1, 'ファンタジーの冒険', '作家1', '出版社A', '図書館', 250, 'book1.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 2, '謎解きの館', '作家2', '出版社B', '書店', 300, 'book2.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 3, '戦いの記録', '作家3', '出版社C', 'プレゼント', 220, 'book3.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 4, '恐怖の森', '作家4', '出版社D', '教室', 180, 'book4.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 5, '笑いの時間', '作家5', '出版社E', '自宅', 160, 'book5.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 6, '平凡な日々', '作家6', '出版社F', '図書館', 210, 'book6.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 7, 'かわいい動物たち', '作家7', '出版社G', '書店', 90, 'book7.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 8, '昔話の世界', '作家8', '出版社H', '教室', 130, 'book8.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 9, '文学への招待', '作家9', '出版社I', '自宅', 340, 'book9.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1,10, 'リアルな物語', '作家10', '出版社J', '図書館', 280, 'book10.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1,11, 'エッセイ日和', '作家11', '出版社K', '書店', 200, 'book11.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1,12, 'わかりやすい学習', '作家12', '出版社L', '教室', 150, 'book12.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1,13, '動物図鑑', '作家13', '出版社M', 'プレゼント', 310, 'book13.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1,14, '知識の泉', '作家14', '出版社N', '自宅', 230, 'book14.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1,15, '不思議な世界', '作家15', '出版社O', '図書館', 270, 'book15.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 1, '冒険ファンタジー2', '作家16', '出版社P', '書店', 240, 'book16.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 2, '続・謎解きの館', '作家17', '出版社Q', '自宅', 190, 'book17.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 3, '新・戦いの記録', '作家18', '出版社R', '教室', 300, 'book18.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 4, 'もう一つの恐怖', '作家19', '出版社S', '図書館', 210, 'book19.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 5, '続・笑いの時間', '作家20', '出版社T', '書店', 170, 'book20.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO books(user_id, genre_id, title, author, publisher, gets, page, cover, created_at, updated_at) VALUES
+(2, 6, 'グレッグのダメ日記', 'ジェフ・キニー', 'ポプラ社', '教室', 250, 'book21.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+insert into finish_books_type(type, created_at, updated_at) values('未読了',CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+insert into finish_books_type(type, created_at, updated_at) values('読了',CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+insert into finish_books(book_id, user_id, type_id, created_at, updated_at) values(21, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

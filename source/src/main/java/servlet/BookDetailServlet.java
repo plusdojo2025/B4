@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import dao.BookDAO;
 import dao.BookRecommendDAO;
 import dao.FinishBookDAO;
 import dto.Book;
+import dto.User;
 
 @WebServlet("/BookDetailServlet")
 public class BookDetailServlet extends HttpServlet {
@@ -24,18 +26,28 @@ public class BookDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		
-		// 仮のユーザータイプ
-        session.setAttribute("userType", "student");
-        //仮のユーザID
-        session.setAttribute("userId", 1);
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+
+//        int userId = user.getId(); // ユニークID
+//        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+//        int grade = user.getGrade(); // 学年
+//        int schoolClass = user.getSchoolClass(); // クラス
         
         // パラメータ取得
 		String bookIdStr = request.getParameter("bookId");
-		
 		int bookId = Integer.parseInt(bookIdStr);
 		String title = request.getParameter("title");
 		String genreIdStr = request.getParameter("genreId");
@@ -46,7 +58,7 @@ public class BookDetailServlet extends HttpServlet {
 		session.setAttribute("genreId", genreIdStr);
 		session.setAttribute("currentPage", pageStr);
 		session.setAttribute("lastList", lastList);
-		Integer userId = 1;
+		Integer userId = user.getId();
 //				(Integer) request.getSession().getAttribute("userId");
 
 		// 読書状態
@@ -62,9 +74,28 @@ public class BookDetailServlet extends HttpServlet {
 		// 本の詳細情報
 		Book book = BookDAO.findById(bookId);
 		request.setAttribute("book", book);
-
-		request.getRequestDispatcher("/WEB-INF/jsp/studentBookDetail.jsp").forward(request, response);
-	}
+	
+		String view = "/WEB-INF/jsp/studentBookDetail.jsp";
+        
+        if (user != null) {
+            switch (user.getTypeId()) {
+                case 1:
+                    view = "/WEB-INF/jsp/teacherBookDetail.jsp";
+                    break;
+                case 2:
+                    view = "/WEB-INF/jsp/parentBookDetail.jsp";
+                    break;
+                case 3:
+                    view = "/WEB-INF/jsp/studentBookDetail.jsp";
+                    break;
+                default:
+                    view = "/WEB-INF/jsp/studentBookDetail.jsp";
+            }
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+        dispatcher.forward(request, response);
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
