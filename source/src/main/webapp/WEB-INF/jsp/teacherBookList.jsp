@@ -37,7 +37,7 @@
 
 <table border="1">
   <tr>
-  	<th>表紙</th>
+    <th>表紙</th>
     <th>タイトル</th>
     <th>著者</th>
     <th>出版社</th>
@@ -47,9 +47,20 @@
   </tr>
 
   <c:forEach var="book" items="${bookList}">
+    <c:url value="/img/${book.cover}" var="coverUrl" />
+    <c:url var="detailUrl" value="/BookDetailServlet">
+      <c:param name="bookId" value="${book.id}" />
+      <c:param name="title" value="${fn:escapeXml(title)}" />
+      <c:param name="genreId" value="${fn:escapeXml(genreId)}" />
+      <c:param name="page" value="${currentPage}" />
+      <c:param name="lastList" value="BookListServlet" />
+    </c:url>
+    
     <tr>
       <td>
-        <a href="${pageContext.request.contextPath}/BookDetailServlet?id=${book.id}"><img src="${pageContext.request.contextPath}/img/${book.cover}" alt="表紙画像" width="100"></a>
+        <a href="${detailUrl}">
+          <img src="${coverUrl}" alt="表紙画像" width="100">
+        </a>
       </td>
       <td>${book.title}</td>
       <td>${book.author}</td>
@@ -60,6 +71,7 @@
     </tr>
   </c:forEach>
 </table>
+
 
 <!-- 最初へ -->
 <c:if test="${currentPage > 1}">

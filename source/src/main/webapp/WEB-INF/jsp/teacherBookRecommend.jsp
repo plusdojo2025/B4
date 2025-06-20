@@ -9,6 +9,21 @@
   <title>おすすめしてる本</title>
 </head>
 <body>
+
+<header>
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
+<p><a href="<c:url value='/RegistServlet' />">登録</a></p>
+<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
+<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
+<p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
+<p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
+<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
+</header>
+
+
 <h2>おすすめしてる本</h2>
 
 <form action="BookRecommendServlet" method="get">

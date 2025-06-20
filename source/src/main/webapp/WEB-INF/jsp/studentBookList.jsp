@@ -9,8 +9,11 @@
   <title>本の一覧</title>
 </head>
 <body>
-<h2>本の一覧</h2>
 
+<header>
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
 <p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
 <p><a href="<c:url value='/RegistServlet' />">登録</a></p>
 <p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
@@ -18,6 +21,9 @@
 <p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
 <p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
 <p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
+</header>
+
+<h2>本の一覧</h2>
 
 <form action="BookListServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">

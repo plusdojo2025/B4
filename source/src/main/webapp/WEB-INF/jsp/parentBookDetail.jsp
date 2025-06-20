@@ -23,6 +23,7 @@
 <img src="${coverUrl}" alt="表紙画像" width="200">
 
 <!-- ★ 保護者は「おすすめ投稿フォーム」のみ表示 -->
+
 <c:choose>
   <c:when test="${alreadyRecommended}">
     <p>おすすめ済みです。</p>
