@@ -14,7 +14,6 @@ public class AdminServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 管理者用画面にフォワード
-        request.getRequestDispatcher("/WEB-INF/jsp/result_admin.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
     }
 }
-

@@ -162,7 +162,7 @@ public class BookDAO {
                     rs.getInt("id"),
                     rs.getInt("user_id"),
                     rs.getInt("genre_id"),
-                    rs.getString("genre_name"), // ← genresテーブルから取得
+                    rs.getString("genre_name"),
                     rs.getString("title"),
                     rs.getString("author"),
                     rs.getString("publisher"),
@@ -192,12 +192,15 @@ public class BookDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9", "root", "password");
 
-            String sql = "SELECT b.*, g.genre_name, COUNT(r.id) AS recommend_count "
-            		+ "FROM books b "
-            		+ "JOIN genres g ON b.genre_id = g.id "
-            		+ "LEFT JOIN recommends r ON b.id = r.book_id "
-            		+ "WHERE b.id = ? "
-            		+ "GROUP BY b.id";
+            String sql = """
+                SELECT books.*, genres.genre_name, COUNT(recommends.id) AS recommend_count
+                FROM books
+                JOIN genres ON books.genre_id = genres.id
+                LEFT JOIN recommends ON books.id = recommends.book_id
+                WHERE books.id = ?
+                GROUP BY books.id
+            """;
+
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -222,11 +225,12 @@ public class BookDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception ignored) {}
         }
 
         return book;
     }
+
  // 件数取得
     public int countAllBooks(String title, Integer genre_id) {
         Connection conn = null;
@@ -337,7 +341,7 @@ public class BookDAO {
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1, bookId);
                 pstmt.setInt(2, userId);
-                pstmt.setInt(3, typeId);  // 例：1=未読了, 2=読了
+                pstmt.setInt(3, typeId);
 
                 int rows = pstmt.executeUpdate();
                 if (rows > 0) {

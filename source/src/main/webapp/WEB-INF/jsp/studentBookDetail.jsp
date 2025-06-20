@@ -19,7 +19,8 @@
 <p>場所：${book.gets}</p>
 <p>おすすめされた人数：${book.recommendCount} 人</p>
 
-<img src="${pageContext.request.contextPath}/img/${book.cover}" alt="表紙画像" width="200">
+<c:url value="/img/${book.cover}" var="coverUrl" />
+<img src="${coverUrl}" alt="表紙画像" width="200">
 
 <!-- 状態によって補油字するボタンを変える -->
 <c:choose>
