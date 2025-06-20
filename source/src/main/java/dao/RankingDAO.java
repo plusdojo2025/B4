@@ -11,7 +11,7 @@ import java.util.List;
 import dto.Ranking;
 
 public class RankingDAO{
-	public List<Ranking> select(int school_class){
+	public List<Ranking> selectBySchool_class(int school_class){
 		List<Ranking>RankList = new ArrayList<>();
 		
 		Connection conn = null;
@@ -26,7 +26,7 @@ public class RankingDAO{
 					"root", "password");
 			
 			//SQL文
-			String sql ="SELECT u.id AS user_id ,u.name,SUM(p.read_page) AS page FROM progress p JOIN users u ON p.user_id = u.id WHERE u.school_class = ? GROUP BY u.id, u.name ORDER BY SUM(p.read_page) DESC;";				
+			String sql ="SELECT u.id AS user_id ,u.name,SUM(p.read_page) AS page FROM progress p JOIN users u ON p.user_id = u.id WHERE u.school_class = ? GROUP BY u.id, u.name ORDER BY SUM(p.read_page) DESC";				
 	
 						    
 						
@@ -41,6 +41,8 @@ public class RankingDAO{
 				ranking.setUser_id(rs.getInt("user_id"));
 				ranking.setName(rs.getString("name"));
 			    ranking.setPage(rs.getInt("page"));
+			    RankList.add(ranking); // ← リストに追加
+			
                 }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,6 +66,50 @@ public class RankingDAO{
 		
 		return RankList;
 	}
-	
-	
+	public List<Ranking> selectByGenre(int genre_id){
+		List<Ranking>RankList = new ArrayList<>();
+Connection conn = null;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			// SQL文
+			String sql = "SELECT u.id AS user_id, u.name, g.genre_name, COUNT(*) AS f_books FROM finish_books f JOIN users u ON f.user_id = u.id" +
+					"JOIN books b ON f.book_id = b.id JOIN genres g ON b.genre_id = g.id WHERE b.genre_id = ? GROUP BY u.id, u.name, g.genre_name ORDER BY f_books DESC";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, genre_id);
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				Ranking ranking = new Ranking();
+				ranking.setUser_id(rs.getInt("user_id"));
+				ranking.setName(rs.getString("name"));
+			    ranking.setGenre_name(rs.getString("genre_name"));
+				ranking.setF_books(rs.getInt("f_books"));
+			    RankList.add(ranking); // ← リストに追加
+			
+                }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			RankList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			RankList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					RankList = null;
+				}
+		}
 }
+		return RankList;	
+}
+	}
