@@ -35,11 +35,16 @@
   <input type="submit" value="検索">
 </form>
 
-<c:forEach var="book" items="${bookList}">
-  <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}&page=${currentPage}&lastList=BookRecommendServlet">
-    <img src="/B4/img/${book.cover}" alt="表紙画像" width="200">
-  </a>
-</c:forEach>
+
+  <c:forEach var="book" items="${bookList}">
+    <c:url value="/img/${book.cover}" var="coverUrl" />
+    <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
+		<a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}&page=${currentPage}&lastList=BookRecommendServlet">
+        <img src="${coverUrl}" alt="表紙画像" width="150"><br>
+        <span style="display: inline-block; max-width: 120px;">${book.title}</span>
+      </a>
+    </div>
+  </c:forEach>
 
 <!-- 最初へ -->
 <c:if test="${currentPage > 1}">

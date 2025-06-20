@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import dto.Ranking;
 /**
  * Servlet implementation class RankingServlet
  */
+
 @WebServlet("/RankingServlet")
 public class RankingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,27 +32,51 @@ public class RankingServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		
 		// DAOを呼び出してランキングデータを取得
 		
-		RankingDAO dao = new RankingDAO();
-		List<Ranking> RankList = dao.select(1);
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		    String rankingType = request.getParameter("rankingType"); // class or genre
+		    String schoolClassParam = request.getParameter("school_class");
+		    String genreIdParam = request.getParameter("genre_id");
 
-		// 取得したリストをリクエストスコープに保存
-		request.setAttribute("RankList", RankList);
+		    RankingDAO dao = new RankingDAO();
+		    List<Ranking> RankList;
+		    String title;
 
-		// JSPにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRanking.jsp");
-		dispatcher.forward(request, response);
-	}
+		    if ("genre".equals(rankingType)) {
+		        if (genreIdParam != null && !genreIdParam.isEmpty()) {
+		            int genreId = Integer.parseInt(genreIdParam);
+		            RankList = dao.selectByGenre(genreId);
+		            title = "ジャンル別ランキング";
+		        } else {
+		            RankList = new ArrayList<>();
+		            title = "ジャンルが選択されていません";
+		        }
+		    } else { // デフォルト：クラス別
+		        int schoolClass = 1;
+		        if (schoolClassParam != null && !schoolClassParam.isEmpty()) {
+		            schoolClass = Integer.parseInt(schoolClassParam);
+		        }
+		        RankList = dao.selectBySchool_class(schoolClass);
+		        title = "クラス別ランキング";
+		    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		    request.setAttribute("RankList", RankList);
+		    request.setAttribute("rankingType", rankingType);
+		    request.setAttribute("title", title);
 
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRanking.jsp");
+		    dispatcher.forward(request, response);
+		    System.out.println("rankingType: " + rankingType);
+		    System.out.println("genre_id: " + genreIdParam);
+		    System.out.println("school_class: " + schoolClassParam);
+		    System.out.println("取得件数: " + (RankList != null ? RankList.size() : "null"));
+		}
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
