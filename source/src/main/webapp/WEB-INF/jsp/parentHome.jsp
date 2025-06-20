@@ -18,7 +18,6 @@
 
 <label>
     <input type="date" name="startDate">
-    </label>
 </label>
 
 <c:forEach var="pro" items="${progressList}" >
