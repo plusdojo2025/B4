@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
 <html>
 <head>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/collection.css">
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/collection.css' />">
 <meta charset="UTF-8">
 <title>コレクション｜よも～にんぐ</title>
 </head>
@@ -28,16 +29,18 @@
   </nav>
  </header>
  <!-- ヘッダー　-->
- <main class="main-content">
+ <main class="main-content"> 
+<!-- ステータス一覧 -->
+<section class="status-section">
 <h2>ゲットしたステータス</h2>
 
-  <ul>
+ <!-- <ul>
 
     <li>４月〇日　○○○○</li> 
     <li>４月×日　××××</li>
     <li>４月△日　△△△△</li>
     
-  </ul>
+  </ul> -->
   
   <table border="1">
   <tr>
@@ -52,24 +55,31 @@
     </tr>
   </c:forEach>
 </table>
-  
-  <!-- <table border="1">
-  <tr>
-  <th>ステータス名</th>
-  <th>獲得日時</th>
-  
+</section>
+
  
-    </table>-->
-
+ 
+ 
+<!-- トロフィーをロッカーに表示 -->
+<section class="locker-cotainer">
   <h2>ゲットしたトロフィー</h2>
-  <table class="">
-    <tr>
-      <th> </th>
-    </tr>
+  <div class="locker-grid">
+  <c:forEach var="coll" items="${trophyList}">
+  <div class="locker">
+       <img src="/B4/img/${coll.trophyPhoto}" alt="トロフィー画像">
+        <p>${coll.trophyCreatedat}</p>
+  </div>
+ </c:forEach>
+  <!-- 空マスで12個まで補完 -->
+  <c:forEach begin="1" end="${12-fn:length(trophyList)}">
+     <div class="locker"></div>
+  </c:forEach>
+ 
+</div>
+</section>
+ </div>
 
-  </table>
-  
-   <table border="2">
+ <!--    <table border="2">
   <tr>
     <th>トロフィー</th>
     <th>獲得日時</th>
@@ -82,10 +92,11 @@
     </tr>
   </c:forEach>
 </table>
+   -->
    
   <h2>ランキング</h2>
   <h3>4～9月のアクションランキング</h3>
-</main>
+  </main>
   <!-- メイン（ここまで） -->
 
   <!-- フッター（ここから） -->
