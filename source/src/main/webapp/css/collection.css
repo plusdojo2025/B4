@@ -32,7 +32,7 @@ html, body {
 
 .page-frame {
   min-height: 100vh;                 /* 画面の高さまで確保 */
-  border: 5px solid #DC8551;
+  border: 3px solid #DC8551;
   margin: 0;
   padding: 0px;           
   box-sizing: border-box;
@@ -141,7 +141,7 @@ html, body {
 
 
 .status-section table {
-               /* テーブルの幅調整 */
+               
   margin: 0 auto;            /* 中央寄せ */
 }
 
@@ -149,6 +149,4 @@ html, body {
  
   text-align: center;        /* ここが中央揃え */
 }
-
-
 

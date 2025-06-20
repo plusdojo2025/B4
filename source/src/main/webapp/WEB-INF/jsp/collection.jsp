@@ -13,6 +13,8 @@
 <title>コレクション｜よも～にんぐ</title>
 </head>
 <body id="top">
+
+
 <div class="page-frame">
 <!-- ヘッダー　-->
 <header class="header">
@@ -77,7 +79,7 @@
  
 </div>
 </section>
- </div>
+
 
  <!--    <table border="2">
   <tr>
@@ -96,13 +98,15 @@
    
   <h2>ランキング</h2>
   <h3>4～9月のアクションランキング</h3>
+ 
   </main>
+  </div>
   <!-- メイン（ここまで） -->
 
   <!-- フッター（ここから） -->
  <footer class="footer">
  <p class="copyright">&copy;-LEGACY-</p>
  </footer>
-</div>
+
 </body>
 </html> 
