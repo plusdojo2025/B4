@@ -4,10 +4,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import dto.Collection;
+
 		public class CollectionDAO {
 		 //ステータス一覧表示
 				public List<Collection> selectByStatusName(String statusName, int userId) throws ClassNotFoundException {
@@ -42,21 +45,13 @@ import dto.Collection;
 						
 						//結果表をコレクションにコピーする
 						while(rs.next()) {
-							Collection Coll = new Collection(
-									 		
-							rs.getInt("id"),
-							rs.getString("trophyPhoto"),
-							rs.getString("statusName"),
-							rs.getInt("rankingId"),
-							rs.getString("ranking_kindName"),
-							rs.getString("type"),
-							rs.getString("genreName"),
-							rs.getInt("userId"),
-							rs.getInt("statusId")
-							
-						   );
+							Collection Coll = new Collection();
 							Coll.setstatusName(rs.getString("statusName"));
-							Coll.setstatusCreatedat(rs.getTimestamp("created_at").toLocalDateTime());
+							LocalDateTime CreatedAt=rs.getTimestamp("created_at").toLocalDateTime();
+							Coll.setstatusCreatedat(CreatedAt);
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年/MM月/dd日");
+						    String formatted = CreatedAt.format(formatter);
+						    Coll.setStatusCreatedAtStr(formatted);
 							result.add(Coll);
 						}
 					}
@@ -102,28 +97,16 @@ import dto.Collection;
 		        
 					""";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
-				int rankingId = 0;
 				// SQL文を完成させる
-				pStmt.setInt(1, rankingId);
+				pStmt.setInt(1, userId);
 				
 				// SELECT文を実行し、結果表を取得する
 				ResultSet rs = pStmt.executeQuery();
 				
 				//結果表をコレクションにコピーする
 				while(rs.next()) {
-					Collection Coll = new Collection(
-					rs.getInt("id"),
-					rs.getString("statusName"),
-					rs.getString("trophyPhoto"),
-					rs.getInt("rankingId"),
-					rs.getString("ranking_kindName"),
-					rs.getString("type"),
-					rs.getString("genreName"),
-					rs.getInt("userId"),
-					rs.getInt("statusId")
-				
-					);
-					Coll.setTrophyPhoto(rs.getString("trophyPhoto"));
+					Collection Coll = new Collection();
+					Coll.setTrophyPhoto(rs.getString("trophy_photo"));
 					Coll.settrophyCreatedat(rs.getTimestamp("created_at").toLocalDateTime());
 					result.add(Coll);
 				}

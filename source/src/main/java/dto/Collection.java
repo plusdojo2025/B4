@@ -15,7 +15,10 @@ import java.time.LocalDateTime;
 	private LocalDateTime trophyCreatedAt;
 	private LocalDateTime statusUpdatedAt;
 	private LocalDateTime trophyUpdatedAt;
-
+	private String statusCreatedAtStr;
+	private String trophyCreatedAtStr;
+	private String statusUpdatedAtStr;
+	private String trophyUpdatedAtStr;
 
 	//引数なしコンストラクタ（全フィールドデフォルト値）
 	public Collection() {
@@ -192,5 +195,53 @@ import java.time.LocalDateTime;
 	 */
 	public void setUpdateat(LocalDateTime updateat) {
 		this.trophyUpdatedAt = updateat;
+	}
+	/**
+	 * @return statusCreatedAtStr
+	 */
+	public String getStatusCreatedAtStr() {
+		return statusCreatedAtStr;
+	}
+	/**
+	 * @param statusCreatedAtStr セットする statusCreatedAtStr
+	 */
+	public void setStatusCreatedAtStr(String statusCreatedAtStr) {
+		this.statusCreatedAtStr = statusCreatedAtStr;
+	}
+	/**
+	 * @return trophyCreatedAtStr
+	 */
+	public String getTrophyCreatedAtStr() {
+		return trophyCreatedAtStr;
+	}
+	/**
+	 * @param trophyCreatedAtStr セットする trophyCreatedAtStr
+	 */
+	public void setTrophyCreatedAtStr(String trophyCreatedAtStr) {
+		this.trophyCreatedAtStr = trophyCreatedAtStr;
+	}
+	/**
+	 * @return statusUpdatedAtStr
+	 */
+	public String getStatusUpdatedAtStr() {
+		return statusUpdatedAtStr;
+	}
+	/**
+	 * @param statusUpdatedAtStr セットする statusUpdatedAtStr
+	 */
+	public void setStatusUpdatedAtStr(String statusUpdatedAtStr) {
+		this.statusUpdatedAtStr = statusUpdatedAtStr;
+	}
+	/**
+	 * @return trophyUpdatedAtStr
+	 */
+	public String getTrophyUpdatedAtStr() {
+		return trophyUpdatedAtStr;
+	}
+	/**
+	 * @param trophyUpdatedAtStr セットする trophyUpdatedAtStr
+	 */
+	public void setTrophyUpdatedAtStr(String trophyUpdatedAtStr) {
+		this.trophyUpdatedAtStr = trophyUpdatedAtStr;
 	}
 	}

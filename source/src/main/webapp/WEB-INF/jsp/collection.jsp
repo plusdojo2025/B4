@@ -41,7 +41,7 @@
   <c:forEach var="coll" items="${statusList}">
     <tr>
       <td>${coll.statusName}</td>
-      <td>${coll.statusCreatedat}</td>
+      <td>${coll.statusCreatedAtStr}</td>
     </tr>
   </c:forEach>
 </table>
