@@ -4,81 +4,42 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import dto.IdPw;
 
 public class IdPwDAO {
-    private final String url = "jdbc:mysql://localhost:3306/B4?useSSL=false&serverTimezone=GMT%2B9&characterEncoding=utf8";
-    private final String user = "root";
-    private final String password = "password";
 
-    // ログイン
-    public boolean login(IdPw idpw) {
-        boolean isAuthenticated = false;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, password)) {
-                String sql = "SELECT COUNT(*) FROM users WHERE id = ? AND password = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, idpw.getId());
-                stmt.setString(2, idpw.getPw());
+	public boolean isLoginOK(IdPw idpw) {
+	    if (idpw.getId() == null || idpw.getId().isEmpty() ||
+	        idpw.getPw() == null || idpw.getPw().isEmpty()) {
+	        return false;
+	    }
 
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    if (rs.getInt(1) > 0) {
-                        isAuthenticated = true;
-                    }
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        return isAuthenticated;
-    }
+	    Connection conn = null;
+	    boolean result = false;
 
-    // 区分を取得
-    public int getUserTypeById(String id) {
-        int typeId = -1;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, password)) {
-                String sql = "SELECT type_id FROM users WHERE id = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, id);
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/B4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password");
 
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    typeId = rs.getInt("type_id");
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        return typeId;
-    }
-    
-    public boolean authenticate(String id, String pw) {
-        boolean isAuthenticated = false;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, password)) {
-                String sql = "SELECT COUNT(*) FROM users WHERE id = ? AND password = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, id);
-                stmt.setString(2, pw);
+	        String sql = "SELECT * FROM users WHERE users_id = ? AND password = ?";
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
 
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    isAuthenticated = rs.getInt(1) > 0;
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        return isAuthenticated;
-    }
+	        // ここでusers_idは整数なのでsetIntを使う
+	        pStmt.setInt(1, Integer.parseInt(idpw.getId()));
+	        pStmt.setString(2, idpw.getPw());
 
+	        ResultSet rs = pStmt.executeQuery();
+	        result = rs.next();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        if (conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+	    }
+
+	    return result;
+	}
 }
-
-
