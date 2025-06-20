@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,9 +17,11 @@
 <p>ジャンル：${book.genre_Name}</p>
 <p>ページ数：${book.page}</p>
 <p>場所：${book.gets}</p>
+<p>おすすめされた人数：${book.recommendCount} 人</p>
+
 <img src="${pageContext.request.contextPath}/img/${book.cover}" alt="表紙画像" width="200">
 
-<!-- 状態によって表示するボタンを変える -->
+<!-- 状態によって補油字するボタンを変える -->
 <c:choose>
 
     <c:when test="${statusId == 0}">
@@ -61,8 +64,18 @@
     <input type="hidden" name="bookId" value="1" />
 </form>
 
-<!-- 戻るボタン -->
-<p><a href="${pageContext.request.contextPath}/BookListServlet">← 一覧に戻る</a></p>
+<c:choose>
+  <c:when test="${sessionScope.lastList == 'BookRecommendServlet'}">
+    <a href="${pageContext.request.contextPath}/BookRecommendServlet?bookId=${book.id}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}&page=${currentPage}&lastList=BookRecommendServlet">    
+      ← おすすめ順一覧に戻る
+    </a>
+  </c:when>
+  <c:otherwise>
+    <a href="${pageContext.request.contextPath}/BookListServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}">
+      ← 新着順一覧に戻る
+    </a>
+  </c:otherwise>
+</c:choose>
 
 </body>
 </html>

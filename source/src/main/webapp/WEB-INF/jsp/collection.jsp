@@ -38,10 +38,10 @@
     <th>獲得日時</th>
   </tr>
 
-  <c:forEach var="coll" items="${collectionList}">
+  <c:forEach var="coll" items="${statusList}">
     <tr>
       <td>${coll.statusName}</td>
-      <td>${coll.createdat}</td>
+      <td>${coll.statusCreatedAtStr}</td>
     </tr>
   </c:forEach>
 </table>
@@ -68,10 +68,10 @@
     <th>獲得日時</th>
   </tr>
 
-  <c:forEach var="coll" items="${collectionList}">
+  <c:forEach var="coll" items="${trophyList}">
     <tr>
       <td> <img src="/B4/img/${coll.trophyPhoto}" alt="トロフィー画像"></td>
-      <td>${coll.createdat}</td>
+      <td>${coll.trophyCreatedat}</td>
     </tr>
   </c:forEach>
 </table>

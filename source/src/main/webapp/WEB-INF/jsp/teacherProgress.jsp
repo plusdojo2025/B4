@@ -9,36 +9,11 @@
 <meta charset="UTF-8">
 <title>成績表 | 管理者ページ</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-<script>
-window.onload = function () {
-    let context = document.querySelector("#fukuoka_temperature_chart").getContext('2d')
-    new Chart(context, {
-      type: 'line',
-      data: {
-        labels: ['1日', '2日', '3日', '4日', '5日', '6日', '7日', '8日', '9日', '10日', '11日', '12日',
-        	'13日', '14日', '15日', '16日', '17日', '18日', '19日', '20日', '21日', '22日', '23日', '24日',
-        	'25日', '26日', '27日', '28日', '29日', '30日'],
-        datasets: [{
-          label: "目標",
-          data: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-          borderColor: 'rgba(60, 160, 220, 0.8)'
-        }, {
-          label: "読了",
-          data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12],
-          borderColor: 'rgba(60, 190, 20, 0.8)'
-        }],
-      },
-      options: {
-        responsive: false,
-      }
-    })
-  }
-</script>
 </head>
 <body>
 <h1>よも～にんぐ</h1>
 <hr>
-<p><a href="/B4/studentHomeServlet">ホーム</a></p>
+<p><a href="/B4/teacherHomeServlet">ホーム</a></p>
 <p><a href="/B4/UpdateDeleteServlet">登録</a></p>
 <p><a href="/B4/BookListServlet">一覧</a></p>
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
@@ -51,23 +26,81 @@ window.onload = function () {
 <form id ="form" method="POST" action="/B4/ProgressServlet">
 
 <select id="select_month">
-
-<c:forEach  begin="1" end="12" step="1" var="i">
-	<option><c:out value="${i}" /></option>  
-	</c:forEach>
+  <option value="">-- 選択してください --</option>
+  <option value="1">1月</option>
+  <option value="2">2月</option>
+  <option value="3">3月</option>
+  <option value="4">4月</option>
+  <option value="5">5月</option>
+  <option value="6">6月</option>
+  <option value="7">7月</option>
+  <option value="8">8月</option>
+  <option value="9">9月</option>
+  <option value="10">10月</option>
+  <option value="11">11月</option>
+  <option value="12">12月</option>
 </select>
 
- <c:forEach var="pro" items="${progressList}">
-	<input type="hidden" name="id" value="${pro.id}">
-	<p>${pro.user_id}さん</p>
-	<p>${pro.month}月の成績表</p>
-	<h3>過去の読書記録</h3>
-	<p>${pro.target_page}</p>
-	<p>${pro.read_page}</p>
+<h2 id="output"></h2>
 
-</c:forEach>
-   
-<canvas id="fukuoka_temperature_chart" width="500" height="500"></canvas>
+<script>
+  const select = document.getElementById('select_month');
+  const output = document.getElementById('output');
+
+  select.addEventListener('change', () => {
+    const month = select.value;
+    if (month) {
+      output.textContent = month + '月の成績';
+    } else {
+      output.textContent = '';
+    }
+  });
+</script>
+
+<h3>過去の読書記録</h3>
+
+<script>
+const chartData = JSON.parse('<%= session.getAttribute("chartData") %>');
+
+window.onload = function () {
+    let context = document.querySelector("#read_book_chart").getContext('2d')
+    new Chart(context, {
+      type: 'line',
+      data: {
+        labels: chartData.labels,
+        datasets: [{
+          label: "目標",
+          data: chartData.targetData,
+          borderColor: 'rgba(60, 160, 220, 0.8)'
+        }, {
+          label: "読了",
+          data: chartData.readData,
+          borderColor: 'rgba(60, 190, 20, 0.8)'
+        }],
+      },
+      options: {
+        responsive: false,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: '日付'
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'ページ数'
+                }
+            }
+        }
+      }
+    })
+  }
+</script>
+
+<canvas id="read_book_chart" width="500" height="500"></canvas>
 <h3>プロフィール</h3>
 
 

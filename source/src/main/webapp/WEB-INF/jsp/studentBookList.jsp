@@ -11,6 +11,14 @@
 <body>
 <h2>本の一覧</h2>
 
+<p><a href="/B4/studentHomeServlet">ホーム</a></p>
+<p><a href="/B4/RegistServlet">登録</a></p>
+<p><a href="/B4/BookListServlet">一覧</a></p>
+<p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
+<p><a href="/B4/OpinionServlet">目安箱</a></p>
+<p><a href="/B4/RankingServlet">ランキング</a></p>
+<p><a href="/B4/LogoutServlet">ログアウト</a></p>
+
 <form action="BookListServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">
   ジャンル：
@@ -37,7 +45,8 @@
 
 <c:forEach var="book" items="${bookList}">
         <a href="/B4/BookDetailServlet?bookId=${book.id}">
-        <img src="/B4/img/${book.cover}" alt="表紙画像" width="200">
+        <img src="<c:url value='/img/${book.cover}' />" alt="表紙画像" width="200">
+        
         </a>
 </c:forEach>
 
