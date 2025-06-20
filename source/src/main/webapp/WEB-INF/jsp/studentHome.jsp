@@ -33,11 +33,9 @@
 
 <form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
 
-もくひょう<input type="text" name="goal_page">
+もくひょう<input type="text" name="target_page" value="0"><br>
+きろく<input type="text" name="read_page" value="0"><br>
 <input type="submit" name="submit" value="OK"><br>
-
-きろく<input type="text" name="read_page">
-<input type="submit" name="submit" value="OK">
 </form>
 
 <h2>ランキング</h2>

@@ -71,7 +71,7 @@ public class ProgressDAO {
 		return progressList;
 	}
 	
-	public List<Progress> selectToday(int user_id, int month, int day) {
+	public List<Progress> selectToday(int user_id, int book_id, int month, int day) {
 		Connection conn = null;
 		List<Progress> progressList = new ArrayList<Progress>();
 
@@ -87,13 +87,14 @@ public class ProgressDAO {
 			// SQL文を準備する
 			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day "
 					+ "FROM progress JOIN users ON progress.user_id = users.id "
-					+ "WHERE user_id =? AND MONTH(progress.updated_at) = ? AND DAY(progress.updated_at) = ?";
+					+ "WHERE user_id =? AND book_id =? AND MONTH(progress.updated_at) = ? AND DAY(progress.updated_at) = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setInt(1, user_id);
-			pStmt.setInt(2, month);	// SQL文を実行し、結果表を取得する
-			pStmt.setInt(3, day);
+			pStmt.setInt(2, book_id);
+			pStmt.setInt(3, month);	// SQL文を実行し、結果表を取得する
+			pStmt.setInt(4, day);
 			
 			ResultSet rs = pStmt.executeQuery();
 
@@ -197,7 +198,7 @@ public class ProgressDAO {
 		return progressList;
 	}
 	
-	public boolean insert_target(int book_id, int target_page) {
+	public boolean insert_target(int user_id, int book_id, int target_page) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -211,13 +212,13 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "INSERT INTO Progress VALUES (0, 0, ?, ?, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+			String sql = "INSERT INTO Progress VALUES (0, ?, ?, ?, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			
-			pStmt.setInt(1, book_id);
-			pStmt.setInt(2, target_page);
+			pStmt.setInt(1, user_id);
+			pStmt.setInt(2, book_id);
+			pStmt.setInt(3, target_page);
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
@@ -241,7 +242,7 @@ public class ProgressDAO {
 		return result;
 	}
 	
-	public boolean update_read(int read_page) {
+	public boolean update_read(int user_id, int book_id, int read_page) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -255,12 +256,13 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE progress SET read_page=? WHERE id = ?";
+			String sql = "UPDATE progress SET read_page=? WHERE user_id = ? AND book_id = ? AND read_page = 0";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			
-			pStmt.setInt(1, read_page);
+			pStmt.setInt(1, user_id);
+			pStmt.setInt(2, book_id);
+			pStmt.setInt(3, read_page);
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
@@ -284,7 +286,7 @@ public class ProgressDAO {
 		return result;
 	}
 	
-	public int getTotalPagesRead(int book_id){
+	public int getTotalPagesRead(int user_id, int book_id){
 
 		Connection conn = null;
 
@@ -302,6 +304,7 @@ public class ProgressDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
+			pStmt.setInt(1, user_id);
 			pStmt.setInt(2, book_id);
 			
 			ResultSet rs = pStmt.executeQuery();
@@ -345,7 +348,7 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT page FROM books WHERE id = ?";
+			String sql = "SELECT page FROM books WHERE book_id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -375,7 +378,7 @@ public class ProgressDAO {
 		return 0;
     }
     
-    public boolean insertFinishedBook(int book_id) {
+    public boolean insertFinishedBook(int user_id, int book_id) {
     	Connection conn = null;
     	boolean result = false;
     	
@@ -384,11 +387,12 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-            String sql = "INSERT INTO finish_books VALUES (0, ?, 0, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+            String sql = "INSERT INTO finish_books VALUES (0, ?, ?, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setInt(1, book_id);
+			pStmt.setInt(2, user_id);
 
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
@@ -413,7 +417,7 @@ public class ProgressDAO {
 		return result;
     }
     
-    public boolean isAlreadyFinished(int book_id) {
+    public boolean isAlreadyFinished(int user_id, int book_id) {
     	Connection conn = null;
     	boolean result = false;
     	
@@ -422,7 +426,7 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-    		String sql = "SELECT COUNT(*) FROM finish_books WHERE book_id = ?";
+    		String sql = "SELECT COUNT(*) FROM finish_books WHERE user_id = ? AND book_id = ?";
     		PreparedStatement pStmt = conn.prepareStatement(sql);
     		
     		pStmt.setInt(1, book_id);

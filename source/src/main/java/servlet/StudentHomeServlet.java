@@ -45,11 +45,12 @@ public class StudentHomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int user_id = 1;
+		int book_id = 6;
 		int month = 6;
 		int day = 17;
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectToday(user_id, month, day);
+		List<Progress> progressList = proDao.selectToday(user_id, book_id, month, day);
 		
 		session.setAttribute("progressList", progressList);
 		
@@ -72,29 +73,33 @@ public class StudentHomeServlet extends HttpServlet {
 
 		session.setAttribute("progressList", progressList);
 
-		int book_id = Integer.parseInt(request.getParameter("book_id"));
+//		int book_id = Integer.parseInt(request.getParameter("book_id"));
+		int user_id = 1;
+		int book_id = 6;
 		int target_page = Integer.parseInt(request.getParameter("target_page"));
 		int read_page = Integer.parseInt(request.getParameter("read_page"));
 		
-		if (request.getParameter("submit").equals("OK")) {
-			if(proDao.insert_target(book_id, target_page)) {
+//		if (request.getParameter("submit").equals("OK")) {
+		if(read_page == 0) {
+			if(proDao.insert_target(user_id,book_id, target_page)) {
 				request.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
 			}
+		}else {
+			
+			proDao.update_read(user_id, book_id, read_page);
+				System.out.println("aaaa");
+//				int totalRead = proDao.getTotalPagesRead(user_id, book_id);
+//				int totalPages = proDao.getBookTotalPages(book_id);
+//		            // 読了判定（重複登録防止）
+//		            if (totalRead >= totalPages && !proDao.isAlreadyFinished(user_id, book_id)) {
+//		                proDao.insertFinishedBook(user_id, book_id);
+		            
+					request.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
+			
 		}
 		
-		if (request.getParameter("submit").equals("OK")) {
-			if(proDao.update_read(read_page)) {
-				int totalRead = proDao.getTotalPagesRead(book_id);
-		        int totalPages = proDao.getBookTotalPages(book_id);
-	            // 読了判定（重複登録防止）
-	            if (totalRead >= totalPages && !proDao.isAlreadyFinished(book_id)) {
-	                proDao.insertFinishedBook(book_id);
-	            }
-				request.setAttribute("result", new Result("登録成功！", "レコードを登録しました。", "/B4/StudentHomeServlet"));
-			}
-		}
-		
-		request.getRequestDispatcher("/WEB-INF/jsp/StudentHome.jsp").forward(request, response);
+//		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
+		doGet(request,response);
 		
 	}
 

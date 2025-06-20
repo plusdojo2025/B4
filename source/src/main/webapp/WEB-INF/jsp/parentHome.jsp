@@ -25,7 +25,7 @@
 <p>目標${pro.target_page}ページ</p>
 <p>進捗${pro.read_page}ページ</p>
 
-<h2>成績表</h2>
+<h2><a href="/B4/ProgressServlet">成績表</a></h2>
 	<input type="hidden" name="id" value="${pro.id}">
 	<h3>${pro.month}月の成績表</h3>
 </c:forEach>
