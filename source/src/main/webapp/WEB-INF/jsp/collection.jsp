@@ -21,7 +21,7 @@
  <div class="logo">よも～にんぐ</div>
  <nav class="nav">
   <ul >
-    <li><a href="home.html">ホーム</a></li>
+    <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
     <li><a href="">ほんだな</a></li>
     <li><a href="">おすすめ</a></li>
     <li><a href="">きろく</a></li>

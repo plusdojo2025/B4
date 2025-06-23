@@ -1,1 +1,90 @@
 @charset "UTF-8";
+
+
+/*保護者用ページのヘッダー、フッダー/
+
+/*使った色*/
+/*#FFB347 yellow orange*ボタン/
+/*#00552e black green*黒板/
+/*#DC8551 orange brown 枠線とかアクセントカラーに*/
+
+
+ /*共通のｃｓｓ*/
+
+.header {
+  background-color: #00552e; 
+  padding: 15px 30px;        /* ヘッダー内の余白調整 */
+  color: white;   
+  border-bottom:3px solid #DC8551;          
+}
+
+/* ロゴ中央配置 */
+.logo {
+  font-weight: bold;
+  font-size: 2.5em;
+  text-align:center;
+  color:#ffffff;
+}
+
+
+ .nav ul{
+ /*  margin-top: 100px; /* ロゴの高さ分だけ下げる */
+   margin: 30px 0 0 0;
+   padding: 0;
+   list-style-type: none;
+   display:flex;
+   justify-content: center;
+   gap: 40px;
+   position: relative;
+}
+.nav a:link{
+    color:#ffffff ;
+}
+.nav a:visited{
+   color:#ffffff;
+}
+
+.nav a:hover{
+
+    text-decoration:none;
+}
+
+.nav a:active{
+    text-decoration: none;
+}
+
+.nav ul li a {
+  font-size: 20px;
+  font-weight: bold; 
+}
+
+
+/* ログアウトボタン*/
+.logout-btn {
+  position: absolute;
+  top: -10px;      /* ulのmargin-topと合わせて高さをそろえる */
+  right: 10px;
+  background-color: #FFB347;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+   z-index: 2;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* 下に影 */
+}
+
+/* ホバー時のスタイル */
+.logout-btn:hover {
+  background-color: #FFB347;
+}
+
+.footer {
+  background-color: #00552e;    
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  border-top: 3px solid #DC8551; 
+  margin-top: auto; 
+}
