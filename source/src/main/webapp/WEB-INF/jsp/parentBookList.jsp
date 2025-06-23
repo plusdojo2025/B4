@@ -32,8 +32,7 @@
  <!-- ヘッダー　-->
 <main class="main-content"> 
 
-<h2>本の一覧</h2>
-
+<div class="search-form-container">
 <form action="BookListServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">
   ジャンル：
@@ -57,7 +56,7 @@
   </select>
   <input type="submit" value="検索">
 </form>
-
+</div>
 
 <!--1行に5冊表示 -->
 <c:set var="rowSize" value="5" />
