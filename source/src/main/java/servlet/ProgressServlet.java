@@ -46,34 +46,17 @@ public class ProgressServlet extends HttpServlet {
 //			return;
 //		}
 		HttpSession session = request.getSession();
-		request.setCharacterEncoding("UTF-8");
-		
+        session.setAttribute("progress", "ProgressServlet");
+        
 		int user_id = 1;
-		int month = 6;
-		
+		String monthStr = request.getParameter("month");
+		Integer month = Integer.parseInt(request.getParameter("month"));
+
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.select(user_id, month);
 		
-
-        List<Integer> labels = new ArrayList<>();
-        List<Integer> readData = new ArrayList<>();
-        List<Integer> targetData = new ArrayList<>();
-		
-		for(Progress pro : progressList) {
-			labels.add(pro.getDay());
-			targetData.add(pro.getTarget_page());
-			readData.add(pro.getRead_page());
-		}
-		
-		Map<String, Object> chartData = new HashMap<>();
-        chartData.put("labels", labels);
-        chartData.put("readData", readData);
-        chartData.put("targetData", targetData);
-
-        String json = new Gson().toJson(chartData);
-
-		session.setAttribute("progressList", progressList);
-        session.setAttribute("chartData", json);
+		request.setAttribute("month", monthStr);
+		request.setAttribute("progressList", progressList);
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
 		
@@ -106,8 +89,33 @@ public class ProgressServlet extends HttpServlet {
 //			return;
 //		}
 		
+		request.setCharacterEncoding("UTF-8");
+		
+		int user_id = 1;
+		int month = Integer.parseInt(request.getParameter("month"));
+		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectAll();
+		List<Progress> progressList = proDao.select(user_id, month);
+		
+
+        List<Integer> labels = new ArrayList<>();
+        List<Integer> readData = new ArrayList<>();
+        List<Integer> targetData = new ArrayList<>();
+		
+		for(Progress pro : progressList) {
+			labels.add(pro.getDay());
+			targetData.add(pro.getTarget_page());
+			readData.add(pro.getRead_page());
+		}
+		
+		Map<String, Object> chartData = new HashMap<>();
+        chartData.put("labels", labels);
+        chartData.put("readData", readData);
+        chartData.put("targetData", targetData);
+
+        String json = new Gson().toJson(chartData);
+
+        session.setAttribute("chartData", json);
 
 		// 検索結果をセッションスコープに格納する
 		session.setAttribute("progressList", progressList);

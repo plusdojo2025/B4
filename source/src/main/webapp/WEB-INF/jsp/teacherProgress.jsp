@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, dto.Progress" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -21,29 +22,21 @@
 <p><a href="/B4/RankingServlet">ランキング</a></p>
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
+<form id ="form_get" method="GET" action="/B4/ProgressServlet">
 
-
-<form id ="form" method="POST" action="/B4/ProgressServlet">
-
-<select id="select_month">
-  <option value="">-- 選択してください --</option>
-  <option value="1">1月</option>
-  <option value="2">2月</option>
-  <option value="3">3月</option>
-  <option value="4">4月</option>
-  <option value="5">5月</option>
-  <option value="6">6月</option>
-  <option value="7">7月</option>
-  <option value="8">8月</option>
-  <option value="9">9月</option>
-  <option value="10">10月</option>
-  <option value="11">11月</option>
-  <option value="12">12月</option>
+<select id="month">
+  <% for (int i = 1; i <= 12; i++) { %>
+            <option value="<%= i %>"><%= i %> 月</option>
+        <% } %>
 </select>
 
 <h2 id="output"></h2>
 
 <script src="js/pulldown.js"></script>
+
+</form>
+
+<form id ="form" method="POST" action="/B4/ProgressServlet">
 
 <h3>過去の読書記録</h3>
 
