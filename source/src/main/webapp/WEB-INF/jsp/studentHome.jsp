@@ -25,7 +25,6 @@
 <input type="submit" name="submit" value="目安箱">
 </form>
 
-
 <c:forEach var="pro" items="${progressList}">
 	<input type="hidden" name="id" value="${pro.id}">
 	<p>${pro.book_id}</p>
