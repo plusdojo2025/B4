@@ -22,10 +22,11 @@
  <nav class="nav">
   <ul >
     <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
-    <li><a href="">ほんだな</a></li>
-    <li><a href="">おすすめ</a></li>
-    <li><a href="">きろく</a></li>
-    <li><a href="">せいせき</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/ProgressServlet' />">きろく</a></li>
+    <li><a href="<c:url value='/RecordServlet' />">せいせき</a></li>
+    <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
      <li><button class="logout-btn" onclick="location.href='logout.html'">ログアウト</button></li>
   </ul>
   </nav>

@@ -5,26 +5,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/studentBook.css' />">
   <meta charset="UTF-8">
   <title>本の一覧</title>
 </head>
 <body>
 
-<header>
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
 <span>
   <c:out value="${sessionScope.user.name}" /> さん
 </span>
-<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
-<p><a href="<c:url value='/RegistServlet' />">登録</a></p>
-<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
-<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
-<p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
-<p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
-<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+<li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
+<li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+<li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
+<li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+<li><a href="<c:url value='/OpinionServlet' />">目安箱</a></li>
+<li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+</ul>
+</nav>
 </header>
+<!-- ヘッダー　-->
 
-<h2>本の一覧</h2>
-
+<main class="main-content"> 
+<div class="search-form-container">
 <form action="BookListServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">
   ジャンル：
@@ -48,19 +58,44 @@
   </select>
   <input type="submit" value="検索">
 </form>
+</div>
 
 
+<!--1行に5冊表示 -->
+<c:set var="rowSize" value="5" />
 
-  <c:forEach var="book" items="${bookList}">
-    <c:url value="/img/${book.cover}" var="coverUrl" />
-    <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
-		<a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}&page=${currentPage}&lastList=BookListServlet">
-        <img src="${coverUrl}" alt="表紙画像" width="150"><br>
-        <span style="display: inline-block; max-width: 120px;">${book.title}</span>
-      </a>
-    </div>
-  </c:forEach>
+<!-- 全体の本数を取得 -->
+<c:set var="totalBooks" value="${fn:length(bookList)}" />
 
+<!-- 行の数だけループ -->
+<c:forEach var="row" begin="0" end="${(totalBooks - 1) / rowSize}" varStatus="status">
+
+  <div class="book-list">
+    <!-- 1行分の本を表示 -->
+    <c:forEach var="col" begin="0" end="${rowSize - 1}">
+      <c:set var="index" value="${row * rowSize + col}" />
+      <c:if test="${index < totalBooks}">
+        <c:set var="book" value="${bookList[index]}" />
+        <c:url value="/img/${book.cover}" var="coverUrl" />
+        <div class="book-item">
+          <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}">
+            <img src="${coverUrl}" alt="表紙画像" width="150"><br>
+            <span class="book-title">${book.title}</span>
+          </a>
+        </div>
+      </c:if>
+    </c:forEach>
+  </div>
+
+  <!-- 1行目と2行目の間に線を入れる -->
+  <c:if test="${status.index == 0}">
+    <hr class="book-separator">
+  </c:if>
+</c:forEach>
+
+ <hr class="book-separator">
+ 
+ <div class="pagenation">
 <!-- 最初へ -->
 <c:if test="${currentPage > 1}">
   <a href="${pageContext.request.contextPath}/BookListServlet?page=1&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}">最初へ</a>
@@ -93,6 +128,16 @@
 <c:if test="${currentPage < totalPages}">
   <a href="${pageContext.request.contextPath}/BookListServlet?page=${totalPages}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}">最後へ</a>
 </c:if>
+</div>
+</main>
+</div>
+
+ <!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
 
 </body>
 </html>
