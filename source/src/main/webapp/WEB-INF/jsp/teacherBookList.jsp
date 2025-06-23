@@ -44,6 +44,7 @@
     <th>ページ数</th>
     <th>ジャンル名</th>
     <th>登録日</th>
+    <th>操作</th> <!-- ここを追加 -->
   </tr>
 
   <c:forEach var="book" items="${bookList}">
@@ -68,9 +69,22 @@
       <td>${book.page}</td>
       <td>${book.genre_Name}</td>
       <td>${book.created_atStr}</td>
+      <td>
+        <!-- 編集ボタン -->
+        <form action="<c:url value='/UpdateBookServlet' />" method="get" style="display:inline;">
+          <input type="hidden" name="bookId" value="${book.id}" />
+          <input type="submit" value="編集" />
+        </form><br>
+        <!-- 削除ボタン -->
+        <form action="<c:url value='/DeleteBookServlet' />" method="get" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+          <input type="hidden" name="bookId" value="${book.id}" />
+          <input type="submit" value="削除" />
+        </form>
+      </td>
     </tr>
   </c:forEach>
 </table>
+
 
 
 <!-- 最初へ -->
