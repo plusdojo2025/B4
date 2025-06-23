@@ -36,11 +36,6 @@ public class BookDetailServlet extends HttpServlet {
         
         User user = (User) session.getAttribute("user");
 
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
-            return;
-        }
-
 //        int userId = user.getId(); // ユニークID
 //        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
 //        int grade = user.getGrade(); // 学年
@@ -63,8 +58,8 @@ public class BookDetailServlet extends HttpServlet {
 
 		// 読書状態
 		FinishBookDAO finishDao = new FinishBookDAO();
-		int statusId = finishDao.getStatusId(userId, bookId);
-		request.setAttribute("statusId", statusId);
+		int typeId = finishDao.getTypeId(userId, bookId);
+		request.setAttribute("statusId", typeId);
 
 		// おすすめ済みかどうか
 		BookRecommendDAO recommendDao = new BookRecommendDAO();
@@ -74,7 +69,13 @@ public class BookDetailServlet extends HttpServlet {
 		// 本の詳細情報
 		Book book = BookDAO.findById(bookId);
 		request.setAttribute("book", book);
+		
+		FinishBookDAO finDao = new FinishBookDAO();
+		Integer latestReadingBookId = finDao.selectLatestReadingBookId(user.getId());
+		request.setAttribute("latestReadingBookId", latestReadingBookId);
+
 	
+		
 		String view = "/WEB-INF/jsp/studentBookDetail.jsp";
         
         if (user != null) {
@@ -99,6 +100,37 @@ public class BookDetailServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
+        
+      //user_typeを参照して遷移先の分岐        
+        String view = "/WEB-INF/jsp/studentBookDetail.jsp";
+        
+        if (user != null) {
+            switch (user.getTypeId()) {
+                case 1:
+                    view = "/WEB-INF/jsp/teacherBookDetail.jsp";
+                    break;
+                case 2:
+                    view = "/WEB-INF/jsp/parentBookDetail.jsp";
+                    break;
+                case 3:
+                    view = "/WEB-INF/jsp/studentBookDetail.jsp";
+                    break;
+                default:
+                    view = "/WEB-INF/jsp/studentBookDetail.jsp";
+            }
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+        dispatcher.forward(request, response);
+        
 		doGet(request, response);
 	}
 }

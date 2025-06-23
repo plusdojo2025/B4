@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.BookDAO;
 import dao.BookRecommendDAO;
 import dto.Book;
+import dto.User;
 
 /**
  * Servlet implementation class BookRecommendServlet
@@ -35,12 +36,14 @@ public class BookRecommendServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-
-        // 仮のユーザータイプ
-        session.setAttribute("userType", "student");
-        //仮のユーザID
-        session.setAttribute("userId", 1);
+     // ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
 
         // 検索条件の取得
         String title = request.getParameter("title");
@@ -74,9 +77,25 @@ public class BookRecommendServlet extends HttpServlet {
         session.setAttribute("genreId", genreIdStr);
         session.setAttribute("currentPage", page);
         
-        // JSPへ
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/studentBookRecommend.jsp");
-        dispatcher.forward(request, response);
+      //user_typeを参照して遷移先の分岐        
+        String view = "/WEB-INF/jsp/studentBookRecommend.jsp";
+        
+        if (user != null) {
+            switch (user.getTypeId()) {
+                case 1:
+                    view = "/WEB-INF/jsp/teacherBookRecommend.jsp";
+                    break;
+                case 2:
+                    view = "/WEB-INF/jsp/parentBookRecommend.jsp";
+                    break;
+                case 3:
+                    view = "/WEB-INF/jsp/studentBookRecommend.jsp";
+                    break;
+            }
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+        dispatcher.forward(request, response);              
 	}
 
 	/**
@@ -84,12 +103,17 @@ public class BookRecommendServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	        
 	        request.setCharacterEncoding("UTF-8");
-
+	     // ログインさせる処理
+	    	HttpSession session = request.getSession();
+	        if (session.getAttribute("user") == null) {
+	            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+	            return;
+	        }
+	        
 	        int bookId = Integer.parseInt(request.getParameter("bookId"));
 	        String comment = request.getParameter("comment");
-	        HttpSession session = request.getSession();
 	        Integer userId = (Integer) session.getAttribute("userId");
-
+	        
 	        if (userId != null && comment != null && !comment.trim().isEmpty()) {
 	            BookRecommendDAO dao = new BookRecommendDAO();
 

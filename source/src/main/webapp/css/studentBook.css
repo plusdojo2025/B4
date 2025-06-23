@@ -2,25 +2,91 @@
 
 /*生徒用本の一覧、おすすめ、詳細用CSS*/
 /*背景色*/
-/*生徒用ページは共通背景*/
 
-.main-content {
-  background-color: #00552e;
-  padding:30px;
+.main-content { 
+  background-color:#F2AA43;
 }
-
 
 html, body {
-  height: 100%;
-   margin: 0;
-   padding: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #F2AA43;
 }
 
-.page-frame {
-  min-height: 100vh;                 /* 画面の高さまで確保 */
-  border: 5px solid #DC8551;
+.book-list {
+	margin-top: 0;
+  display: flex;
+  flex-wrap: wrap;            /* 折り返し可 */
+  justify-content: center;
+  gap: 0px;            
+  padding: 0;         /* 画面の端と本の間に余白 */
+  margin: 0 auto;      /* 中央寄せのためのマージン */
+  max-width: 980px;
+  
+}
+.book-item { 
+	display: flex;
+	flex-direction: column; 
+	margin: 10px;
+	text-align: center;
+  	width: 17%;
+  	height: 300px;
+    text-align: center;
+    justify-content: flex-end;
+   
+}
+
+.book-item img {
+  margin-top: auto;           
+}
+
+.book-title {
+	display: inline-block; 
+	max-width: 150px;
+  
+}
+
+.book-separator {
+  border: none;
+  border-top: 40px solid #A1550D;
+  margin: -10px 100px;
+}
+
+.pagenation {
+  display: flex;
+  justify-content: center;      /* 横方向中央寄せ */
+  align-items: center;          /* 縦方向中央寄せ */
+  gap: 12px;                   /* 要素間のスペース */
+  margin: 70px 70px;              /* 上下の余白 */
+  flex-wrap: wrap;             /* 幅狭いときに折り返し対応 */
+}
+
+.pagenation a:hover {
+  background-color: #eee;
+}
+
+.page-select-form {
   margin: 0;
-  padding: 0px;           
-  box-sizing: border-box;
-  background-color: black green;
+}
+
+.page-select-form label {
+  margin-right: 6px;
+  font-weight: bold;
+}
+
+.page-select-form select {
+  padding: 4px 8px;
+  font-size: 1em;
+}
+
+
+
+.search-form-container {
+  text-align: left;
+  margin: 50px 20px;
+  margin-bottom: 10px;
+}
+
+.search-form {
+  display: inline-block; /* フォームをインラインブロックにして自然なサイズに */
 }

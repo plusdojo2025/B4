@@ -1,1 +1,27 @@
 @charset "UTF-8";
+
+
+/*生徒のホーム用CSS*/
+/*背景色*/
+/*生徒用ページは共通背景*/
+
+.main-content {
+  background-color: #00552e;
+  padding:30px;
+}
+
+
+html, body {
+  height: 100%;
+   margin: 0;
+   padding: 0;
+}
+
+.page-frame {
+  min-height: 100vh;                 /* 画面の高さまで確保 */
+  border: 5px solid #DC8551;
+  margin: 0;
+  padding: 0px;           
+  box-sizing: border-box;
+  background-color: black green;
+}
