@@ -84,6 +84,7 @@ public class BookListServlet extends HttpServlet {
         session.setAttribute("genreId", genreIdStr);
         session.setAttribute("currentPage", page);
         
+        //user_typeを参照して遷移先の分岐        
         String view = "/WEB-INF/jsp/studentBookList.jsp";
         
         if (user != null) {

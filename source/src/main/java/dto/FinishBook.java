@@ -95,6 +95,7 @@ public class FinishBook implements Serializable {
 		this.id = id;
 		this.book_id = book_id;
 		this.user_id = user_id;
+		this.type_id = type_id;
 		this.cover = cover;
 		this.title = title;
 		this.created_at = created_at;

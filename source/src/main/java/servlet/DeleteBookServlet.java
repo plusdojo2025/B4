@@ -29,11 +29,7 @@ public class DeleteBookServlet extends HttpServlet {
         }
 
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
-            return;
-        }
-
+        
         // パラメータ取得
         String idStr = request.getParameter("bookId");
         if (idStr != null && !idStr.isEmpty()) {

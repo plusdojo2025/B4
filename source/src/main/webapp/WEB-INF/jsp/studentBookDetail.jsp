@@ -22,23 +22,41 @@
 <c:url value="/img/${book.cover}" var="coverUrl" />
 <img src="${coverUrl}" alt="表紙画像" width="200">
 
-<!-- 状態によって補油字するボタンを変える -->
+
+
+
+
+
+<c:if test="${book.id != selectLatestReadingBookId}">
+  <form action="BookFinishServlet" method="post">
+    <input type="hidden" name="bookId" value="${book.id}" />
+    <input type="submit" value="この本を読む" />
+  </form>
+</c:if>
+
+<c:if test="${book.id == latestReadingBookId}">
+  <p>読んでいます！</p>
+</c:if>
+
+
+
+<!-- 状態によって表示するボタンを変える -->
 <c:choose>
 
     <c:when test="${statusId == 0}">
         <%-- 「この本を読む」ボタン --%>
         <form action="BookFinishServlet" method="post">
-            <input type="hidden" name="bookId" value="${book.id}" />
+            <input type="hidden" id="read" name="bookId" value="${book.id}" />
             <input type="submit" value="この本を読む" />
         </form>
     </c:when>
 
-    <c:when test="${statusId == 1}">
+    <c:when test="${typeId == 1}">
         <%-- 読書中表示 --%>
         <p>読んでいます！</p>
     </c:when>
 
-    <c:when test="${statusId == 2}">
+    <c:when test="${typeId == 2}">
         <c:choose>
 
             <c:when test="${alreadyRecommended}">
@@ -77,6 +95,12 @@
     </a>
   </c:otherwise>
 </c:choose>
+
+<script>
+  function hideButton() {
+    document.getElementById("read").style.display = "none";
+  }
+</script>
 
 </body>
 </html>

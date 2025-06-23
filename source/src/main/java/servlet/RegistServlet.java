@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.BookDAO;
 import dto.Book;
@@ -25,6 +26,12 @@ public class RegistServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
 		// フォワード
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRegist.jsp");
 	    dispatcher.forward(request, response);
@@ -36,16 +43,13 @@ public class RegistServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-
-	    // ログインチェック（必要に応じて復活）
-	    /*
-	    HttpSession session = request.getSession();
-	    if (session.getAttribute("id") == null) {
-	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
-	        return;
-	    }
-	    */
-
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+           
 	    // リクエストパラメータ取得
 	    request.setCharacterEncoding("UTF-8");
 	    String title = request.getParameter("title");
