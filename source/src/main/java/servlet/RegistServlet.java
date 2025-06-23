@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.BookDAO;
 import dto.Book;
+import dto.User;
 
 /**
  * Servlet implementation class RegistServlet
@@ -25,6 +27,12 @@ public class RegistServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
 		// フォワード
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRegist.jsp");
 	    dispatcher.forward(request, response);
@@ -36,18 +44,19 @@ public class RegistServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-
-	    // ログインチェック（必要に応じて復活）
-	    /*
-	    HttpSession session = request.getSession();
-	    if (session.getAttribute("id") == null) {
-	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
-	        return;
-	    }
-	    */
-
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
+        
+           
 	    // リクエストパラメータ取得
 	    request.setCharacterEncoding("UTF-8");
+	    int user_id = user.getId();
 	    String title = request.getParameter("title");
 	    String author = request.getParameter("author");
 	    String publisher = request.getParameter("publisher");
@@ -68,7 +77,7 @@ public class RegistServlet extends HttpServlet {
 
 	    // 登録処理
 	    BookDAO bDao = new BookDAO();
-	    Book book = new Book(0, title, author, publisher, gets, page, genre_name, cover, null, null);
+	    Book book = new Book(user_id, title, author, publisher, gets, page, genre_name, cover, null, null);
 	    boolean success = bDao.insert(book);
 
 	    if (success) {

@@ -135,7 +135,7 @@ public class ProgressDAO {
 		return progressList;
 	}
 	
-	public List<Progress> selectTeacherHome(int month, int day) {
+	public List<Progress> selectTeacherHome(int grade, int school_class, int month, int day) {
 		Connection conn = null;
 		List<Progress> progressList = new ArrayList<Progress>();
 
@@ -149,14 +149,16 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day"
+			String sql = "SELECT progress.id, user_id, book_id, users.name, target_page, read_page, grade, school_class, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day"
 					+ " FROM progress JOIN users ON progress.user_id = users.id"
-					+ " WHERE MONTH(progress.updated_at) = ? AND DAY(progress.updated_at) = ?";
+					+ " WHERE users.grade = ? AND users.school_class = ? AND MONTH(progress.updated_at) = ? AND DAY(progress.updated_at) = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, month);
-			pStmt.setInt(2, day);	// SQL文を実行し、結果表を取得する
+			pStmt.setInt(1, grade);
+			pStmt.setInt(2, school_class);
+			pStmt.setInt(3, month);
+			pStmt.setInt(4, day);	// SQL文を実行し、結果表を取得する
 			
 			ResultSet rs = pStmt.executeQuery();
 
@@ -166,8 +168,11 @@ public class ProgressDAO {
 						rs.getInt("id"), 
 						rs.getInt("user_id"), 
 						rs.getInt("book_id"), 
+						rs.getString("name"),
 						rs.getInt("target_page"), 
 						rs.getInt("read_page"),
+						rs.getInt("grade"),
+						rs.getInt("school_class"),
 						rs.getTimestamp("created_at").toLocalDateTime(),
 						rs.getTimestamp("updated_at").toLocalDateTime(),
 						rs.getInt("month"),

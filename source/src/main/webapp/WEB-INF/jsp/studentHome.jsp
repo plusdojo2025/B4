@@ -38,13 +38,11 @@
 <input type="submit" name="submit" value="目安箱">
 </form>
 
-<c:forEach var="finbook" items="${finishBookList}">
+<c:forEach var="finbook" items="${finishBookNewList}">
     <c:url value="/img/${finbook.cover}" var="coverUrl" />
-    <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
         <img src="${coverUrl}" alt="表紙画像" width="150"><br>
         <span style="display: inline-block; max-width: 120px;">${finbook.title}</span>
-    </div>
-  </c:forEach>
+</c:forEach>
 
 <form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
 

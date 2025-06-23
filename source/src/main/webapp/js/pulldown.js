@@ -1,4 +1,4 @@
-const select = document.getElementById('select_month');
+const select = document.getElementById('month');
   const output = document.getElementById('output');
 
   select.addEventListener('change', () => {
@@ -10,6 +10,6 @@ const select = document.getElementById('select_month');
     }
   });
   
- document.getElementById('form_month').select.onchange = function() {
-	location.href = document.getElementById('form_month').select.value;
+ document.getElementById('form').select.onchange = function() {
+	location.href = document.getElementById('form').select.value;
 }

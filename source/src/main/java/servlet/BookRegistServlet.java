@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 
 import dao.BookDAO;
 import dto.Book;
+import dto.User;
 
 @WebServlet("/BookRegistServlet")
 @MultipartConfig(
@@ -28,19 +29,18 @@ public class BookRegistServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
-
-        // セッションからログインユーザーのIDを取得
-        HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("userId");
-
-        if (userId == null) {
-            request.setAttribute("message", "ログインしてください。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRegist.jsp");
-            dispatcher.forward(request, response);
+     // ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
+        
+        User user = (User) session.getAttribute("user");
+        
+        // セッションからログインユーザーのIDを取得
+        Integer userId = user.getId();
 
         // フォームの入力値を取得
         String title = request.getParameter("title");
@@ -75,7 +75,7 @@ public class BookRegistServlet extends HttpServlet {
         String ext = "";
         int dotIndex = originalFileName.lastIndexOf(".");
         if (dotIndex >= 0) {
-            ext = originalFileName.substring(dotIndex).toLowerCase(); // .jpg など
+            ext = originalFileName.substring(dotIndex).toLowerCase();
         }
 
         // 保存先フォルダ（/img）
@@ -110,7 +110,7 @@ public class BookRegistServlet extends HttpServlet {
 
         // DTO にデータをセット
         Book book = new Book(0, title, author, publisher, gets, page, genreId, newFileName, null, null);
-        book.setUser_id(userId); // ← user_id をセット
+        book.setUser_id(userId);
 
         // 登録処理
         BookDAO dao = new BookDAO();

@@ -46,17 +46,14 @@ public class UpdateBookServlet extends HttpServlet {
     // 編集更新処理（POST）
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-
-        // 文字コード設定
         request.setCharacterEncoding("UTF-8");
-
-        // ログインチェック
-        HttpSession session = request.getSession();
+     // ログインさせる処理
+    	HttpSession session = request.getSession();
         if (session.getAttribute("user") == null) {
             response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
-
+        
         // フォームから値取得
         int id = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");

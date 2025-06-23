@@ -13,7 +13,7 @@ import dto.FinishBook;
 public class FinishBookDAO {
 
 	// 指定ユーザーが本に対して登録済みかどうかを返す（type_id を取得）
-	public int getStatusId(int userId, int bookId) {
+	public int getTypeId(int userId, int bookId) {
 		Connection conn = null;
 		int typeId = 0;
 
@@ -58,7 +58,7 @@ public class FinishBookDAO {
 	
 	public List<FinishBook> selectNew(int user_id) {
 		Connection conn = null;
-		List<FinishBook> finishBookList = new ArrayList<FinishBook>();
+		List<FinishBook> finishBookNewList = new ArrayList<FinishBook>();
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -67,7 +67,7 @@ public class FinishBookDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
-			String sql = "SELECT * FROM finish_books JOIN books ON finish_books.book_id = books.id WHERE user_id = ? AND type_id = 1 ORDER BY updated_at DESC LIMIT 1 OFFSET 0 ";
+			String sql = "SELECT b.id, f.book_id, f.user_id, f.type_id, b.title, b.cover, f.created_at, f.updated_at FROM finish_books f JOIN books b ON f.book_id = b.id WHERE f.user_id = ? AND f.type_id = 1 ORDER BY f.updated_at DESC LIMIT 1 OFFSET 0";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, user_id);
 			
@@ -80,20 +80,20 @@ public class FinishBookDAO {
 						rs.getInt("book_id"), 
 						rs.getInt("user_id"),
 						rs.getInt("type_id"), 
-						rs.getString("title"),
 						rs.getString("cover"),
+						rs.getString("title"),
 						rs.getTimestamp("created_at").toLocalDateTime(),
 						rs.getTimestamp("updated_at").toLocalDateTime()
 						);
-				finishBookList.add(finishBook);
+				finishBookNewList.add(finishBook);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			finishBookList = null;
+			finishBookNewList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			finishBookList = null;
+			finishBookNewList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -101,13 +101,13 @@ public class FinishBookDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					finishBookList = null;
+					finishBookNewList = null;
 				}
 			}
 		}
 
 		// 結果を返す
-		return finishBookList;
+		return finishBookNewList;
 		
 	}
 
@@ -254,4 +254,57 @@ public class FinishBookDAO {
 		// 結果を返す
 		return finishBookList;
 	}
+	
+	public Integer selectLatestReadingBookId(int user_id) {
+		Connection conn = null;
+		Integer bookId = null;
+		
+		try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+							+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+							"root", "password");
+			String sql = "SELECT book_id FROM progress WHERE user_id = ? ORDER BY updated_at DESC LIMIT 1";
+	    	PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	        pstmt.setInt(1, user_id);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            bookId = rs.getInt("book_id");
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return bookId;
+	}
+	
+	public boolean updateTimestamp(int userId, int bookId) {
+		Connection conn = null;
+		try {// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+								+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+								"root", "password");
+				String sql = "UPDATE finish_books SET updated_at = CURRENT_TIMESTAMP WHERE user_id = ? AND book_id = ?";
+	         PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	        pstmt.setInt(1, userId);
+	        pstmt.setInt(2, bookId);
+
+	        int affectedRows = pstmt.executeUpdate();
+	        return affectedRows > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+
 }

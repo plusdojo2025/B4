@@ -97,21 +97,17 @@ public class SelectAccountServlet extends HttpServlet {
         // セッションにユーザー情報をセット
         HttpSession session = request.getSession();
         session.setAttribute("user", selectedUser);
-        
-        String view = "/WEB-INF/jsp/studentHome.jsp";
-        
+                       
         // ユーザー種別に応じて遷移先を変える
         int typeId = selectedUser.getTypeId();
         if (typeId == 2) {
-        	view = "/WEB-INF/jsp/parentHome.jsp";
+        	response.sendRedirect(request.getContextPath() + "/ParentHomeServlet");
         } else if (typeId == 3) {
-        	view = "/WEB-INF/jsp/studentHome.jsp";
+        	response.sendRedirect(request.getContextPath() + "/StudentHomeServlet");
         } else {
             request.setAttribute("errorMessage", "不明なユーザー種別です。");
             doGet(request, response);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-        dispatcher.forward(request, response);
     }
 
 }

@@ -14,6 +14,7 @@ import dao.FinishBookDAO;
 import dao.ProgressDAO;
 import dto.FinishBook;
 import dto.Result;
+import dto.User;
 
 /**
  * Servlet implementation class StudentHomeServlet
@@ -34,23 +35,25 @@ public class StudentHomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
-//			return;
-//		}
-		HttpSession session = request.getSession();
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
+
+        int user_id = user.getId(); // ユニークID
+//        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+//        int grade = user.getGrade(); // 学年
+//        int schoolClass = user.getSchoolClass(); // クラス
 		request.setCharacterEncoding("UTF-8");
 		
-		int user_id = 1;
-		
 		FinishBookDAO finDao = new FinishBookDAO();
-		List<FinishBook> finishBookList = finDao.selectNew(user_id);
+		List<FinishBook> finishBookNewList = finDao.selectNew(user_id);
 		
-		session.setAttribute("finishBookList", finishBookList);
+		session.setAttribute("finishBookNewList", finishBookNewList);
 		
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
@@ -61,8 +64,19 @@ public class StudentHomeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
+
+        int userId = user.getId(); // ユニークID
+//        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+//        int grade = user.getGrade(); // 学年
+//        int schoolClass = user.getSchoolClass(); // クラス
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -74,8 +88,11 @@ public class StudentHomeServlet extends HttpServlet {
 		ProgressDAO proDao = new ProgressDAO();
 
 //		int book_id = Integer.parseInt(request.getParameter("book_id"));
-		int user_id = 1;
-		int book_id = 6;
+		//useridとbookidの取得
+		int user_id = userId;
+		String bookIdStr = request.getParameter("bookId");
+		int book_id = Integer.parseInt(bookIdStr);
+		
 		int target_page = Integer.parseInt(request.getParameter("target_page"));
 		int read_page = Integer.parseInt(request.getParameter("read_page"));
 		

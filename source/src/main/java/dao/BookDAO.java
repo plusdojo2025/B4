@@ -458,74 +458,79 @@ public class BookDAO {
         }
    //題名とジャンルで検索しておすすめ人数順で出力（ページネーション10件）
      public List<Book> searchRecommend(String title, Integer genre_id, int page, int limit) {
-         Connection conn = null;
-         List<Book> result = new ArrayList<>();
+    	    Connection conn = null;
+    	    List<Book> result = new ArrayList<>();
 
-         try {
-             Class.forName("com.mysql.cj.jdbc.Driver");
-             conn = DriverManager.getConnection(
-                 "jdbc:mysql://localhost:3306/b4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-                 "root", "password"
-             );
-             
-             StringBuilder sql = new StringBuilder(
-            	    "SELECT b.*, g.genre_name, COUNT(r.book_id) AS recommend_count " +
-            	    "FROM books b " +
-            	    "JOIN genres g ON b.genre_id = g.id " +
-            	    "LEFT JOIN recommends r ON b.id = r.book_id " +
-            	   "WHERE 1=1"
-            	);
+    	    try {
+    	        Class.forName("com.mysql.cj.jdbc.Driver");
+    	        conn = DriverManager.getConnection(
+    	            "jdbc:mysql://localhost:3306/b4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+    	            "root", "password"
+    	        );
+    	        
+    	        StringBuilder sql = new StringBuilder(
+    	            "SELECT b.id, b.user_id, b.genre_id, b.title, b.author, b.publisher, b.gets, " +
+    	            "b.page, b.cover, b.created_at, b.updated_at, g.genre_name, COUNT(r.book_id) AS recommend_count " +
+    	            "FROM books b " +
+    	            "JOIN genres g ON b.genre_id = g.id " +
+    	            "LEFT JOIN recommends r ON b.id = r.book_id " +
+    	            "WHERE 1=1 "
+    	        );
 
-            	if (title != null && !title.isEmpty()) {
-            	    sql.append(" AND b.title LIKE ?");
-            	}
-            	if (genre_id != null) {
-            	    sql.append(" AND b.genre_id = ?");
-            	}
-            		sql.append(" GROUP BY b.id ");
-           			sql.append(" ORDER BY recommend_count DESC LIMIT ? OFFSET ?");
+    	        if (title != null && !title.isEmpty()) {
+    	            sql.append("AND b.title LIKE ? ");
+    	        }
+    	        if (genre_id != null) {
+    	            sql.append("AND b.genre_id = ? ");
+    	        }
 
-             PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+    	        // GROUP BYに全ての列を追加
+    	        sql.append("GROUP BY b.id, b.user_id, b.genre_id, b.title, b.author, b.publisher, b.gets, ");
+    	        sql.append("b.page, b.cover, b.created_at, b.updated_at, g.genre_name ");
+    	        sql.append("ORDER BY recommend_count DESC, b.id DESC LIMIT ? OFFSET ?");
 
-             int paramIndex = 1;
-             if (title != null && !title.isEmpty()) {
-                 pstmt.setString(paramIndex++, "%" + title + "%");
-             }
-             if (genre_id != null) {
-                 pstmt.setInt(paramIndex++, genre_id);
-             }
+    	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 
-             int offset = (page - 1) * limit;
-             pstmt.setInt(paramIndex++, limit);
-             pstmt.setInt(paramIndex++, offset);
-             
-             ResultSet rs = pstmt.executeQuery();
-             while (rs.next()) {
-                 Book book = new Book(
-                     rs.getInt("id"),
-                     rs.getInt("user_id"),
-                     rs.getInt("genre_id"),
-                     rs.getString("genre_name"),
-                     rs.getString("title"),
-                     rs.getString("author"),
-                     rs.getString("publisher"),
-                     rs.getString("gets"),
-                     rs.getInt("page"),
-                     rs.getString("cover"),
-                     rs.getInt("recommend_count"),
-                     rs.getTimestamp("created_at").toLocalDateTime(),
-                     rs.getTimestamp("updated_at").toLocalDateTime()
-                 );
-                 result.add(book);
-             }
+    	        int paramIndex = 1;
+    	        if (title != null && !title.isEmpty()) {
+    	            pstmt.setString(paramIndex++, "%" + title + "%");
+    	        }
+    	        if (genre_id != null) {
+    	            pstmt.setInt(paramIndex++, genre_id);
+    	        }
 
-         } catch (Exception e) {
-             e.printStackTrace();
-         } finally {
-             try { if (conn != null) conn.close(); } catch (Exception e) {}
-         }
+    	        int offset = (page - 1) * limit;
+    	        pstmt.setInt(paramIndex++, limit);
+    	        pstmt.setInt(paramIndex++, offset);
 
-         return result;
-     }
+    	        ResultSet rs = pstmt.executeQuery();
+    	        while (rs.next()) {
+    	            Book book = new Book(
+    	                rs.getInt("id"),
+    	                rs.getInt("user_id"),
+    	                rs.getInt("genre_id"),
+    	                rs.getString("genre_name"),
+    	                rs.getString("title"),
+    	                rs.getString("author"),
+    	                rs.getString("publisher"),
+    	                rs.getString("gets"),
+    	                rs.getInt("page"),
+    	                rs.getString("cover"),
+    	                rs.getInt("recommend_count"),
+    	                rs.getTimestamp("created_at").toLocalDateTime(),
+    	                rs.getTimestamp("updated_at").toLocalDateTime()
+    	            );
+    	            result.add(book);
+    	        }
+
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	    } finally {
+    	        try { if (conn != null) conn.close(); } catch (Exception e) {}
+    	    }
+
+    	    return result;
+    	}
+
 }
 
