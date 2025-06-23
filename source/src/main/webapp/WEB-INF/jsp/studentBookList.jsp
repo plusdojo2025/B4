@@ -21,12 +21,12 @@
 <div class="logo">よも～にんぐ</div>
 <nav class="nav">
 <ul>
-<li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
-<li><a href="<c:url value='/RegistServlet' />">登録</a></li>
-<li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
-<li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
-<li><a href="<c:url value='/OpinionServlet' />">目安箱</a></li>
-<li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+ <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/ProgressServlet' />">きろく</a></li>
+    <li><a href="<c:url value='/RecordServlet' />">せいせき</a></li>
+    <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
 <li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
 </ul>
 </nav>
