@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>せいせき | 生徒ページ</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
@@ -91,6 +92,12 @@ window.onload = function () {
 
 <h3>好きな○○</h3>
 </form>
+
+<script>
+document.getElementById('form_month').select.onchange = function() {
+	location.href = document.getElementById('form_month').select.value;
+}
+</script>
 
 </body>
 </html>
