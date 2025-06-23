@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.FinishBookDAO;
 import dao.ProgressDAO;
-import dto.Progress;
+import dto.FinishBook;
 import dto.Result;
 
 /**
@@ -45,14 +46,12 @@ public class StudentHomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int user_id = 1;
-		int book_id = 6;
-		int month = 6;
-		int day = 17;
+		int type_id = 1;
 		
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectToday(user_id, book_id, month, day);
+		FinishBookDAO finDao = new FinishBookDAO();
+		List<FinishBook> finishBookList = finDao.selectNew(user_id, type_id);
 		
-		session.setAttribute("progressList", progressList);
+		session.setAttribute("finishBookList", finishBookList);
 		
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
@@ -68,10 +67,12 @@ public class StudentHomeServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectAll();
+		FinishBookDAO finDao = new FinishBookDAO();
+		List<FinishBook> finishBookList = finDao.selectAll();
 
-		session.setAttribute("progressList", progressList);
+		session.setAttribute("finishBookList", finishBookList);
+		
+		ProgressDAO proDao = new ProgressDAO();
 
 //		int book_id = Integer.parseInt(request.getParameter("book_id"));
 		int user_id = 1;
