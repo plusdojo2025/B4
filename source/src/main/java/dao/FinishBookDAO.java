@@ -56,7 +56,7 @@ public class FinishBookDAO {
 		return typeId;
 	}
 	
-	public List<FinishBook> selectNew(int user_id, int type_id) {
+	public List<FinishBook> selectNew(int user_id) {
 		Connection conn = null;
 		List<FinishBook> finishBookList = new ArrayList<FinishBook>();
 		
@@ -70,7 +70,6 @@ public class FinishBookDAO {
 			String sql = "SELECT * FROM finish_books JOIN books ON finish_books.book_id = books.id WHERE user_id = ? AND type_id = 1 ORDER BY updated_at DESC LIMIT 1 OFFSET 0 ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, user_id);
-			pStmt.setInt(2, type_id);
 			
 			ResultSet rs = pStmt.executeQuery();
 

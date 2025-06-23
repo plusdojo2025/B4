@@ -40,7 +40,6 @@ public class ParentHomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int user_id = 1;
-		int type_id = 1;
 		int book_id = 6;
 		int month = 6;
 		int day = 23;
@@ -50,7 +49,7 @@ public class ParentHomeServlet extends HttpServlet {
 		
 
 		FinishBookDAO finDao = new FinishBookDAO();
-		List<FinishBook> finishBookList = finDao.selectNew(user_id, type_id);
+		List<FinishBook> finishBookList = finDao.selectNew(user_id);
 		
 		session.setAttribute("finishBookList", finishBookList);
 		

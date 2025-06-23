@@ -349,7 +349,7 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT page FROM books WHERE book_id = ?";
+			String sql = "SELECT page FROM books WHERE id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -427,10 +427,11 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-    		String sql = "SELECT COUNT(*) FROM finish_books WHERE user_id = ? AND book_id = ?";
+    		String sql = "SELECT COUNT(*) FROM finish_books WHERE user_id = ? AND book_id = ? AND type_id = 2";
     		PreparedStatement pStmt = conn.prepareStatement(sql);
     		
-    		pStmt.setInt(1, book_id);
+    		pStmt.setInt(1, user_id);
+    		pStmt.setInt(2, book_id);
             ResultSet rs = pStmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1) > 0;

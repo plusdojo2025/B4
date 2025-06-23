@@ -46,10 +46,9 @@ public class StudentHomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int user_id = 1;
-		int type_id = 1;
 		
 		FinishBookDAO finDao = new FinishBookDAO();
-		List<FinishBook> finishBookList = finDao.selectNew(user_id, type_id);
+		List<FinishBook> finishBookList = finDao.selectNew(user_id);
 		
 		session.setAttribute("finishBookList", finishBookList);
 		
