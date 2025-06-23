@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 
 import dao.ProgressDAO;
 import dto.Progress;
+import dto.Result;
 /**
  * Servlet implementation class ProgressServlet
  */
@@ -110,6 +111,14 @@ public class ProgressServlet extends HttpServlet {
 
 		// 検索結果をセッションスコープに格納する
 		session.setAttribute("progressList", progressList);
+
+		String submit = request.getParameter("submit");
+		
+		if (submit.equals("送信")) {
+			
+			request.setAttribute("result", new Result("プリント完了！", "印刷が完了しました。", "/webapp/LayOutServlet"));
+			
+			}
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
 	}
