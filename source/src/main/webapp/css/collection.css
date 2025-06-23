@@ -1,0 +1,152 @@
+@charset "UTF-8";
+/*生徒用コレクションページのCSS*/
+/*背景色*/
+/*生徒用ページは共通背景*/
+
+/*使った色*/
+/*#FFB347 yellow orange*ボタン/
+/*#00552e black green*黒板/
+/*#DC8551 orange brown 枠線とかアクセントカラーに*/
+/*#C0CDDC */
+
+/* ステータスのテーブル全体 */
+.status-section table {
+  font-size: 3rem; /* もともと0.9emくらいなら大きく */
+  width: 100%;        /* テーブル幅も広げる */
+  margin: 0 auto;    /* 中央揃え */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  background-color:#C0CDDC 
+}
+	
+
+html, body {
+  height: 100%;
+   margin: 0;
+   padding: 0;
+}
+
+.page-frame {
+  min-height: 100vh;                 /* 画面の高さまで確保 */
+  border: 3px solid #DC8551;
+  margin: 0;
+  padding: 0px;           
+  box-sizing: border-box;
+  background-color: black green;
+}
+
+/* ロッカー全体共通 */
+.locker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 横4列 */
+  grid-template-rows: repeat(3, 1fr);    /* 縦3行 */
+  gap: 8px;
+  
+  width: min(120vw, 900px);     /* 画面に収まる正方形 */
+  height: min(120vw, 900px);
+    
+  margin: 0 auto;                /* 中央寄せ解除 */
+  margin-left: 170px;
+  margin-right: 300px;    
+  box-sizing: border-box;
+  
+  border: 8px double black;  /* 太さ4pxの黒の二重線 */
+  border-collapse: separate; /* グリッドはtableじゃないので通常はこれでOK */
+  padding: 10px; 
+
+}
+
+
+.locker {
+  aspect-ratio: 1 / 1;  
+  background-color: #C0CDDC;
+  border: 2px double black;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column; /* ← 縦に並べる */
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  min-height: 120px;
+  aspect-ratio: 1 / 1; /* ← 正方形にする */
+  border-style: double;
+  border-color: black;
+  border-width: 2px 1px 2px 2px;
+}
+
+
+.locker img {
+  width: 80%;       /* 親のセル幅いっぱいに */
+  height: 80%;  
+  height: auto;      /* 高さは自動でアスペクト比を保つ */
+  max-height: 100%;  /* 親の高さを超えないように */
+  object-fit: contain; /* はみ出さず収まる */
+  display: block;    /* 不要な下余白をなくす */
+}
+
+
+.locker-cotainer {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: block;
+ 
+}
+
+.locker-cotainer h2 {
+  text-align: center;
+}
+
+
+
+
+/* ステータスの文字用ロッカー */
+.status-locker .status-text {
+  font-size: 0.9em;
+  color:#C0CDDC;
+  line-height: 1.4;
+}
+
+/* トロフィー画像 */
+.trophy-img {
+  max-width: 50%;
+  max-height: 50%;
+  object-fit: contain;
+  margin-bottom:5px;
+}
+
+/* 空マス */
+.empty-locker {
+  background-color: #f0e6d2;
+  border-style: dashed;
+}
+
+.locker p {
+  margin: 0;
+  font-size: 0.8em;
+}
+
+.locker:nth-child(4n) {
+  border-right: 2px double black !important; /* 最終列の右ボーダーを強制表示 */
+}
+
+.status-section h2 {
+  text-align: center !important;
+}
+
+
+.status-section table {
+               
+  margin: 0 auto;            /* 中央寄せ */
+}
+
+.status-section th, .status-section td {
+ 
+  text-align: center;        /* ここが中央揃え */
+}
+

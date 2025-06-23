@@ -11,6 +11,162 @@ import java.util.List;
 import dto.Book;
 
 public class BookDAO {
+	
+	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+	public boolean update(Book card) {
+	    Connection conn = null;
+	    boolean result = false;
+
+	    try {
+	        // JDBCドライバを読み込む
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        // データベースに接続する
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+	            "root", "password");
+
+	        // SQL文を準備する
+	        String sql = """
+	            UPDATE books 
+	            SET title = ?, author = ?, publisher = ?, gets = ?, page = ?, genre_id = ?, cover = ?, updated_at = CURRENT_TIMESTAMP
+	            WHERE id = ?
+	        """;
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+
+	        // SQL文を完成させる
+	        pStmt.setString(1, card.getTitle() != null ? card.getTitle() : "");
+	        pStmt.setString(2, card.getAuthor() != null ? card.getAuthor() : "");
+	        pStmt.setString(3, card.getPublisher() != null ? card.getPublisher() : "");
+	        pStmt.setString(4, card.getGets() != null ? card.getGets() : "");
+	        pStmt.setInt(5, card.getPage());
+	        pStmt.setInt(6, card.getGenre_id());
+	        pStmt.setString(7, card.getCover() != null ? card.getCover() : "");
+	        pStmt.setInt(8, card.getId());
+
+	        if (pStmt.executeUpdate() == 1) {
+	            result = true;
+	        }
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // データベースを切断
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    // 結果を返す
+	    return result;
+	}
+	
+	// 指定されたIDのレコードを1件取得し、Bookとして返す（見つからなければnull）
+	public Book selectById(int id) {
+	    Connection conn = null;
+	    Book book = null;
+
+	    try {
+	        // JDBCドライバを読み込む
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        // データベースに接続する
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+	            "root", "password");
+
+	        // SQL文を準備する（booksテーブルのみを対象）
+	        String sql = "SELECT * FROM books WHERE id = ?";
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+
+	        // SQL文を完成させる
+	        pStmt.setInt(1, id);
+
+	        // 結果を取得してBookに格納
+	        ResultSet rs = pStmt.executeQuery();
+	        if (rs.next()) {
+	            book = new Book(
+	                rs.getInt("id"),
+	                rs.getInt("user_id"),
+	                rs.getInt("genre_id"),
+	                null,
+	                rs.getString("title"),
+	                rs.getString("author"),
+	                rs.getString("publisher"),
+	                rs.getString("gets"),
+	                rs.getInt("page"),
+	                rs.getString("cover"),
+	                0,
+	                rs.getTimestamp("created_at").toLocalDateTime(),
+	                rs.getTimestamp("updated_at").toLocalDateTime()
+	            );
+	        }
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // データベースを切断
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    // 結果を返す（見つからなければnull）
+	    return book;
+	}
+
+
+	// 指定されたIDのレコードを削除し、成功したらtrueを返す
+	public boolean delete(int id) {
+	    Connection conn = null;
+	    boolean result = false;
+
+	    try {
+	        // JDBCドライバを読み込む
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        // データベースに接続する
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+	            "root", "password");
+
+	        // SQL文を準備する
+	        String sql = "DELETE FROM books WHERE id = ?";
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+
+	        // SQL文を完成させる
+	        pStmt.setInt(1, id);
+
+	        if (pStmt.executeUpdate() == 1) {
+	            result = true;
+	        }
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // データベースを切断
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    // 結果を返す
+	    return result;
+	}
+
+	
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 		public boolean insert(Book card) {
 			Connection conn = null;
@@ -60,61 +216,6 @@ public class BookDAO {
 			// 結果を返す
 			return result;
 		}
-    // 全件取得（最大10件でページネーション）
-//    public List<Book> selectAll() {
-//        Connection conn = null;
-//        List<Book> bookList = new ArrayList<>();
-//
-//        try {
-//            // JDBCドライバ読み込み
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//
-//            // DB接続
-//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
-//					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-//					"root", "password");
-//
-//            // SQL準備
-//            String sql = "SELECT books.*, genres.genre_name "
-//            		+ "FROM books "
-//            		+ "JOIN genres ON books.genre_id = genres.id "
-//            		+ "ORDER BY books.created_at DESC "
-//            		+ "LIMIT 10 OFFSET 1";
-//            PreparedStatement pstmt = conn.prepareStatement(sql);
-//            ResultSet rs = pstmt.executeQuery();
-//
-//            // DTOに詰めてリストに追加
-//            while (rs.next()) {
-//                Book book = new Book(
-//                    rs.getInt("id"),
-//                    rs.getInt("user_id"),
-//                    rs.getInt("genre_id"),
-//                    rs.getString("genre_name"),
-//                    rs.getString("title"),
-//                    rs.getString("author"),
-//                    rs.getString("publisher"),
-//                    rs.getString("gets"),
-//                    rs.getInt("page"),
-//                    rs.getString("cover"),
-//                    rs.getTimestamp("created_at").toLocalDateTime(),
-//                    rs.getTimestamp("updated_at").toLocalDateTime()
-//                );
-//                bookList.add(book);
-//            }
-//
-//        } catch (SQLException | ClassNotFoundException e) {
-//        	e.printStackTrace();
-//            return null;
-//        } finally {
-//            try {
-//                if (conn != null) conn.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return bookList;
-//    }
     
     //題名とジャンルで検索（ページネーション10件）
     public List<Book> search(String title, Integer genre_id, int page, int limit) {

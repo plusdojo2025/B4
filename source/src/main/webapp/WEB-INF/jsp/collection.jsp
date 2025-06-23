@@ -1,36 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/collection.css' />">
 <meta charset="UTF-8">
 <title>コレクション｜よも～にんぐ</title>
 </head>
-<body>
-<h1 id ="logo">よも～にんぐ</h1>
+<body id="top">
 
-<div class="box13">
-  <ul id="nav">
-    <li><a href="home.html">ホーム</a></li>
+
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
+ <div class="logo">よも～にんぐ</div>
+ <nav class="nav">
+  <ul >
+    <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
     <li><a href="">ほんだな</a></li>
     <li><a href="">おすすめ</a></li>
-    <li><a href="">グループ</a></li>
     <li><a href="">きろく</a></li>
     <li><a href="">せいせき</a></li>
-     <li><a href="">ログアウト</a></li>
+     <li><button class="logout-btn" onclick="location.href='logout.html'">ログアウト</button></li>
   </ul>
-  </div>
+  </nav>
+ </header>
+ <!-- ヘッダー　-->
+ <main class="main-content"> 
+<!-- ステータス一覧 -->
+<section class="status-section">
 <h2>ゲットしたステータス</h2>
 
-  <ul>
+ <!-- <ul>
 
     <li>４月〇日　○○○○</li> 
     <li>４月×日　××××</li>
     <li>４月△日　△△△△</li>
     
-  </ul>
+  </ul> -->
   
   <table border="1">
   <tr>
@@ -45,24 +57,31 @@
     </tr>
   </c:forEach>
 </table>
-  
-  <!-- <table border="1">
-  <tr>
-  <th>ステータス名</th>
-  <th>獲得日時</th>
-  
+</section>
+
  
-    </table>-->
-
+ 
+ 
+<!-- トロフィーをロッカーに表示 -->
+<section class="locker-cotainer">
   <h2>ゲットしたトロフィー</h2>
-  <table class="">
-    <tr>
-      <th> </th>
-    </tr>
+  <div class="locker-grid">
+  <c:forEach var="coll" items="${trophyList}">
+  <div class="locker">
+       <img src="/B4/img/${coll.trophyPhoto}" alt="トロフィー画像">
+        <p>${coll.trophyCreatedat}</p>
+  </div>
+ </c:forEach>
+  <!-- 空マスで12個まで補完 -->
+  <c:forEach begin="1" end="${12-fn:length(trophyList)}">
+     <div class="locker"></div>
+  </c:forEach>
+ 
+</div>
+</section>
 
-  </table>
-  
-   <table border="2">
+
+ <!--    <table border="2">
   <tr>
     <th>トロフィー</th>
     <th>獲得日時</th>
@@ -75,11 +94,19 @@
     </tr>
   </c:forEach>
 </table>
+   -->
    
   <h2>ランキング</h2>
   <h3>4～9月のアクションランキング</h3>
-
+ 
+  </main>
+  </div>
   <!-- メイン（ここまで） -->
+
   <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+
 </body>
 </html> 

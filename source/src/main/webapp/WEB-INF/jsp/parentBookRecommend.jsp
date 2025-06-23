@@ -9,6 +9,17 @@
   <title>おすすめしてる本</title>
 </head>
 <body>
+
+<header>
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
+<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
+<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
+<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
+</header>
+
 <h2>おすすめしてる本</h2>
 
 <form action="BookRecommendServlet" method="get">
@@ -35,11 +46,15 @@
   <input type="submit" value="検索">
 </form>
 
-<c:forEach var="book" items="${bookList}">
-        <a href="/B4/BookDetailServlet?bookId=${book.id}">
-        <img src="/B4/img/${book.cover}" alt="表紙画像" width="200">
-        </a>
-</c:forEach>
+  <c:forEach var="book" items="${bookList}">
+    <c:url value="/img/${book.cover}" var="coverUrl" />
+    <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
+		<a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}&page=${currentPage}&lastList=BookRecommendServlet">
+        <img src="${coverUrl}" alt="表紙画像" width="150"><br>
+        <span style="display: inline-block; max-width: 120px;">${book.title}</span>
+      </a>
+    </div>
+  </c:forEach>
 
 <!-- 最初へ -->
 <c:if test="${currentPage > 1}">
