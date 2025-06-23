@@ -37,19 +37,7 @@
 
 <h2 id="output"></h2>
 
-<script>
-  const select = document.getElementById('select_month');
-  const output = document.getElementById('output');
-
-  select.addEventListener('change', () => {
-    const month = select.value;
-    if (month) {
-      output.textContent = month + '月の成績';
-    } else {
-      output.textContent = '';
-    }
-  });
-</script>
+<script src="js/pulldown.js"></script>
 
 <h3>過去の読書記録</h3>
 
@@ -100,10 +88,5 @@ window.onload = function () {
 <h3>読書傾向</h3>
 </form>
 
-<script>
-document.getElementById('form_month').select.onchange = function() {
-	location.href = document.getElementById('form_month').select.value;
-}
-</script>
 </body>
 </html>

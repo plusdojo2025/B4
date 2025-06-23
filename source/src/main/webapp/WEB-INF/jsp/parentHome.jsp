@@ -18,14 +18,21 @@
 
 <label>
     <input type="date" name="startDate">
-    </label>
 </label>
+
+<c:forEach var="finbook" items="${finishBookList}">
+    <c:url value="/img/${finbook.cover}" var="coverUrl" />
+    <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
+        <img src="${coverUrl}" alt="表紙画像" width="150"><br>
+        <span style="display: inline-block; max-width: 120px;">${finbook.title}</span>
+    </div>
+  </c:forEach>
 
 <c:forEach var="pro" items="${progressList}" >
 <p>目標${pro.target_page}ページ</p>
 <p>進捗${pro.read_page}ページ</p>
 
-<h2>成績表</h2>
+<h2><a href="/B4/ProgressServlet">成績表</a></h2>
 	<input type="hidden" name="id" value="${pro.id}">
 	<h3>${pro.month}月の成績表</h3>
 </c:forEach>

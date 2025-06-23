@@ -8,6 +8,8 @@ public class FinishBook implements Serializable {
 	private int book_id;
 	private int user_id;
 	private int type_id;
+	private String cover;
+	private String title;
 	private String type;
 	LocalDateTime created_at;
 	LocalDateTime updated_at;
@@ -55,12 +57,26 @@ public class FinishBook implements Serializable {
 		this.updated_at = updated_at;
 	}
 	
+	public String getCover() {
+		return cover;
+	}
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public FinishBook() {
 		this.id = 0;
 		this.book_id = 0;
 		this.user_id = 0;
+		this.type_id = 0;
 		this.type = "";
-		this.type = "";
+		this.cover = "";
+		this.title = "";
 	}
 	
 	public FinishBook(int id, int book_id, int user_id, int type_id, String type, LocalDateTime created_at,
@@ -70,6 +86,17 @@ public class FinishBook implements Serializable {
 		this.user_id = user_id;
 		
 		this.type = type;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	
+	public FinishBook(int id, int book_id, int user_id, int type_id, String cover, String title, LocalDateTime created_at,
+			LocalDateTime updated_at) {
+		this.id = id;
+		this.book_id = book_id;
+		this.user_id = user_id;
+		this.cover = cover;
+		this.title = title;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,25 +20,25 @@
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
 
-<h2>2025年6月17日</h2>
+<h2>2025年6月23日</h2>
 
 <form id="opinion_form" method="POST" action="/B4/OpinionServlet">
 <input type="submit" name="submit" value="目安箱">
 </form>
 
-
-<c:forEach var="pro" items="${progressList}">
-	<input type="hidden" name="id" value="${pro.id}">
-	<p>${pro.book_id}</p>
-</c:forEach>
+<c:forEach var="finbook" items="${finishBookList}">
+    <c:url value="/img/${finbook.cover}" var="coverUrl" />
+    <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
+        <img src="${coverUrl}" alt="表紙画像" width="150"><br>
+        <span style="display: inline-block; max-width: 120px;">${finbook.title}</span>
+    </div>
+  </c:forEach>
 
 <form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
 
-もくひょう<input type="text" name="goal_page">
+もくひょう<input type="text" name="target_page" value="0"><br>
+きろく<input type="text" name="read_page" value="0"><br>
 <input type="submit" name="submit" value="OK"><br>
-
-きろく<input type="text" name="read_page">
-<input type="submit" name="submit" value="OK">
 </form>
 
 <h2>ランキング</h2>

@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.FinishBookDAO;
 import dao.ProgressDAO;
+import dto.FinishBook;
 import dto.Progress;
 
 /**
@@ -38,11 +40,18 @@ public class ParentHomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int user_id = 1;
+		int book_id = 6;
 		int month = 6;
-		int day = 17;
+		int day = 23;
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectToday(user_id, month, day);
+		List<Progress> progressList = proDao.selectToday(user_id, book_id, month, day);
+		
+
+		FinishBookDAO finDao = new FinishBookDAO();
+		List<FinishBook> finishBookList = finDao.selectNew(user_id);
+		
+		session.setAttribute("finishBookList", finishBookList);
 		
 		session.setAttribute("progressList", progressList);
 		
@@ -62,6 +71,11 @@ public class ParentHomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
+		
+		FinishBookDAO finDao = new FinishBookDAO();
+		List<FinishBook> finishBookList = finDao.selectAll();
+
+		session.setAttribute("finishBookList", finishBookList);
 		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.selectAll();

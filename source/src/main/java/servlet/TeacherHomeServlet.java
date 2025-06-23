@@ -39,7 +39,7 @@ public class TeacherHomeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int month = 6;
-		int day = 17;
+		int day = 23;
 		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.selectTeacherHome( month, day);
