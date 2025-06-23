@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 
 import dao.BookDAO;
 import dto.Book;
+import dto.User;
 
 @WebServlet("/BookRegistServlet")
 @MultipartConfig(
@@ -36,8 +37,10 @@ public class BookRegistServlet extends HttpServlet {
             return;
         }
         
+        User user = (User) session.getAttribute("user");
+        
         // セッションからログインユーザーのIDを取得
-        Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = user.getId();
 
         // フォームの入力値を取得
         String title = request.getParameter("title");

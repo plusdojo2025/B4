@@ -42,20 +42,6 @@
 
 <!-- 状態によって表示するボタンを変える -->
 <c:choose>
-
-    <c:when test="${statusId == 0}">
-        <%-- 「この本を読む」ボタン --%>
-        <form action="BookFinishServlet" method="post">
-            <input type="hidden" id="read" name="bookId" value="${book.id}" />
-            <input type="submit" value="この本を読む" />
-        </form>
-    </c:when>
-
-    <c:when test="${typeId == 1}">
-        <%-- 読書中表示 --%>
-        <p>読んでいます！</p>
-    </c:when>
-
     <c:when test="${typeId == 2}">
         <c:choose>
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.BookDAO;
 import dto.Book;
+import dto.User;
 
 /**
  * Servlet implementation class RegistServlet
@@ -49,9 +50,13 @@ public class RegistServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
+        
+        User user = (User) session.getAttribute("user");
+        
            
 	    // リクエストパラメータ取得
 	    request.setCharacterEncoding("UTF-8");
+	    int user_id = user.getId();
 	    String title = request.getParameter("title");
 	    String author = request.getParameter("author");
 	    String publisher = request.getParameter("publisher");
@@ -72,7 +77,7 @@ public class RegistServlet extends HttpServlet {
 
 	    // 登録処理
 	    BookDAO bDao = new BookDAO();
-	    Book book = new Book(0, title, author, publisher, gets, page, genre_name, cover, null, null);
+	    Book book = new Book(user_id, title, author, publisher, gets, page, genre_name, cover, null, null);
 	    boolean success = bDao.insert(book);
 
 	    if (success) {
