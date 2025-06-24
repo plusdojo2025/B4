@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, dto.Progress" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.*, com.google.gson.Gson, dto.Progress" %>
+<%@ page import="java.util.*, dto.Progress" %>
+<%
+    String jsonProgress = (String) request.getAttribute("jsonProgress");
+    if (jsonProgress == null) jsonProgress = "[]";
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>成績表 | 管理者ページ</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <h1>よも～にんぐ</h1>
@@ -22,72 +25,106 @@
 <p><a href="/B4/RankingServlet">ランキング</a></p>
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
-<form id ="form_get" method="GET" action="/B4/ProgressServlet">
 
-<select name="month" onchange="this.form.submit()">
-  <option value="">-- 選択 --</option>
-            <% 
-                int selectedMonth = request.getAttribute("selectedMonth") != null 
-                    ? (Integer) request.getAttribute("selectedMonth") 
-                    : 0;
-
-                for (int i = 1; i <= 12; i++) {
-                    String selected = (i == selectedMonth) ? "selected" : "";
-            %>
-                <option value="<%= i %>" <%= selected %>><%= i %> 月</option>
-            <% } %>
+<label>月を選択：</label>
+<select name="month" id="monthSelect">
+    <c:forEach var="i" begin="1" end="12">
+        <option value="${i}">${i}月</option>
+    </c:forEach>
 </select>
-</form>
 
 <h3>過去の読書記録</h3>
 
-        <h3><%= selectedMonth %> 月の読書記録</h3>
-<canvas id="readChart" width="500" height="500"></canvas>
+        
+<canvas id="progressChart" width="800" height="400"></canvas>
 
 <script>
-const jsonData = <%= request.getAttribute("jsonData") %>;
-const labels = jsonData.map(pro => pro.day+ "日");
-const targetData = jsonData.map(pro >= pro.target_page);
-const readData = jsonData.map(pro >= pro.read_page);
-    
-const data = {
-		labels: labels,
-        datasets: [
-            {
-                label: "目標ページ数",
-                data: targetData,
-                borderColor: "rgba(255,99,132,1)",
-                backgroundColor: "rgba(255,99,132,0.2)",
-                fill: false,
-                tension: 0.2
-            },
-            {
-                label: "読書ページ数",
-                data: readData,
-                borderColor: "rgba(54,162,235,1)",
-                backgroundColor: "rgba(54,162,235,0.2)",
-                fill: false,
-                tension: 0.2
-            }
-        ]
-    };
+const progressList = JSON.parse('<%= jsonProgress.replace("\\", "\\\\").replace("'", "\\'") %>');
 
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            responsive: true,
-            plugins: {
+const ctx = document.getElementById('progressChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: Array.from({ length: 31 }, (_, i) => i + 1), 
+        datasets: [{
+            label: '目標ページ数',			//凡例のラベル
+            data: Array(31).fill(0),
+            fill: false,
+            tension: 0.1,
+            borderColor: 'rgba(60, 160, 220, 0.8)',
+            pointRadius: 4,
+            pointHoverRadius: 6
+        },{
+            label: '読了ページ数',			//凡例のラベル
+            data: Array(31).fill(0),
+            fill: false,
+            tension: 0.1,
+            borderColor: 'rgba(60, 190, 20, 0.8)',
+            pointRadius: 4,
+            pointHoverRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
                 title: {
                     display: true,
-                    text: '日別読書ページ数'
+                    text: 'ページ数'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: '日付（日）'
+                },
+                ticks: {
+                    autoSkip: false,     // 全部表示（必要に応じて調整）
+                    maxRotation: 0,
+                    minRotation: 0
                 }
             }
         }
-    };
+    }
+});
+//月によってデータをフィルタリングして、グラフにする処理
+function updateChartByMonth(monthStr) {
+    const selectedMonth = parseInt(monthStr);
+    const filtered = progressList.filter(p => parseInt(p.month) === selectedMonth);
 
-    new Chart(document.getElementById('readChart'), config);
-  
+    const dayData = Array(31).fill(0);
+    for (const p of filtered) {
+    	const dayTarget = parseInt(p.day) - 1;
+    	if (dayTarget >= 0 && dayTarget < 31) {
+    		dayData[dayTarget] = parseInt(p.read_page) || 0;
+    	}
+        const dayIndex = parseInt(p.day) - 1;
+        if (dayIndex >= 0 && dayIndex < 31) {
+        	
+            dayData[dayIndex] = parseInt(p.read_page) || 0;		//read_pageのみ
+            
+        }
+    }
+
+    chart.data.datasets[0].data = dayData;
+    chart.update();
+
+}
+//プルダウンメニューが変更された時の処理
+document.addEventListener("DOMContentLoaded", function () {
+    const monthSelect = document.getElementById("monthSelect");
+
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    monthSelect.value = currentMonth;
+
+    updateChartByMonth(currentMonth);
+
+    monthSelect.addEventListener("change", function () {
+        updateChartByMonth(this.value);
+    });
+});
 </script>
 
 <h3>プロフィール</h3>

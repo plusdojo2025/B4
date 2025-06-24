@@ -11,7 +11,7 @@ import java.util.List;
 import dto.Progress;
 
 public class ProgressDAO {
-	public List<Progress> select(int user_id, int month) {
+	public List<Progress> select(int user_id) {
 		Connection conn = null;
 		List<Progress> progressList = new ArrayList<Progress>();
 
@@ -25,12 +25,11 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE user_id =? AND  MONTH(progress.updated_at) = ? ";
+			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE user_id =?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setInt(1, user_id);
-			pStmt.setInt(2, month);			
 			ResultSet rs = pStmt.executeQuery();
 
 			// 結果表をコレクションにコピーする
@@ -260,7 +259,7 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE progress SET read_page=?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ? AND book_id = ? AND read_page = 0";
+			String sql = "UPDATE progress SET read_page=? WHERE user_id = ? AND book_id = ? AND read_page = 0";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

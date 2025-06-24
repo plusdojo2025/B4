@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import dao.ProgressDAO;
 import dto.Progress;
@@ -61,22 +68,11 @@ public class ProgressServlet extends HttpServlet {
  //       }
         
         request.setCharacterEncoding("UTF-8");
-		
-        String monthStr = request.getParameter("month");
-        int month = 0;
-
-        if (monthStr != null && !monthStr.isEmpty()) {
-            try {
-                month = Integer.parseInt(monthStr);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
         
 		int user_id = 1;
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.select(user_id, month);
+		List<Progress> progressList = proDao.select(user_id);
 		
 //        List<Integer> labels = new ArrayList<>();
 //        List<Integer> readData = new ArrayList<>();
@@ -93,13 +89,22 @@ public class ProgressServlet extends HttpServlet {
 //        chartData.put("readData", readData);
  //       chartData.put("targetData", targetData);
 
-        String jsonData = new Gson().toJson(progressList);
+        Gson gson = new GsonBuilder()
+			    .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+			        @Override
+			        public JsonElement serialize(LocalDateTime src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+			            return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+			        }
+			    })
+			    .create();
+        String jsonProgress = gson.toJson(progressList);
 
-        request.setAttribute("jsonData", jsonData);
+        
 
 		// 検索結果をセッションスコープに格納する
 //		List<Progress> progress = (List<Progress>)progressList;
-		request.setAttribute("selectMonth", month);
+		
+		request.setAttribute("jsonProgress", jsonProgress);
 //		request.setAttribute("progressList", progressList);
 
         
@@ -131,7 +136,7 @@ public class ProgressServlet extends HttpServlet {
 		
 		if (submit.equals("送信")) {
 			
-			request.setAttribute("result", new Result("プリント完了！", "印刷が完了しました。", "/b4/ProgressServlet"));
+			request.setAttribute("result", new Result("送信完了！", "送信が完了しました。", "/b4/ProgressServlet"));
 			
 			}
 		
