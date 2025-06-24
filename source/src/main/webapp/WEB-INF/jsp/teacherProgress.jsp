@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, dto.Progress" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.*, com.google.gson.Gson, dto.Progress" %>
 
 <!DOCTYPE html>
@@ -42,7 +41,6 @@
 
 <h3>過去の読書記録</h3>
 
-<% if (request.getAttribute("jsonData") != null) { %>
         <h3><%= selectedMonth %> 月の読書記録</h3>
 <canvas id="readChart" width="500" height="500"></canvas>
 
@@ -91,7 +89,6 @@ const data = {
     new Chart(document.getElementById('readChart'), config);
   
 </script>
- <% } %>
 
 <h3>プロフィール</h3>
 

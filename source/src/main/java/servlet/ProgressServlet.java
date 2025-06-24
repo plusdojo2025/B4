@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -37,7 +36,7 @@ public class ProgressServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
@@ -121,21 +120,12 @@ public class ProgressServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
 		request.setCharacterEncoding("UTF-8");
-		
-		int user_id = 1;
-		int month = Integer.parseInt(request.getParameter("month"));
-		
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.select(user_id, month);
-		
-		request.setAttribute("month", month);
-		request.setAttribute("progressList", progressList);
 		
 		String submit = request.getParameter("submit");
 		

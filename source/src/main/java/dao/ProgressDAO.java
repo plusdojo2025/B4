@@ -25,13 +25,12 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE user_id =? AND MONTH(progress.updated_at) = ?";
+			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE user_id =? AND  MONTH(progress.updated_at) = ? ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setInt(1, user_id);
-			pStmt.setInt(2, month);	// SQL文を実行し、結果表を取得する
-			
+			pStmt.setInt(2, month);			
 			ResultSet rs = pStmt.executeQuery();
 
 			// 結果表をコレクションにコピーする
@@ -261,7 +260,7 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE progress SET read_page=? WHERE user_id = ? AND book_id = ? AND read_page = 0";
+			String sql = "UPDATE progress SET read_page=?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ? AND book_id = ? AND read_page = 0";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -393,8 +392,7 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-            String sql = "UPDATE finish_books VALUES (0, ?, ?, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
-            UPDATE progress SET read_page=? WHERE user_id = ? AND book_id = ? AND read_page = 0
+            String sql = "UPDATE finish_books SET type_id = 2, updated_at = CURRENT_TIMESTAMP WHERE user_id =? AND book_id = ? AND type_id = 1 ORDER BY updated_at DESC LIMIT 1";
             PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
