@@ -134,7 +134,7 @@ import dto.Collection;
 		    try {
 		        Class.forName("com.mysql.cj.jdbc.Driver");
 		        conn = DriverManager.getConnection(
-		            "jdbc:mysql://localhost:3306/B4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+		            "jdbc:mysql://localhost:3306/b4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 		            "root",
 		            "password"
 		        );
@@ -179,7 +179,7 @@ import dto.Collection;
 			    try {
 			        Class.forName("com.mysql.cj.jdbc.Driver");
 			        conn = DriverManager.getConnection(
-			            "jdbc:mysql://localhost:3306/B4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+			            "jdbc:mysql://localhost:3306/b4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 			            "root",
 			            "password"
 			        );
