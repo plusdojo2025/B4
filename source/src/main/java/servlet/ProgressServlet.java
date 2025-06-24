@@ -1,10 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -66,34 +63,45 @@ public class ProgressServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
 		
+        String monthStr = request.getParameter("month");
+        int month = 0;
+
+        if (monthStr != null && !monthStr.isEmpty()) {
+            try {
+                month = Integer.parseInt(monthStr);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        
 		int user_id = 1;
-		int month = Integer.parseInt(request.getParameter("month"));
 		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.select(user_id, month);
 		
-
-        List<Integer> labels = new ArrayList<>();
-        List<Integer> readData = new ArrayList<>();
-        List<Integer> targetData = new ArrayList<>();
+//        List<Integer> labels = new ArrayList<>();
+//        List<Integer> readData = new ArrayList<>();
+//       List<Integer> targetData = new ArrayList<>();
 		
-		for(Progress pro : progressList) {
-			labels.add(pro.getDay());
-			targetData.add(pro.getTarget_page());
-			readData.add(pro.getRead_page());
-		}
+//		for(Progress pro : progressList) {
+//			labels.add(pro.getDay());
+//			targetData.add(pro.getTarget_page());
+//			readData.add(pro.getRead_page());
+//		}
 		
-		Map<String, Object> chartData = new HashMap<>();
-        chartData.put("labels", labels);
-        chartData.put("readData", readData);
-        chartData.put("targetData", targetData);
+//		Map<String, Object> chartData = new HashMap<>();
+//        chartData.put("labels", labels);
+//        chartData.put("readData", readData);
+ //       chartData.put("targetData", targetData);
 
-        String json = new Gson().toJson(chartData);
+        String jsonData = new Gson().toJson(progressList);
 
-        request.setAttribute("chartData", json);
+        request.setAttribute("jsonData", jsonData);
 
 		// 検索結果をセッションスコープに格納する
-        request.setAttribute("progressList", progressList);
+//		List<Progress> progress = (List<Progress>)progressList;
+		request.setAttribute("selectMonth", month);
+//		request.setAttribute("progressList", progressList);
 
         
         request.getRequestDispatcher(view).forward(request, response);
@@ -118,7 +126,16 @@ public class ProgressServlet extends HttpServlet {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
+		request.setCharacterEncoding("UTF-8");
 		
+		int user_id = 1;
+		int month = Integer.parseInt(request.getParameter("month"));
+		
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.select(user_id, month);
+		
+		request.setAttribute("month", month);
+		request.setAttribute("progressList", progressList);
 		
 		String submit = request.getParameter("submit");
 		
