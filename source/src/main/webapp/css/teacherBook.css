@@ -1,1 +1,89 @@
 @charset "UTF-8";
+
+.pagenation {
+  display: flex;
+  justify-content: center;      /* 横方向中央寄せ */
+  align-items: center;          /* 縦方向中央寄せ */
+  gap: 12px;                   /* 要素間のスペース */
+  margin: 70px 70px;              /* 上下の余白 */
+  flex-wrap: wrap;             /* 幅狭いときに折り返し対応 */
+}
+
+
+.page-select-form {
+  margin: 0;
+}
+
+.page-select-form label {
+  margin-right: 6px;
+  font-weight: bold;
+}
+
+.page-select-form select {
+  padding: 4px 8px;
+  font-size: 1em;
+}
+
+/* 表全体のデザイン */
+table {
+  width: 100%;
+  max-width: 1000px; 
+  height:100%;
+  max-height:500px;
+  border-collapse: separate;
+  background-color: #fff; 
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px double #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* 見出し行 */
+th {
+  background-color: #f8f8f8;
+  border: 2px double #999;         /* 見出しのセルも二重線に */
+  padding: 10px;
+  font-weight: bold;
+  text-align: left;
+  color: #333;
+}
+
+/* データ行 */
+td {
+  border: 2px double #ccc;         /* セルの内側も二重線 */
+  padding: 10px;
+  color: #333;
+}
+
+/* テーブルの角を尖らせる（丸みなし） */
+table, th, td {
+  border-radius: 0;
+}
+
+html, body {
+  height: 100%;
+   margin: 0;
+   padding: 0;
+   background-color: #00552e;
+}
+
+/* 表の中の画像も前面に */
+td img {
+  display: block;
+  margin: 0 auto;
+  z-index: 12;
+  position: relative;
+}
+
+
+
+.search-form-container {
+  margin-left: 50px;
+  margin-top: 50px;    
+  margin-bottom: 50px; 
+}

@@ -4,25 +4,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<c:url value='/css/techerCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/teacherRegist.css' />">
 <meta charset="UTF-8">
 <title>本の登録</title>
 </head>
 <body>
-
-<header>
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
 <span>
   <c:out value="${sessionScope.user.name}" /> さん
 </span>
-<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
-<p><a href="<c:url value='/RegistServlet' />">登録</a></p>
-<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
-<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
-<p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
-<p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
-<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
-</header>
 
-<h2>本の登録フォーム</h2>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+ <li><a href="<c:url value='/TeacherHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+    <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
+
+<main class="main-content"> 
 
 <c:if test="${not empty message}">
   <p style="color:green;">${message}</p>
@@ -32,7 +41,7 @@
   <p>登録された画像：</p>
   <img src="<c:url value='/img/${coverFileName}' />" alt="表紙画像" width="150">
 </c:if>
-
+<div class="book-detail-box">
 <form method="POST" action="<c:url value='/BookRegistServlet' />" enctype="multipart/form-data">
   <label>タイトル：<input type="text" name="title" placeholder="例）山田太郎"></label><br>
   <label>著者：<input type="text" name="author" placeholder="例）村上春樹"></label><br>
@@ -62,6 +71,16 @@
   <label>表紙画像：<input type="file" name="cover" accept="image/*"></label><br>
   <input type="submit" value="登録">
 </form>
+</div>
+</main>
+</div>
+
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
 
 </body>
 </html>

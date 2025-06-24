@@ -32,7 +32,7 @@ public class UserDAO {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUsers_id(rs.getInt("users_id"));
+                user.setUsers_id(rs.getString("users_id"));
                 user.setName(rs.getString("name"));
                 user.setPassword(rs.getString("password"));
                 user.setTypeId(rs.getInt("type_id"));
@@ -75,7 +75,7 @@ public class UserDAO {
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUsers_id(rs.getInt("users_id"));
+                user.setUsers_id(rs.getString("users_id"));
                 user.setName(rs.getString("name"));
                 user.setPassword(rs.getString("password"));
                 user.setTypeId(rs.getInt("type_id"));
@@ -100,6 +100,52 @@ public class UserDAO {
         List<User> users = findByUsersId(usersId);
         return users.isEmpty() ? null : users.get(0);
     }
-}
 
+
+
+
+
+	public List<User> findByUserId(String usersId) {
+		List<User> userList = new ArrayList<>();
+        Connection conn = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/b4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+                "root", "password");
+
+            String sql = "SELECT * FROM users WHERE users_id = ?";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, usersId);
+
+            ResultSet rs = pStmt.executeQuery();
+
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsers_id(rs.getString("users_id")); // ← DTOもStringに対応させる必要あり
+                user.setName(rs.getString("name"));
+                user.setPassword(rs.getString("password"));
+                user.setTypeId(rs.getInt("type_id"));
+                user.setMailAddress(rs.getString("mail_address"));
+                user.setGrade(rs.getInt("grade"));
+                user.setSchoolClass(rs.getInt("school_class"));
+                user.setTrophyId(rs.getInt("trophy_id"));
+                user.setStatusesId(rs.getInt("statuses_id"));
+
+                userList.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try { if (conn != null) conn.close(); } catch (Exception e) { e.printStackTrace(); }
+        }
+
+        return userList;
+	}
+
+}
 

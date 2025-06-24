@@ -7,28 +7,41 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>よも～にんぐ</title>
+<title>ランキング　｜　管理者ページ</title>
+<link rel="stylesheet" href="<c:url value='/css/techerCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/teacherHome.css' />">
 </head>
 <body>
-<p>リクエスト情報:</p>
+
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
+
+<!--  <p>リクエスト情報:</p>
 <ul>
   <li>月: ${param.month}</li>
   <li>ランキングタイプ: ${param.rankingType}</li>
   <li>クラス: ${param.school_class}</li>
   <li>ジャンルID: ${param.genre_id}</li>
 </ul>
-<h1 id ="logo">よも～にんぐ</h1>
+-->
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
 <ul>
-<li><a href="home.html">ホーム</a></li>
-    <li><a href="">登録</a></li>
-    <li><a href="">一覧</a></li>
-    <li><a href="">おすすめ</a></li>
-    <li><a href="">目安箱</a></li>
-    <li><a href="">ランキング</a></li>
-     <li><a href="">ログアウト</a></li>
-  </ul>
+ <li><a href="<c:url value='/TeacherHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+    <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
+
+<main class="main-content"> 
  
-  <h2>ランキング表示</h2>
+ 
 <!-- ランキング選択フォーム -->
 <form action="RankingServlet" method="get">
   <label for="month">月：</label>
@@ -120,5 +133,15 @@
     </c:if>
   </tbody>
 </table>
+</main>
+</div>
+
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+ 
 </body>
 </html>
