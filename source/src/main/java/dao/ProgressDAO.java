@@ -393,7 +393,8 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-            String sql = "INSERT INTO finish_books VALUES (0, ?, ?, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+            String sql = "UPDATE finish_books VALUES (0, ?, ?, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+            UPDATE progress SET read_page=? WHERE user_id = ? AND book_id = ? AND read_page = 0
             PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

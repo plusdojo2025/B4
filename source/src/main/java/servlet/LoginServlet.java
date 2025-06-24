@@ -33,7 +33,6 @@ public class LoginServlet extends HttpServlet {
 
         String idStr = request.getParameter("users_id");
         String pw = request.getParameter("password");
-        System.out.println("入力されたパスワード：" + pw);
 
         if (idStr == null || idStr.isEmpty() || pw == null || pw.isEmpty()) {
             request.setAttribute("errorMessage", "IDとパスワードは必須です。");
