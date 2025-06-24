@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class User {
     private int id;
     private int typeId;
-    private int users_id;
+    private String users_id;
     private String name;
     private String password;
     private String mail_address;
@@ -19,7 +19,7 @@ public class User {
     public User() {
         this.id = 0;
         this.typeId = 0;
-        this.users_id = 0;
+        this.users_id = "";
         this.name = "";
         this.password = "";
         this.mail_address = "";
@@ -29,7 +29,7 @@ public class User {
         this.statusesId = 0;
     }
 
-    public User(int id, int typeId, int users_id, String name, String password, String mail_address, int grade, int schoolClass, int trophyId, int statusesId) {
+    public User(int id, int typeId, String users_id, String name, String password, String mail_address, int grade, int schoolClass, int trophyId, int statusesId) {
         this.id = id;
         this.typeId = typeId;
         this.users_id = users_id;
@@ -56,10 +56,10 @@ public class User {
     	this.typeId = typeId;
     	}
 
-    public int getUsers_id() {
+    public String getUsers_id() {
     	return users_id;
     	}
-    public void setUsers_id(int users_id) {
+    public void setUsers_id(String users_id) {
     	this.users_id = users_id;
     	}
 
