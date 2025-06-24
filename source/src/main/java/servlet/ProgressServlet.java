@@ -79,8 +79,6 @@ public class ProgressServlet extends HttpServlet {
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.select(user_id, month);
 		
-		
-
 //        List<Integer> labels = new ArrayList<>();
 //        List<Integer> readData = new ArrayList<>();
 //       List<Integer> targetData = new ArrayList<>();

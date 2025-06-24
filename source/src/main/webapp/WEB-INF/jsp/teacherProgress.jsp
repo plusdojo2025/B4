@@ -65,7 +65,7 @@ const data = {
             },
             {
                 label: "読書ページ数",
-                data: actualData,
+                data: readData,
                 borderColor: "rgba(54,162,235,1)",
                 backgroundColor: "rgba(54,162,235,0.2)",
                 fill: false,
