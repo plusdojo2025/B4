@@ -3,6 +3,10 @@
 <%@ page import="java.util.*, dto.Progress" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.util.*, com.google.gson.Gson, dto.Progress" %>
+<%
+
+%>
 
 <!DOCTYPE html>
 <html>
