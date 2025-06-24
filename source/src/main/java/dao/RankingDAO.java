@@ -49,7 +49,7 @@ public class RankingDAO{
 			RankList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			//RankList = null;
+			RankList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -57,7 +57,7 @@ public class RankingDAO{
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					//RankList = null;
+					RankList = null;
 				}
 			}
 		}
@@ -113,4 +113,41 @@ Connection conn = null;
 }
 		return RankList;	
 }
+	public List<Ranking> selectPopularBooksByGenre(int genreId) {
+	    List<Ranking> rankList = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_db", "user", "password");
+
+	        String sql = 
+	            "SELECT b.title,  COUNT(*) AS f_books " +
+	            "FROM finish_books f " +
+	            "JOIN books b ON f.book_id = b.id " +
+	            "WHERE b.genre_id = ? " +
+	            "GROUP BY b.id, b.title " +
+	            "ORDER BY f_books DESC";
+
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, genreId);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            Ranking r = new Ranking();
+	            r.setTitle(rs.getString("title"));
+	            rankList.add(r);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try { if (rs != null) rs.close(); } catch (Exception e) {}
+	        try { if (pstmt != null) pstmt.close(); } catch (Exception e) {}
+	        try { if (conn != null) conn.close(); } catch (Exception e) {}
+	    }
+
+	    return rankList;
+	}
 	}

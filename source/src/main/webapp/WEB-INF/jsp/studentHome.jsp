@@ -69,7 +69,42 @@
 </form>
 
 <h2>ランキング</h2>
+<form action="RankingServlet" method="get">
+  <label for="genre_id">ジャンル：</label>
+  <select name="genre_id" id="genre_id" required>
+    <option value="">-- ジャンルを選択 --</option>
+    <option value="1">ファンタジー</option>
+    <option value="2">ミステリー</option>
+    <!-- 他ジャンル省略 -->
+  </select>
+  <input type="hidden" name="rankingType" value="genreBooks">
+  <input type="submit" value="表示">
+</form>
 
+<h3>${title}</h3>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>タイトル</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="rank" items="${RankList}" varStatus="status">
+      <tr>
+        <td>${status.index + 1}</td>
+        <td>${rank.title}</td>
+      </tr>
+    </c:forEach>
+
+    <c:if test="${empty RankList}">
+      <tr>
+        <td colspan="4">ランキングデータが見つかりません。</td>
+      </tr>
+    </c:if>
+  </tbody>
+</table>
 <h2>今日のおすすめ</h2>
 
 <h2>今日の先生の本</h2>
