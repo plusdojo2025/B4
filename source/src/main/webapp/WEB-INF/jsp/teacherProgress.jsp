@@ -4,9 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.*, com.google.gson.Gson, dto.Progress" %>
-<%
-
-%>
 
 <!DOCTYPE html>
 <html>
@@ -28,70 +25,80 @@
 
 <form id ="form_get" method="GET" action="/B4/ProgressServlet">
 
-<select id="month">
-  <% for (int i = 1; i <= 12; i++) { %>
-            <option value="<%= i %>"><%= i %> 月</option>
-        <% } %>
+<select name="month" onchange="this.form.submit()">
+  <option value="">-- 選択 --</option>
+            <% 
+                int selectedMonth = request.getAttribute("selectedMonth") != null 
+                    ? (Integer) request.getAttribute("selectedMonth") 
+                    : 0;
+
+                for (int i = 1; i <= 12; i++) {
+                    String selected = (i == selectedMonth) ? "selected" : "";
+            %>
+                <option value="<%= i %>" <%= selected %>><%= i %> 月</option>
+            <% } %>
 </select>
-
-<h2 id="output"></h2>
-
-<script src="js/pulldown.js"></script>
-
 </form>
-
-<form id ="form" method="POST" action="/B4/ProgressServlet">
 
 <h3>過去の読書記録</h3>
 
-<script>
-const chartData = JSON.parse('<%= session.getAttribute("chartData") %>');
+<% if (request.getAttribute("jsonData") != null) { %>
+        <h3><%= selectedMonth %> 月の読書記録</h3>
+<canvas id="readChart" width="500" height="500"></canvas>
 
-window.onload = function () {
-    let context = document.querySelector("#read_book_chart").getContext('2d')
-    new Chart(context, {
-      type: 'line',
-      data: {
-        labels: chartData.labels,
-        datasets: [{
-          label: "目標",
-          data: chartData.targetData,
-          borderColor: 'rgba(60, 160, 220, 0.8)'
-        }, {
-          label: "読了",
-          data: chartData.readData,
-          borderColor: 'rgba(60, 190, 20, 0.8)'
-        }],
-      },
-      options: {
-        responsive: false,
-        scales: {
-            x: {
-                title: {
-                    display: true,
-                    text: '日付'
-                }
+<script>
+const jsonData = <%= request.getAttribute("jsonData") %>;
+const labels = jsonData.map(pro => pro.day+ "日");
+const targetData = jsonData.map(pro >= pro.target_page);
+const readData = jsonData.map(pro >= pro.read_page);
+    
+const data = {
+		labels: labels,
+        datasets: [
+            {
+                label: "目標ページ数",
+                data: targetData,
+                borderColor: "rgba(255,99,132,1)",
+                backgroundColor: "rgba(255,99,132,0.2)",
+                fill: false,
+                tension: 0.2
             },
-            y: {
-                beginAtZero: true,
+            {
+                label: "読書ページ数",
+                data: actualData,
+                borderColor: "rgba(54,162,235,1)",
+                backgroundColor: "rgba(54,162,235,0.2)",
+                fill: false,
+                tension: 0.2
+            }
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
                 title: {
                     display: true,
-                    text: 'ページ数'
+                    text: '日別読書ページ数'
                 }
             }
         }
-      }
-    })
-  }
-</script>
+    };
 
-<canvas id="read_book_chart" width="500" height="500"></canvas>
+    new Chart(document.getElementById('readChart'), config);
+  
+</script>
+ <% } %>
+
 <h3>プロフィール</h3>
 
 
 <h3>読書傾向</h3>
 
-
+<form id ="form" method="POST" action="/B4/ProgressServlet">
 先生からのコメント<input type="text" name="comment">
 <input type="submit" name="submit" value="送信">
 </form>
