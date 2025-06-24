@@ -22,7 +22,7 @@
 <div class="logo">よも～にんぐ</div>
 <nav class="nav">
 <ul>
-<li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
+<li><a href="<c:url value='/ParentHomeServlet' />">ホーム</a></li>
 <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
 <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
 <li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
@@ -31,7 +31,6 @@
 </header>
  <!-- ヘッダー　-->
 <main class="main-content"> 
-
 <div class="search-form-container">
 <form action="BookListServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">
@@ -58,6 +57,7 @@
 </form>
 </div>
 
+
 <!--1行に5冊表示 -->
 <c:set var="rowSize" value="5" />
 
@@ -75,7 +75,7 @@
         <c:set var="book" value="${bookList[index]}" />
         <c:url value="/img/${book.cover}" var="coverUrl" />
         <div class="book-item">
-          <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}">
+          <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(param.title)}&genreId=${param.genreId}&page=${currentPage}&lastList=BookListServlet">
             <img src="${coverUrl}" alt="表紙画像" width="150"><br>
             <span class="book-title">${book.title}</span>
           </a>
@@ -91,7 +91,8 @@
 </c:forEach>
 
  <hr class="book-separator">
-<div class="pagenation">
+ 
+ <div class="pagenation">
 <!-- 最初へ -->
 <c:if test="${currentPage > 1}">
   <a href="${pageContext.request.contextPath}/BookListServlet?page=1&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}">最初へ</a>

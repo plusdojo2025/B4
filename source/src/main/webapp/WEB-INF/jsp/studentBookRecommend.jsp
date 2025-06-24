@@ -5,23 +5,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>おすすめしてる本</title>
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/studentHome.css' />">
+<meta charset="UTF-8">
+<title>おすすめしてる本</title>
 </head>
 <body>
+<div class="page-frame">
 
-<header>
+
+<!-- ヘッダー　-->
+<header class="header">
+ <div class="logo">よも～にんぐ</div>
 <span>
   <c:out value="${sessionScope.user.name}" /> さん
 </span>
-<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
-<p><a href="<c:url value='/RegistServlet' />">登録</a></p>
-<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
-<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
-<p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
-<p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
-<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
-</header>
+
+<nav class="nav">
+  <ul >
+    <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/ProgressServlet' />">きろく</a></li>
+    <li><a href="<c:url value='/RecordServlet' />">せいせき</a></li>
+    <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
+     <li><button class="logout-btn" onclick="location.href='logout.html'">ログアウト</button></li>
+  </ul>
+  </nav>
+ </header>
+ <!-- ヘッダー　-->
+ <main class="main-content"> 
 
 <h2>おすすめしてる本</h2>
 
@@ -53,7 +66,7 @@
   <c:forEach var="book" items="${bookList}">
     <c:url value="/img/${book.cover}" var="coverUrl" />
     <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
-		<a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}&page=${currentPage}&lastList=BookRecommendServlet">
+		<a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(param.title)}&genreId=${param.genreId}&page=${currentPage}&lastList=BookRecommendServlet">		
         <img src="${coverUrl}" alt="表紙画像" width="150"><br>
         <span style="display: inline-block; max-width: 120px;">${book.title}</span>
       </a>
@@ -91,6 +104,17 @@
 <c:if test="${currentPage < totalPages}">
   <a href="${pageContext.request.contextPath}/BookRecommendServlet?page=${totalPages}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}">最後へ</a>
 </c:if>
+
+
+</main>
+
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+</div>
 
 </body>
 </html>

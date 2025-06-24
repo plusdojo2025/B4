@@ -56,9 +56,7 @@ public class BookFinishServlet extends HttpServlet {
 
 	    User user = (User) session.getAttribute("user");
 	    int userId = user.getId();
-
-	    System.out.println("=== BookFinishServlet に到達しました ===");
-
+	    
 	    int bookId = Integer.parseInt(request.getParameter("bookId"));
 	    System.out.println("bookId = " + bookId);
 	    System.out.println("userId = " + userId);
@@ -66,6 +64,9 @@ public class BookFinishServlet extends HttpServlet {
 	    FinishBookDAO dao = new FinishBookDAO();
 	    int statusId = dao.getTypeId(userId, bookId);
 	    System.out.println("statusId = " + statusId);
+	    
+	    System.out.println("=== BookFinishServlet 到達 ===");
+
 
 //	    if (statusId == 0) {
 //	        boolean success = dao.insert(userId, bookId);
@@ -85,8 +86,11 @@ public class BookFinishServlet extends HttpServlet {
 //	    String view = "/WEB-INF/jsp/StudentHomeServlet.jsp";
 	    switch (user.getTypeId()) {
 	        case 1: response.sendRedirect(request.getContextPath() + "/TeacherHomeServlet");
+	        break;
 	        case 2: response.sendRedirect(request.getContextPath() + "/ParentHomeServlet");
+	        break;
 	        case 3: response.sendRedirect(request.getContextPath() + "/StudentHomeServlet");
+	        break;
 	    }
 
 //	    RequestDispatcher dispatcher = request.getRequestDispatcher(view);

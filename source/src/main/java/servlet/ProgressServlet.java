@@ -40,56 +40,31 @@ public class ProgressServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
-		HttpSession session = request.getSession();
-        session.setAttribute("progress", "ProgressServlet");
+//		User user = (User) session.getAttribute("user");
+		
+		
+        String view = "/WEB-INF/jsp/teacherProgress.jsp";
         
-		int user_id = 1;
-		String monthStr = request.getParameter("month");
-		Integer month = Integer.parseInt(request.getParameter("month"));
-
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.select(user_id, month);
-		
-		request.setAttribute("month", monthStr);
-		request.setAttribute("progressList", progressList);
-		
-		request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
-		
-//		HttpSession session = request.getSession();
-//        String userTypes = (String) session.getAttribute("UserTypes");
-		
-//        String jspPath = "";
-        
-        
-//        if("student".equals(userTypes)) {
-//        	request.getRequestDispatcher("/WEB-INF/jsp/studentProgress.jsp").forward(request, response);
-//        }
-//        else if("parents".equals(userTypes)) {
-//        	request.getRequestDispatcher("/WEB-INF/jsp/parentProgress.jsp").forward(request, response);
-//        }
-//        else if("teacher".equals(userTypes)) {
-//        	request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
+ //       if(user != null) {
+//        	switch (user.getTypeId()) {
+//        	case 1:
+ //       		view = "/WEB-INF/jsp/teacherProgress.jsp";
+ //       	case 2:
+ //       		view = "/WEB-INF/jsp/parentProgress.jsp";
+ //       	case 3:
+  //      		view = "/WEB-INF/jsp/studentProgress.jsp";
+ //       		break;
+ //       	default: 
+ //       		view = "/WEB-INF/jsp/teacherProgress.jsp";
+ //       	}
  //       }
-	
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
-//			return;
-//		}
-		
-		request.setCharacterEncoding("UTF-8");
+        
+        request.setCharacterEncoding("UTF-8");
 		
 		int user_id = 1;
 		int month = Integer.parseInt(request.getParameter("month"));
@@ -115,20 +90,45 @@ public class ProgressServlet extends HttpServlet {
 
         String json = new Gson().toJson(chartData);
 
-        session.setAttribute("chartData", json);
+        request.setAttribute("chartData", json);
 
 		// 検索結果をセッションスコープに格納する
-		session.setAttribute("progressList", progressList);
+        request.setAttribute("progressList", progressList);
 
+        
+        request.getRequestDispatcher(view).forward(request, response);
+//        	request.getRequestDispatcher("/WEB-INF/jsp/studentProgress.jsp").forward(request, response);
+//        }
+//        else if("parents".equals(userTypes)) {
+//        	request.getRequestDispatcher("/WEB-INF/jsp/parentProgress.jsp").forward(request, response);
+//        }
+//        else if("teacher".equals(userTypes)) {
+//        	request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
+ //       }
+	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+//		if (session.getAttribute("id") == null) {
+//			response.sendRedirect("/webapp/LoginServlet");
+//			return;
+//		}
+		
+		
 		String submit = request.getParameter("submit");
 		
 		if (submit.equals("送信")) {
 			
-			request.setAttribute("result", new Result("プリント完了！", "印刷が完了しました。", "/webapp/LayOutServlet"));
+			request.setAttribute("result", new Result("プリント完了！", "印刷が完了しました。", "/b4/ProgressServlet"));
 			
 			}
 		
-		request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
+		doGet(request,response);  
 	}
 
 }

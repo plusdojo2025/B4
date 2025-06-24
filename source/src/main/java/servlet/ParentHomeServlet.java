@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import dao.FinishBookDAO;
 import dao.ProgressDAO;
@@ -50,6 +55,28 @@ public class ParentHomeServlet extends HttpServlet {
 
 		FinishBookDAO finDao = new FinishBookDAO();
 		List<FinishBook> finishBookList = finDao.selectNew(user_id);
+		
+
+
+        List<Integer> labels = new ArrayList<>();
+        List<Integer> readData = new ArrayList<>();
+        List<Integer> targetData = new ArrayList<>();
+		
+		for(Progress pro : progressList) {
+			labels.add(pro.getDay());
+			targetData.add(pro.getTarget_page());
+			readData.add(pro.getRead_page());
+		}
+		
+		Map<String, Object> chartData = new HashMap<>();
+        chartData.put("labels", labels);
+        chartData.put("readData", readData);
+        chartData.put("targetData", targetData);
+
+        String json = new Gson().toJson(chartData);
+
+        session.setAttribute("chartData", json);
+
 		
 		session.setAttribute("finishBookList", finishBookList);
 		

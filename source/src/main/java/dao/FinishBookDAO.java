@@ -255,22 +255,26 @@ public class FinishBookDAO {
 		return finishBookList;
 	}
 	
-	public Integer selectLatestReadingBookId(int user_id) {
-		Connection conn = null;
-		Integer bookId = null;
-		
-		try {
-	    	// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
+	// 読了していない finish_books から updated_at が最新の book_id を1件取得
+	public Integer selectLatestReadingBookId(int userId) {
+	    Connection conn = null;
+	    Integer bookId = null;
 
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
-							+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-							"root", "password");
-			String sql = "SELECT book_id FROM progress WHERE user_id = ? ORDER BY updated_at DESC LIMIT 1";
-	    	PreparedStatement pstmt = conn.prepareStatement(sql);
+	    try {
+	        // JDBCドライバを読み込む
+	        Class.forName("com.mysql.cj.jdbc.Driver");
 
-	        pstmt.setInt(1, user_id);
+	        // データベースに接続する
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+	            "root", "password");
+
+	        // 読了状態（type_id = 2）以外の最新の1件を取得
+	        String sql = "SELECT book_id FROM finish_books WHERE user_id = ? AND type_id != 2 ORDER BY updated_at DESC LIMIT 1";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	        pstmt.setInt(1, userId);
+
 	        ResultSet rs = pstmt.executeQuery();
 	        if (rs.next()) {
 	            bookId = rs.getInt("book_id");
@@ -278,10 +282,21 @@ public class FinishBookDAO {
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	    } finally {
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
 	    }
+
 	    return bookId;
 	}
+
 	
+	// すでに「この本を読む」ボタンが押されている本の日時を更新
 	public boolean updateTimestamp(int userId, int bookId) {
 		Connection conn = null;
 		try {// JDBCドライバを読み込む

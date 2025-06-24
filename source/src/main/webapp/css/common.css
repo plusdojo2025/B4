@@ -82,8 +82,9 @@
 .footer {
   background-color: #00552e;    
   color: white;
-  padding: 15px 30px;
+  padding: 20px;
   text-align: center;
   border-top: 3px solid #DC8551; 
   margin-top: auto; 
+  margin-bottom:0;
 }

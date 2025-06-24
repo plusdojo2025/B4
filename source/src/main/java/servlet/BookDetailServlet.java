@@ -53,13 +53,12 @@ public class BookDetailServlet extends HttpServlet {
 		session.setAttribute("genreId", genreIdStr);
 		session.setAttribute("currentPage", pageStr);
 		session.setAttribute("lastList", lastList);
-		Integer userId = user.getId();
-//				(Integer) request.getSession().getAttribute("userId");
+		int userId = user.getId();
 
 		// 読書状態
 		FinishBookDAO finishDao = new FinishBookDAO();
 		int typeId = finishDao.getTypeId(userId, bookId);
-		request.setAttribute("statusId", typeId);
+		request.setAttribute("typeId", typeId);
 
 		// おすすめ済みかどうか
 		BookRecommendDAO recommendDao = new BookRecommendDAO();
@@ -73,8 +72,6 @@ public class BookDetailServlet extends HttpServlet {
 		FinishBookDAO finDao = new FinishBookDAO();
 		Integer latestReadingBookId = finDao.selectLatestReadingBookId(user.getId());
 		request.setAttribute("latestReadingBookId", latestReadingBookId);
-
-	
 		
 		String view = "/WEB-INF/jsp/studentBookDetail.jsp";
         
