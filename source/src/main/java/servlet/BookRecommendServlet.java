@@ -101,28 +101,35 @@ public class BookRecommendServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	        
-	        request.setCharacterEncoding("UTF-8");
-	     // ログインさせる処理
-	    	HttpSession session = request.getSession();
-	        if (session.getAttribute("user") == null) {
-	            response.sendRedirect(request.getContextPath() + "/LoginServlet");
-	            return;
-	        }
-	        
-	        int bookId = Integer.parseInt(request.getParameter("bookId"));
-	        String comment = request.getParameter("comment");
-	        Integer userId = (Integer) session.getAttribute("userId");
-	        
-	        if (userId != null && comment != null && !comment.trim().isEmpty()) {
-	            BookRecommendDAO dao = new BookRecommendDAO();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    request.setCharacterEncoding("UTF-8");
 
-	            // すでにおすすめしていない場合だけ登録
-	            if (!dao.hasAlreadyRecommended(userId, bookId)) {
-	                dao.insert(userId, bookId, comment);
-	            }
-	        }
+	    HttpSession session = request.getSession();
+	    if (session.getAttribute("user") == null) {
+	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+	        return;
+	    }
 
-	        response.sendRedirect("BookDetailServlet?bookId=" + bookId);
+	    User user = (User) session.getAttribute("user"); // ✅ Userオブジェクトから取得
+	    int userId = user.getId();                       // ✅ 安全にID取得
+
+	    int bookId = Integer.parseInt(request.getParameter("bookId"));
+	    String comment = request.getParameter("comment");
+
+	    if (comment != null && !comment.trim().isEmpty()) {
+	        BookRecommendDAO dao = new BookRecommendDAO();
+
+	        if (!dao.hasAlreadyRecommended(userId, bookId)) {
+	            boolean success = dao.insert(userId, bookId, comment);
+	            System.out.println("insert success = " + success);
+	        } else {
+	            System.out.println("already recommended");
+	        }
+	    } else {
+	        System.out.println("empty comment");
+	    }
+
+	    response.sendRedirect("BookDetailServlet?bookId=" + bookId);
 	}
+
 }

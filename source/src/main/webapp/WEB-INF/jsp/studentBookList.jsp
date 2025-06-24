@@ -78,7 +78,7 @@
         <c:set var="book" value="${bookList[index]}" />
         <c:url value="/img/${book.cover}" var="coverUrl" />
         <div class="book-item">
-          <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}">
+          <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${book.id}&title=${fn:escapeXml(param.title)}&genreId=${param.genreId}&page=${currentPage}&lastList=BookListServlet">
             <img src="${coverUrl}" alt="表紙画像" width="150"><br>
             <span class="book-title">${book.title}</span>
           </a>
