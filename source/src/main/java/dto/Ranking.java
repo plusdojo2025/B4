@@ -10,10 +10,10 @@ public class Ranking implements Serializable {
 	private int f_books;
 	private int book_id;
 	private int genre_id;
+	private String month;
 	
 	
-	
-	public Ranking(int user_id, String name, int page, String genre_name, int f_books, int book_id, int genre_id) {
+	public Ranking(int user_id, String name, int page, String genre_name, int f_books, int book_id, int genre_id, String month) {
 		super();
 		this.user_id = user_id;
 		this.name = name;
@@ -22,6 +22,7 @@ public class Ranking implements Serializable {
 		this.f_books = f_books;
 		this.book_id = book_id;
 		this.genre_id = genre_id;
+		this.month = month;
 	}
 
 	public Ranking() {
@@ -83,6 +84,14 @@ public class Ranking implements Serializable {
 
 	public void setGenre_id(int genre_id) {
 		this.genre_id = genre_id;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
 	}
 	
 	

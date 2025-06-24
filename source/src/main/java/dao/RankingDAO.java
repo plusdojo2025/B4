@@ -11,7 +11,7 @@ import java.util.List;
 import dto.Ranking;
 
 public class RankingDAO{
-	public List<Ranking> selectBySchool_class(int school_class){
+	public List<Ranking> selectBySchool_class(int school_class, String month){
 		List<Ranking>RankList = new ArrayList<>();
 		
 		Connection conn = null;
@@ -26,7 +26,7 @@ public class RankingDAO{
 					"root", "password");
 			
 			//SQL文
-			String sql ="SELECT u.id AS user_id ,u.name,SUM(p.read_page) AS page FROM progress p JOIN users u ON p.user_id = u.id WHERE u.school_class = ? GROUP BY u.id, u.name ORDER BY SUM(p.read_page) DESC";				
+			String sql ="SELECT u.id AS user_id ,u.name,SUM(p.read_page) AS page FROM progress p JOIN users u ON p.user_id = u.id WHERE u.school_class = ? AND DATE_FORMAT(p.created_at, '%Y-%m') = ? GROUP BY u.id, u.name ORDER BY SUM(p.read_page) DESC";				
 	
 						    
 						
@@ -34,7 +34,7 @@ public class RankingDAO{
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			pStmt.setInt(1, school_class);
-			
+			pStmt.setString(2, month);
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
 				Ranking ranking = new Ranking();
@@ -49,7 +49,7 @@ public class RankingDAO{
 			RankList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			RankList = null;
+			//RankList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -57,7 +57,7 @@ public class RankingDAO{
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					RankList = null;
+					//RankList = null;
 				}
 			}
 		}
@@ -66,7 +66,7 @@ public class RankingDAO{
 		
 		return RankList;
 	}
-	public List<Ranking> selectByGenre(int genre_id){
+	public List<Ranking> selectByGenre(int genre_id , String month){
 		List<Ranking>RankList = new ArrayList<>();
 Connection conn = null;
 		
@@ -75,14 +75,15 @@ Connection conn = null;
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/B4?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			// SQL文
-			String sql = "SELECT u.id AS user_id, u.name, g.genre_name, COUNT(*) AS f_books FROM finish_books f JOIN users u ON f.user_id = u.id" +
-					"JOIN books b ON f.book_id = b.id JOIN genres g ON b.genre_id = g.id WHERE b.genre_id = ? GROUP BY u.id, u.name, g.genre_name ORDER BY f_books DESC";
+			String sql = "SELECT u.id AS user_id, u.name, g.genre_name, COUNT(*) AS f_books FROM finish_books f JOIN users u ON f.user_id = u.id " +
+					"JOIN books b ON f.book_id = b.id JOIN genres g ON b.genre_id = g.id WHERE b.genre_id = ? AND DATE_FORMAT (f.created_at, '%Y-%m') = ?  GROUP BY u.id, u.name, g.genre_name ORDER BY f_books DESC ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, genre_id);
+			pStmt.setString(2, month);
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
 				Ranking ranking = new Ranking();
