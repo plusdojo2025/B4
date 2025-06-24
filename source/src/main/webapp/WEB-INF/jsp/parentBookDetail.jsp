@@ -22,26 +22,24 @@
 <c:url value="/img/${book.cover}" var="coverUrl" />
 <img src="${coverUrl}" alt="表紙画像" width="200">
 
-<!-- ★ 保護者は「おすすめ投稿フォーム」のみ表示 -->
-
-<c:choose>
-  <c:when test="${alreadyRecommended}">
-    <p>おすすめ済みです。</p>
-  </c:when>
-  <c:otherwise>
-    <form action="BookRecommendServlet" method="post">
+<!-- 読了済みの本：おすすめ表示のみ -->
+  <c:choose>
+    <c:when test="${alreadyRecommended}">
+      <p>おすすめ済みです。</p>
+    </c:when>
+    <c:otherwise>
+      <form action="BookRecommendServlet" method="post">
         <input type="hidden" name="bookId" value="${book.id}" />
         <label for="comment">おすすめコメント：</label><br>
-        <textarea name="comment" id="comment" rows="4" cols="40" required></textarea><br>
+        <textarea name="comment" rows="4" cols="40" required></textarea><br>
         <input type="submit" value="この本をおすすめする" />
-    </form>
-  </c:otherwise>
-</c:choose>
+      </form>
+    </c:otherwise>
+  </c:choose>
 
-<!-- 戻るリンク -->
 <c:choose>
   <c:when test="${sessionScope.lastList == 'BookRecommendServlet'}">
-    <a href="${pageContext.request.contextPath}/BookRecommendServlet?bookId=${book.id}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}&page=${currentPage}&lastList=BookRecommendServlet">    
+    <a href="${pageContext.request.contextPath}/BookRecommendServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}">
       ← おすすめ順一覧に戻る
     </a>
   </c:when>
@@ -51,6 +49,12 @@
     </a>
   </c:otherwise>
 </c:choose>
+
+<script>
+  function hideButton() {
+    document.getElementById("read").style.display = "none";
+  }
+</script>
 
 </body>
 </html>

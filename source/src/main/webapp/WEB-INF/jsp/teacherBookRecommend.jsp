@@ -52,19 +52,31 @@
 
 <table border="1">
   <tr>
-  	<th>表紙</th>
+    <th>表紙</th>
     <th>タイトル</th>
     <th>著者</th>
     <th>出版社</th>
     <th>ページ数</th>
     <th>ジャンル名</th>
     <th>登録日</th>
+    <th>操作</th> <!-- ここを追加 -->
   </tr>
 
   <c:forEach var="book" items="${bookList}">
+    <c:url value="/img/${book.cover}" var="coverUrl" />
+    <c:url var="detailUrl" value="/BookDetailServlet">
+      <c:param name="bookId" value="${book.id}" />
+      <c:param name="title" value="${fn:escapeXml(title)}" />
+      <c:param name="genreId" value="${fn:escapeXml(genreId)}" />
+      <c:param name="page" value="${currentPage}" />
+      <c:param name="lastList" value="BookRecommendServlet" />
+    </c:url>
+    
     <tr>
       <td>
-        <a href="${pageContext.request.contextPath}/BookDetailServlet?id=${book.id}"><img src="${pageContext.request.contextPath}/img/${book.cover}" alt="表紙画像" width="100"></a>
+        <a href="${detailUrl}">
+          <img src="${coverUrl}" alt="表紙画像" width="100">
+        </a>
       </td>
       <td>${book.title}</td>
       <td>${book.author}</td>
@@ -72,9 +84,23 @@
       <td>${book.page}</td>
       <td>${book.genre_Name}</td>
       <td>${book.created_atStr}</td>
+      <td>
+        <!-- 編集ボタン -->
+        <form action="<c:url value='/UpdateBookServlet' />" method="get" style="display:inline;">
+          <input type="hidden" name="bookId" value="${book.id}" />
+          <input type="submit" value="編集" />
+        </form><br>
+        <!-- 削除ボタン -->
+        <form action="<c:url value='/DeleteBookServlet' />" method="get" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+          <input type="hidden" name="bookId" value="${book.id}" />
+          <input type="submit" value="削除" />
+        </form>
+      </td>
     </tr>
   </c:forEach>
 </table>
+
+
 
 <!-- 最初へ -->
 <c:if test="${currentPage > 1}">
