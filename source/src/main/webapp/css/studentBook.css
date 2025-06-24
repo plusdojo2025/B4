@@ -4,13 +4,13 @@
 /*背景色*/
 
 .main-content { 
-  background-color:#F2AA43;
+  background-color:#a5845d;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #F2AA43;
+  background-color:#a5845d;
 }
 
 .book-list {
@@ -42,7 +42,7 @@ html, body {
 
 .book-title {
 	display: inline-block; 
-	max-width: 150px;
+	max-width: 200px;
 	color:white;
 	font-weight: bold;
 	text-shadow:

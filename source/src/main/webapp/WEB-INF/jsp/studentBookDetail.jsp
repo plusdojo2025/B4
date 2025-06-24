@@ -5,11 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/studentBook.css' />">
+<link rel="stylesheet" href="<c:url value='/css/bookDetail.css' />">
   <meta charset="UTF-8">
   <title>本の詳細</title>
 </head>
 <body>
 
+<!-- オーバーレイ詳細パネル -->
+<div class="overlay">
+  <div class="detail-panel">
+  
 <h2>${book.title}</h2>
 
 <p>著者：${book.author}</p>
@@ -44,6 +51,8 @@
   </c:choose>
 </c:if>
 
+
+
 <!-- 読書中・未読だが「最新ではない」本 → ボタン表示 -->
 <c:if test="${typeId != 2 && book.id != latestReadingBookId}">
   <form action="BookFinishServlet" method="post">
@@ -51,6 +60,16 @@
     <input type="submit" value="この本を読む" />
   </form>
 </c:if>
+
+<!-- 戻るボタン（一覧ページへ） -->
+<div class="back-button-wrapper">
+  <a href="${pageContext.request.contextPath}/BookListServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}" class="back-button">
+    ← 一覧に戻る
+  </a>
+</div>
+
+</div>
+</div>
 
 
 <c:choose>
