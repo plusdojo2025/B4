@@ -40,18 +40,20 @@ public class RankingServlet extends HttpServlet {
 		    String rankingType = request.getParameter("rankingType"); // class or genre
 		    String schoolClassParam = request.getParameter("school_class");
 		    String genreIdParam = request.getParameter("genre_id");
-
+		    String month = request.getParameter("month");
+		    
 		    RankingDAO dao = new RankingDAO();
-		    List<Ranking> RankList;
-		    String title;
-
-		    if ("genre".equals(rankingType)) {
+		    List<Ranking> RankList = new ArrayList<>();
+		    String title = "";
+		    if(month == null || month.isEmpty()) {
+		    	title = "月が指定されていません";
+		    }else if("genre".equals(rankingType)) {
 		        if (genreIdParam != null && !genreIdParam.isEmpty()) {
 		            int genreId = Integer.parseInt(genreIdParam);
-		            RankList = dao.selectByGenre(genreId);
-		            title = "ジャンル別ランキング";
+		            RankList = dao.selectByGenre(genreId, month);
+		            title = "ジャンル別ランキング(" + month + ")";
 		        } else {
-		            RankList = new ArrayList<>();
+		            
 		            title = "ジャンルが選択されていません";
 		        }
 		    } else { // デフォルト：クラス別
@@ -59,19 +61,21 @@ public class RankingServlet extends HttpServlet {
 		        if (schoolClassParam != null && !schoolClassParam.isEmpty()) {
 		            schoolClass = Integer.parseInt(schoolClassParam);
 		        }
-		        RankList = dao.selectBySchool_class(schoolClass);
-		        title = "クラス別ランキング";
+		        RankList = dao.selectBySchool_class(schoolClass, month);
+		        title = "クラス別ランキング(" + month + ")";
 		    }
 
 		    request.setAttribute("RankList", RankList);
 		    request.setAttribute("rankingType", rankingType);
 		    request.setAttribute("title", title);
-
+		    request.setAttribute("selectedMonth", month);
+		    
 		    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRanking.jsp");
 		    dispatcher.forward(request, response);
 		    System.out.println("rankingType: " + rankingType);
 		    System.out.println("genre_id: " + genreIdParam);
 		    System.out.println("school_class: " + schoolClassParam);
+		    System.out.println("month: " + month);
 		    System.out.println("取得件数: " + (RankList != null ? RankList.size() : "null"));
 		}
 
