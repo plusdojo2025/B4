@@ -20,13 +20,12 @@
     %>
 
     <form method="post" action="SelectAccountServlet">
-      
-
         <ul>
         <%
             List<User> userList = (List<User>) request.getAttribute("userList");
             if (userList != null && !userList.isEmpty()) {
                 for (User u : userList) {
+                    if (u != null) { 
         %>
             <li>
                 <input type="radio" name="selectedUserId" value="<%= u.getId() %>" id="user_<%= u.getUsers_id() %>" required>
@@ -35,6 +34,7 @@
                 </label>
             </li>
         <%
+                    }
                 }
             } else {
         %>
@@ -48,4 +48,3 @@
     </form>
 </body>
 </html>
-

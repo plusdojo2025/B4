@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.IdPwDAO;
 import dao.UserDAO;
 import dto.IdPw;
-import dto.User;
+import dto.User;  
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -31,37 +31,30 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String idStr = request.getParameter("users_id");
+        String usersId = request.getParameter("users_id");
         String pw = request.getParameter("password");
+        System.out.println("[ログ] 入力されたユーザーID: " + usersId);
+        System.out.println("[ログ] 入力されたパスワード: " + pw);
 
-        if (idStr == null || idStr.isEmpty() || pw == null || pw.isEmpty()) {
-            request.setAttribute("errorMessage", "IDとパスワードは必須です。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        int usersId = 0;
-        try {
-            usersId = Integer.parseInt(idStr);
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "IDは数字で入力してください。");
+        if (usersId == null || usersId.isEmpty() || pw == null || pw.isEmpty()) {
+            request.setAttribute("errorMessage", "ユーザーIDとパスワードは必須です。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
         IdPwDAO iDao = new IdPwDAO();
-        if (!iDao.isLoginOK(new IdPw(String.valueOf(usersId), pw))) {
-            // 失敗
-            request.setAttribute("errorMessage", "IDまたはパスワードに誤りがあります。");
+        if (!iDao.isLoginOK(new IdPw(usersId, pw))) {
+            request.setAttribute("errorMessage", "ユーザーIDまたはパスワードに誤りがあります。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
+    
         UserDAO userDao = new UserDAO();
-        List<User> userList = userDao.findByUsersId(usersId);
+        List<User> userList = userDao.findByUserId(usersId);
+
 
         if (userList.size() == 1) {
             User user = userList.get(0);

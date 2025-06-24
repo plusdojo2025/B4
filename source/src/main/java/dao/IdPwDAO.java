@@ -27,8 +27,8 @@ public class IdPwDAO {
 	        String sql = "SELECT * FROM users WHERE users_id = ? AND password = ?";
 	        PreparedStatement pStmt = conn.prepareStatement(sql);
 
-	        // ここでusers_idは整数なのでsetIntを使う
-	        pStmt.setInt(1, Integer.parseInt(idpw.getId()));
+	      
+	        pStmt.setString(1, idpw.getId());
 	        pStmt.setString(2, idpw.getPw());
 
 	        ResultSet rs = pStmt.executeQuery();

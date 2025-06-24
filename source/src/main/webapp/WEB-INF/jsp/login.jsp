@@ -12,7 +12,7 @@
 
 
 <form method="post" action="LoginServlet">
-    ユーザーID：<input type="text" name="users_id">
+    ユーザー：<input type="text" name="users_id">
     パスワード：<input type="password" name="password"><br>
     <input type="submit" value="ログイン">
 </form>
