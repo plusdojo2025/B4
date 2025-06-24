@@ -46,9 +46,26 @@
 
 <form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
 
-もくひょう<input type="text" name="target_page" value="0"><br>
-きろく<input type="text" name="read_page" value="0"><br>
-<input type="submit" name="submit" value="OK"><br>
+
+<c:choose>
+  <c:when test="${step == 'record'}">
+    <form method="post" action="StudentHomeServlet">
+      <label>読んだページ：</label>
+      <input type="number" name="read_page" value="0"><br>
+      <input type="submit" value="きろくする">
+    </form>
+  </c:when>
+  
+  <c:otherwise>
+    <form method="post" action="StudentHomeServlet">
+      <label>目標ページ：</label>
+      <input type="number" name="target_page" value="0"><br>
+      <input type="submit" value="もくひょうをきめる">
+    </form>
+  </c:otherwise>
+</c:choose>
+
+
 </form>
 
 <h2>ランキング</h2>
