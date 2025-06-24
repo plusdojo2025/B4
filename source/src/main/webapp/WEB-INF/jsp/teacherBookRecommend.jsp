@@ -5,27 +5,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<c:url value='/css/techerCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/teacherBook.css' />">
   <meta charset="UTF-8">
   <title>おすすめしてる本</title>
 </head>
 <body>
 
-<header>
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
 <span>
   <c:out value="${sessionScope.user.name}" /> さん
 </span>
-<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
-<p><a href="<c:url value='/RegistServlet' />">登録</a></p>
-<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
-<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
-<p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
-<p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
-<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+ <li><a href="<c:url value='/TeacherHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+    <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+</ul>
+</nav>
 </header>
+<!-- ヘッダー　-->
 
-
-<h2>おすすめしてる本</h2>
-
+<main class="main-content"> 
+<div class="search-form-container">
 <form action="BookRecommendServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">
   ジャンル：
@@ -49,6 +57,7 @@
   </select>
   <input type="submit" value="検索">
 </form>
+</div>
 
 <table border="1">
   <tr>
@@ -101,6 +110,7 @@
 </table>
 
 
+<div class="pagenation">
 
 <!-- 最初へ -->
 <c:if test="${currentPage > 1}">
@@ -133,6 +143,17 @@
 <c:if test="${currentPage < totalPages}">
   <a href="${pageContext.request.contextPath}/BookRecommendServlet?page=${totalPages}&title=${fn:escapeXml(title)}&genreId=${fn:escapeXml(genreId)}">最後へ</a>
 </c:if>
+</div>
+</main>
+</div>
+
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+
 
 </body>
 </html>

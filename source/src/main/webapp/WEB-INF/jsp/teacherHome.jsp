@@ -8,18 +8,32 @@
 <head>
 <meta charset="UTF-8">
 <title>ホーム | 管理者ページ</title>
+<link rel="stylesheet" href="<c:url value='/css/techerCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/teacherHome.css' />">
 </head>
 <body>
-<h1>よも～にんぐ</h1>
-<hr>
-<p><a href="/B4/TeacherHomeServlet">ホーム</a></p>
-<p><a href="/B4/UpdateDeleteServlet">登録</a></p>
-<p><a href="/B4/BookListServlet">一覧</a></p>
-<p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
-<p><a href="/B4/OpinionServlet">目安箱</a></p>
-<p><a href="/B4/RankingServlet">ランキング</a></p>
-<p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+ <li><a href="<c:url value='/TeacherHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+    <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
+
+<main class="main-content"> 
 <select id="select_class">
   <option value="">-- 選択してください --</option>
   <option value="1年1組">1年1組</option>
@@ -60,6 +74,15 @@
 
 <h3>過去の読書記録</h3>
 
+</main>
+</div>
 
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+ 
 </body>
 </html>

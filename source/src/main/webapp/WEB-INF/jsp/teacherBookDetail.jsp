@@ -5,10 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/teacherBook.css' />">
+<link rel="stylesheet" href="<c:url value='/css/bookDetail.css' />">
   <meta charset="UTF-8">
   <title>本の詳細</title>
 </head>
 <body>
+
+!-- オーバーレイ詳細パネル -->
+<div class="overlay">
+  <div class="detail-panel">
 
 <h2>${book.title}</h2>
 
@@ -63,8 +70,13 @@
     <a href="${pageContext.request.contextPath}/BookListServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}">
       ← 新着順一覧に戻る
     </a>
+    
+ 
   </c:otherwise>
 </c:choose>
+</div>
+</div>
+
 
 <script>
   function hideButton() {
