@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="dto.Ranking" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,13 @@
 <title>よも～にんぐ</title>
 </head>
 <body>
+<p>リクエスト情報:</p>
+<ul>
+  <li>月: ${param.month}</li>
+  <li>ランキングタイプ: ${param.rankingType}</li>
+  <li>クラス: ${param.school_class}</li>
+  <li>ジャンルID: ${param.genre_id}</li>
+</ul>
 <h1 id ="logo">よも～にんぐ</h1>
 <ul>
 <li><a href="home.html">ホーム</a></li>
@@ -23,6 +31,9 @@
   <h2>ランキング表示</h2>
 <!-- ランキング選択フォーム -->
 <form action="RankingServlet" method="get">
+  <label for="month">月：</label>
+  <input type="month" name="month" id="month" value="${selectedMonth}" required><br><br>
+  
   <label for="rankingType">種類を選んでください：</label>
   <select name="rankingType" id="rankingType" onchange="toggleOptions()">
     <option value="class">クラス別</option>
@@ -69,6 +80,7 @@
     document.getElementById('classSelect').style.display = (type === 'class') ? 'block' : 'none';
     document.getElementById('genreSelect').style.display = (type === 'genre') ? 'block' : 'none';
   }
+  window.onload = toggleOptions;
 </script>
 </form>
 <h3>${title}</h3>

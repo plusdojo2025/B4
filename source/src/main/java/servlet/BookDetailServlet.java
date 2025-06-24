@@ -54,7 +54,7 @@ public class BookDetailServlet extends HttpServlet {
 		session.setAttribute("currentPage", pageStr);
 		session.setAttribute("lastList", lastList);
 		int userId = user.getId();
-//				(Integer) request.getSession().getAttribute("userId");
+
 		// 読書状態
 		FinishBookDAO finishDao = new FinishBookDAO();
 		int typeId = finishDao.getTypeId(userId, bookId);
