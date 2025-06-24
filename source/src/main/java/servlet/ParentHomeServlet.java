@@ -50,7 +50,7 @@ public class ParentHomeServlet extends HttpServlet {
 		int day = 23;
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectToday(user_id, book_id, month, day);
+		List<Progress> progressList = proDao.selectToday(user_id, book_id);
 		
 
 		FinishBookDAO finDao = new FinishBookDAO();
