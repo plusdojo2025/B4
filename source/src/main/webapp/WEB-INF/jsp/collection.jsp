@@ -10,14 +10,14 @@
 <link rel="stylesheet" href="<c:url value='/css/common.css' />">
 <link rel="stylesheet" href="<c:url value='/css/collection.css' />">
 <meta charset="UTF-8">
-<title>コレクション｜よも～にんぐ</title>
+<title>コレクション｜生徒用</title>
 </head>
 <body id="top">
 
 <div class="page-frame">
 <!-- ヘッダー　-->
 <header class="header">
- <div class="logo">よも～にんぐ</div>
+<div class="logo">よも～にんぐ</div>
  <nav class="nav">
   <ul >
     <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>

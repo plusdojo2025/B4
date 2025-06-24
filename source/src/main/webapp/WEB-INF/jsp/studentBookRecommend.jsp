@@ -6,7 +6,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="<c:url value='/css/common.css' />">
-<link rel="stylesheet" href="<c:url value='/css/studentHome.css' />">
+<link rel="stylesheet" href="<c:url value='/css/studentBook.css' />">
 <meta charset="UTF-8">
 <title>おすすめしてる本</title>
 </head>
