@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import dao.ProgressDAO;
 import dao.RankingDAO;
 import dto.Book;
 import dto.FinishBook;
+import dto.Progress;
 import dto.Ranking;
 import dto.Result;
 import dto.User;
@@ -57,10 +59,26 @@ public class StudentHomeServlet extends HttpServlet {
         int schoolClass = user.getSchoolClass(); // クラス
 		request.setCharacterEncoding("UTF-8");
 		
+		// POSTからstepを受け取る
+		String step = (String) session.getAttribute("step");
+		if (step != null) {
+		    request.setAttribute("step", step);
+		    session.removeAttribute("step");
+		}
+		//	resltメッセージも受け取る
+		Result result = (Result) session.getAttribute("result");
+		if (result != null) {
+		    request.setAttribute("result", result);
+		    session.removeAttribute("result");
+		}
+		
 		FinishBookDAO finDao = new FinishBookDAO();
 		List<FinishBook> finishBookNewList = finDao.selectNew(user_id);
 		
-		
+		//日付取得
+		LocalDate today = LocalDate.now();
+		Date date = java.sql.Date.valueOf(today); // LocalDate → java.util.Date に変換
+		request.setAttribute("today", date);
 		
 		session.setAttribute("finishBookNewList", finishBookNewList);
 		
@@ -82,7 +100,7 @@ public class StudentHomeServlet extends HttpServlet {
 	        }
 	        LocalDate targetDate = now.toLocalDate();
 
-	        // ユーザーIDと日付を使ってインデックス決定（ユーザーごとに違うけど日ごとに変わる）
+	        // ユーザーIDと日付からランダム表示
 	        int seed = user_id + targetDate.getDayOfYear();
 	        int index = seed % top10Books.size();
 
@@ -90,7 +108,48 @@ public class StudentHomeServlet extends HttpServlet {
 
 	    request.setAttribute("todayRecommendation", todayRecommendation);
 	    }
+	    
+	    int latestBookId = -1;
+	    List<FinishBook> readBookList = finDao.selectNew(user_id);
+	    if (!readBookList.isEmpty()) {
+	        latestBookId = readBookList.get(0).getBook_id();
+	    }
+	    
+	    //今日の入力状況を確認
+	    ProgressDAO proDao = new ProgressDAO();
+	    List<Progress> todayProgress = proDao.selectToday(user_id, latestBookId);
 
+	    boolean isTargetDone = todayProgress.stream().anyMatch(p -> p.getTarget_page() > 0);
+	    boolean isRecordDone = todayProgress.stream().anyMatch(p -> p.getRead_page() > 0);
+	    boolean isAllDone = isTargetDone && isRecordDone;
+
+	    request.setAttribute("isTargetDone", isTargetDone);
+	    request.setAttribute("isRecordDone", isRecordDone);
+	    request.setAttribute("isAllDone", isAllDone);
+	    
+	    String readStr = request.getParameter("read_page");
+
+	    if (readStr != null && !readStr.isEmpty() && Integer.parseInt(readStr) > 0) {
+	        int read_page = Integer.parseInt(readStr);
+	        proDao.update_read(user_id, latestBookId, read_page);
+
+	        int totalRead = proDao.getTotalPagesRead(user_id, latestBookId);
+	        int totalPages = proDao.getBookTotalPages(latestBookId);
+
+	        System.out.println("▶ totalRead: " + totalRead + " / totalPages: " + totalPages);
+
+	        if (totalRead >= totalPages) {
+	            System.out.println("▶ 完読条件を満たしたため insertFinishedBook を実行");
+	            boolean finished = proDao.insertFinishedBook(user_id, latestBookId);
+	            System.out.println("▶ 完読更新結果: " + finished);
+	        }
+
+	        session.setAttribute("result", new Result("登録成功！", "読んだページを登録しました。", "/B4/StudentHomeServlet"));
+	        step = "target";
+	    }
+
+	    
+	    
 	    
 	  
 	
@@ -129,23 +188,28 @@ public class StudentHomeServlet extends HttpServlet {
 
 	    int user_id = userId;
 	    int book_id = latestReadBookId;
-
-	    // ステップ制御変数
+	    
+	    ProgressDAO dao = new ProgressDAO();
+	    List<Progress> todayProgress = dao.selectToday(user_id, book_id);
+	   	    
 	    String step = "target";
 
 	    try {
 	        String targetStr = request.getParameter("target_page");
 	        String readStr = request.getParameter("read_page");
+	        System.out.print(readStr);
 
 	        if (readStr != null && !readStr.isEmpty() && Integer.parseInt(readStr) > 0) {
 	            int read_page = Integer.parseInt(readStr);
 	            proDao.update_read(user_id, book_id, read_page);
-
+	            	            
 	            int totalRead = proDao.getTotalPagesRead(user_id, book_id);
 	            int totalPages = proDao.getBookTotalPages(book_id);
-	            if (totalRead >= totalPages ) {
-	                proDao.insertFinishedBook(user_id, book_id);
+	            if (totalRead >= totalPages) {
+	                System.out.print("▶ 完読条件を満たしたため insertFinishedBook を実行");
+	                proDao.insertFinishedBook(userId, book_id);
 	            }
+
 
 	            session.setAttribute("result", new Result("登録成功！", "読んだページを登録しました。", "/B4/StudentHomeServlet"));
 	            step = "target";  // 次はまた目標入力へ
@@ -159,10 +223,10 @@ public class StudentHomeServlet extends HttpServlet {
 	    } catch (NumberFormatException e) {
 	        e.printStackTrace();
 	    }
+	    session.setAttribute("step", step);
 
-	    request.setAttribute("step", step);
-	    request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
+	    // ↓ doGet にリダイレクト（再読み込み扱いではなくサーバー内部で呼ぶので forward 的な挙動）
+	    doGet(request, response);
 	}
-
 
 }

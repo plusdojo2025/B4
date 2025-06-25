@@ -289,52 +289,35 @@ public class ProgressDAO {
 	}
 	
 	public int getTotalPagesRead(int user_id, int book_id){
+	    Connection conn = null;
+	    int total = 0;
 
-		Connection conn = null;
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+	                + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+	                "root", "password");
 
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
+	        // read_page > 0 のみ合計
+	        String sql = "SELECT SUM(read_page) FROM progress WHERE user_id = ? AND book_id = ? AND read_page > 0";
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+	        pStmt.setInt(1, user_id);
+	        pStmt.setInt(2, book_id);
 
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+	        ResultSet rs = pStmt.executeQuery();
+	        if (rs.next()) {
+	            total = rs.getInt(1);
+	        }
 
-			// SQL文を準備する
-			String sql = "SELECT SUM(read_page) FROM progress WHERE user_id = ? AND book_id = ?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try { if (conn != null) conn.close(); } catch (Exception e) {}
+	    }
 
-			// SQL文を完成させる
-			pStmt.setInt(1, user_id);
-			pStmt.setInt(2, book_id);
-			
-			ResultSet rs = pStmt.executeQuery();
+	    return total;
+	}
 
-			// 結果表をコレクションにコピーする
-			if (rs.next()) {
-                return rs.getInt(1); // 合計値
-            }
-            
-        } catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		// 結果を返す
-		return 0;
-        
-    }
     
     public int getBookTotalPages(int book_id){
 
@@ -389,7 +372,7 @@ public class ProgressDAO {
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
     				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
     				"root", "password");
-            String sql = "UPDATE finish_books SET type_id = 2, updated_at = CURRENT_TIMESTAMP WHERE user_id =? AND book_id = ? AND type_id = 1 ORDER BY updated_at DESC LIMIT 1";
+            String sql = "UPDATE finish_books SET type_id = 2, updated_at = CURRENT_TIMESTAMP WHERE user_id =? AND book_id = ? AND type_id = 1 ORDER BY updated_at DESC";
             PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

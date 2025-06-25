@@ -124,7 +124,7 @@ public class FinishBookDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
-			String sql = "SELECT b.id, f.book_id, f.user_id, f.type_id, b.title, b.cover, f.created_at, f.updated_at FROM finish_books f JOIN books b ON f.book_id = b.id WHERE f.user_id = ? AND f.type_id = 1 ORDER BY f.updated_at DESC LIMIT 100 OFFSET 1 ";
+			String sql = "SELECT b.id, f.book_id, f.user_id, f.type_id, b.title, b.cover, f.created_at, f.updated_at FROM finish_books f JOIN books b ON f.book_id = b.id WHERE f.user_id = ? AND f.type_id = 2 ORDER BY f.updated_at DESC LIMIT 100 OFFSET 1 ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, user_id);
 			
