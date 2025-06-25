@@ -35,9 +35,7 @@
 
 <main class="main-content"> 
 
-<c:if test="${not empty currentTeacherBook}">
-
-<h3><%= month %>月<%= day %>日の読書情報</h3>
+<h3>6月25日の読書情報</h3>
 
 <form method="POST" action="/B4/TeacherHomeServlet">
 <table>
@@ -48,8 +46,6 @@
 </c:forEach>
 </table>
 </form>
-
-<h3>過去の読書記録</h3>
 
 </main>
 </div>
