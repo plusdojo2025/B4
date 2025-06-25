@@ -61,18 +61,8 @@ public class ProgressServlet extends HttpServlet {
        if(user != null) {
     	   if(user.getTypeId() == 1) {
         	   view = "/WEB-INF/jsp/teacherProgress.jsp";
-        	   String users_id = user.getUsers_id(); 
                
-               ParentDAO parDAO = new ParentDAO();
-               List<User> userList = parDAO.selectUser(users_id);
-               
-               ArrayList<Integer> u = new ArrayList<Integer>();
-               
-               for(User stu : userList) {
-          			u.add(stu.getId());
-          		}
-               
-               Integer user_id = u.get(0);
+        	   int user_id = user.getId();
                
                request.setCharacterEncoding("UTF-8");
 
