@@ -16,7 +16,7 @@
 <body>
 <h1>よも～にんぐ</h1>
 <hr>
-<p><a href="/B4/parentHomeServlet">ホーム</a></p>
+<p><a href="/B4/ParentHomeServlet">ホーム</a></p>
 <p><a href="/B4/BookListServlet">一覧</a></p>
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
