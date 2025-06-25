@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class Progress implements Serializable {
 	private int id;
 	private int user_id;
+	private String users_id;
 	private int book_id;
 	private String name;
 	private int target_page;
@@ -30,6 +31,12 @@ public class Progress implements Serializable {
 		this.user_id = user_id;
 	}
 
+	public String getUsers_id() {
+		return users_id;
+	}
+	public void setUsers_id(String users_id) {
+		this.users_id = users_id;
+	}
 	public int getBook_id() {
 		return book_id;
 	}
@@ -96,6 +103,7 @@ public class Progress implements Serializable {
 	public Progress() {
 		this.id = 0;
 		this.user_id = 0;
+		this.users_id = "";
 		this.book_id = 0;
 		this.name = "";
 		this.target_page = 0;
@@ -110,6 +118,19 @@ public class Progress implements Serializable {
 			LocalDateTime updated_at, int month, int day) {
 		this.id = id;
 		this.user_id = user_id;
+		this.book_id = book_id;
+		this.target_page = target_page;
+		this.read_page = read_page;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+		this.month = month;
+		this.day = day;
+	}
+	public Progress(int id, int user_id, String users_id, int book_id, int target_page, int read_page, LocalDateTime created_at,
+			LocalDateTime updated_at, int month, int day) {
+		this.id = id;
+		this.user_id = user_id;
+		this.users_id = users_id;
 		this.book_id = book_id;
 		this.target_page = target_page;
 		this.read_page = read_page;
