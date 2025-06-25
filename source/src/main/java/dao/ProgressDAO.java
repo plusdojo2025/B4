@@ -393,8 +393,8 @@ public class ProgressDAO {
             PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, book_id);
-			pStmt.setInt(2, user_id);
+			pStmt.setInt(1, user_id);
+			pStmt.setInt(2, book_id);
 
 			if (pStmt.executeUpdate() == 1) {
 				result = true;

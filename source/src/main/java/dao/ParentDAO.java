@@ -26,7 +26,7 @@ public class ParentDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE users_id =?";
+			String sql = "SELECT progress.id, user_id, users_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE users_id LIKE ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -85,9 +85,9 @@ public class ParentDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT progress.id, user_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day "
+			String sql = "SELECT progress.id, user_id, users_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day "
 					+ "FROM progress JOIN users ON progress.user_id = users.id "
-					+ "WHERE users.users_id =? AND users.type_id = 3 AND book_id =? "
+					+ "WHERE users.users_id  LIKE ? AND users.type_id = 3 AND book_id =? "
 					+ "AND MONTH(progress.updated_at) = MONTH(CURRENT_DATE()) AND DAY(progress.updated_at) = DAY(CURRENT_DATE())";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -146,7 +146,7 @@ public class ParentDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
-			String sql = "SELECT b.id, f.book_id, f.user_id, f.type_id, b.title, b.cover, f.created_at, f.updated_at FROM finish_books f JOIN books b ON f.book_id = b.id WHERE u.users_id = ? AND f.type_id = 1 ORDER BY f.updated_at DESC LIMIT 1 OFFSET 0";
+			String sql = "SELECT b.id, f.book_id, f.user_id, users_id, f.type_id, b.title, b.cover, f.created_at, f.updated_at FROM finish_books f JOIN books b ON f.book_id = b.id WHERE u.users_id LIKE ? AND f.type_id = 1 ORDER BY f.updated_at DESC LIMIT 1 OFFSET 0";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, users_id);
 			
@@ -202,7 +202,7 @@ public class ParentDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
-			String sql = "SELECT b.id, f.book_id, f.user_id, f.type_id, b.title, b.cover, f.created_at, f.updated_at FROM finish_books f JOIN books b ON f.book_id = b.id WHERE u.users_id = ? AND f.type_id = 1 ORDER BY f.updated_at DESC LIMIT 100 OFFSET 1 ";
+			String sql = "SELECT b.id, f.book_id, f.user_id, users_id, f.type_id, b.title, b.cover, f.created_at, f.updated_at FROM finish_books f JOIN books b ON f.book_id = b.id WHERE u.users_id LIKE ? AND f.type_id = 1 ORDER BY f.updated_at DESC LIMIT 100 OFFSET 1 ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, users_id);
 			
