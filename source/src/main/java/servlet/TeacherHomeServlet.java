@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.ProgressDAO;
 import dto.Progress;
+import dto.User;
 
 /**
  * Servlet implementation class TeacherHomeServlet
@@ -34,12 +36,22 @@ public class TeacherHomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 
+        User user = (User) session.getAttribute("user");
+
+        int user_id = user.getId(); // ユニークID
+        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+        int grade = user.getGrade(); // 学年
+	    int school_class = user.getSchoolClass(); // クラス
 		request.setCharacterEncoding("UTF-8");
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectTeacherHome();
+		List<Progress> progressList = proDao.selectTeacherHome(grade, school_class);
 		
 		request.setAttribute("progressList", progressList);
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
@@ -50,15 +62,22 @@ public class TeacherHomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
-//			return;
-//		}
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
+
+        User user = (User) session.getAttribute("user");
+
+        int user_id = user.getId(); // ユニークID
+        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+        int grade = user.getGrade(); // 学年
+	    int school_class = user.getSchoolClass(); // クラス
 		request.setCharacterEncoding("UTF-8");
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectTeacherHome();
+		List<Progress> progressList = proDao.selectTeacherHome(grade, school_class);
 		
 		request.setAttribute("progressList", progressList);
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);

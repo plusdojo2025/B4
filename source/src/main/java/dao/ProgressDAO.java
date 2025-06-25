@@ -132,7 +132,7 @@ public class ProgressDAO {
 		return progressList;
 	}
 	
-	public List<Progress> selectTeacherHome() {
+	public List<Progress> selectTeacherHome(int grade, int school_class) {
 		Connection conn = null;
 		List<Progress> progressList = new ArrayList<Progress>();
 
@@ -148,10 +148,13 @@ public class ProgressDAO {
 			// SQL文を準備する
 			String sql = "SELECT progress.id, user_id, book_id, users.name, target_page, read_page, grade, school_class, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day"
 					+ " FROM progress JOIN users ON progress.user_id = users.id"
-					+ " WHERE MONTH(progress.updated_at) = MONTH(CURRENT_DATE()) AND DAY(progress.updated_at) = DAY(CURRENT_DATE())";
+					+ " WHERE grade =? AND school_class =? AND users.type_id = 3 AND MONTH(progress.updated_at) = MONTH(CURRENT_DATE()) AND DAY(progress.updated_at) = DAY(CURRENT_DATE())";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる// SQL文を実行し、結果表を取得する
+
+			pStmt.setInt(1, grade);
+			pStmt.setInt(2, school_class);
 			
 			ResultSet rs = pStmt.executeQuery();
 

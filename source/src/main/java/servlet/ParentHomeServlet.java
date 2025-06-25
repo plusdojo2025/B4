@@ -51,7 +51,6 @@ public class ParentHomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
        int user_id = user.getId(); // ユニークID
-       int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
 //        int grade = user.getGrade(); // 学年
 //        int schoolClass = user.getSchoolClass(); // クラス
 		
