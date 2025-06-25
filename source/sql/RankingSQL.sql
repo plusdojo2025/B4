@@ -499,4 +499,19 @@ CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (34,3, '加藤信二','family9', 'password', 'adminuser@example.com',3,1,3,3,
 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+INSERT INTO users (Id, type_id, name, users_id, password, mail_address, trophy_id, statuses_id, grade, school_class, created_at, updated_at)  
+
+VALUES  
+
+(1, 1, '先生1', 'admin1', 'password', 'adminuser@example.com', 3, 1, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  
+
+(2, 2, '親3', 'family3', 'password', 'parentuser@example.com', 3, 1, 4, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  
+
+(3, 3, '生徒3(兄)', 'family3', 'password', 'studentuser@example.com', 3, 1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  
+
+(4, 3, '生徒2(姉)', 'family2', 'password', 'studentuser2@example.com', 3, 1, 4, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  
+
+(5, 2, '親2', 'family2',  'password', 'dummyparent@example.com', 3, 1, 2, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  
+
+(6, 3, '生徒2(妹)', 'family2', 'password', 'student200_1@example.com', 3, 1, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (7, 3, '生徒3(弟)', 'family3', 'password', 'student300_1@example.com', 3, 1, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (8, 1, '先生2', 'admin2', 'password', 'adminuser2@example.com', 3, 1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (9, 1, '佐藤 太郎', 'admin3', 'password', 'sato@example.com', 3, 1, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (10, 2, '鈴木 花子','family4', 'password', 'suzuki@example.com', 3, 1, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (11, 3, '高橋 次郎','family5', 'password', 'takahashi@example.com', 3, 1, 2, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (12, 1, '田中 美咲', 'admin4','password', 'tanaka@example.com', 3, 1, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (13, 3, '伊藤 太一','family6', 'password', 'ito@example.com', 3, 1, 3, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (14, 2, '山本 彩','family7', 'password', 'yamamoto@example.com', 3, 1, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (15, 3, '中村 拓海','family8', 'password', 'nakamura@example.com', 3, 1, 1, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (16, 1, '小林 桃子', 'admin5', 'password', 'kobayashi@example.com', 3, 1, 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (17, 2, '加藤 慎一', 'family9', 'password', 'kato@example.com', 3, 1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (18, 1, '渡辺 愛', 'admin6', 'password', 'watanabe@example.com', 3, 1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (19, 3, '山田太郎', 'family10', 'password', 'example1@sample.com', 3, 1, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (20, 3, '鈴木花子', 'family4', 'password', 'example2@sample.com', 3, 1, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (21, 3, '山村次郎', 'family11', 'password', 'example3@sample.com', 3, 1, 2, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (22, 3, '佐藤恵美', 'family12', 'password', 'example4@sample.com', 3, 1, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (23, 3, '田中翔', 'family13', 'password', 'example5@sample.com', 3, 1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (24, 2, '山田一郎', 'family10', 'password', 'example1@sample.com', 3, 1, 4, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (25, 2, '鈴木花江', 'family4', 'suzukihanako', 'example2@sample.com', 3, 1, 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (26, 2, '山村三郎', 'family11', 'yamamurajiro', 'example3@sample.com', 3, 1, 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (27, 2, '佐藤由美', 'family12', 'satoemi', 'example4@sample.com', 3, 1, 5, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (28, 2, '田中亮', 'family13', 'tanakasho', 'example5@sample.com', 3, 1, 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), (29, 1, '加藤健', 'admin7', 'katoken', 'example6@sample.com', 3, 1, 6, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);  
 

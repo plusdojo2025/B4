@@ -113,41 +113,59 @@ Connection conn = null;
 }
 		return RankList;	
 }
-	public List<Ranking> selectPopularBooksByGenre(int genreId) {
-	    List<Ranking> rankList = new ArrayList<>();
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
+	public List<Ranking> selectBySchool_class(int school_class){
+		List<Ranking>RankList = new ArrayList<>();
+		
+		Connection conn = null;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
-	    try {
-	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_db", "user", "password");
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/b4?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			//SQL文
+			String sql ="SELECT u.id AS user_id ,u.name,SUM(p.read_page) AS page FROM progress p JOIN users u ON p.user_id = u.id WHERE u.school_class = ?  GROUP BY u.id, u.name ORDER BY SUM(p.read_page) DESC";				
+	
+						    
+						
 
-	        String sql = 
-	            "SELECT b.title,  COUNT(*) AS f_books " +
-	            "FROM finish_books f " +
-	            "JOIN books b ON f.book_id = b.id " +
-	            "WHERE b.genre_id = ? " +
-	            "GROUP BY b.id, b.title " +
-	            "ORDER BY f_books DESC";
-
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, genreId);
-	        rs = pstmt.executeQuery();
-
-	        while (rs.next()) {
-	            Ranking r = new Ranking();
-	            r.setTitle(rs.getString("title"));
-	            rankList.add(r);
-	        }
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        try { if (rs != null) rs.close(); } catch (Exception e) {}
-	        try { if (pstmt != null) pstmt.close(); } catch (Exception e) {}
-	        try { if (conn != null) conn.close(); } catch (Exception e) {}
-	    }
-
-	    return rankList;
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			pStmt.setInt(1, school_class);
+			
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				Ranking ranking = new Ranking();
+				ranking.setUser_id(rs.getInt("user_id"));
+				ranking.setName(rs.getString("name"));
+			    ranking.setPage(rs.getInt("page"));
+			    RankList.add(ranking); // ← リストに追加
+			
+                }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			RankList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			RankList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					RankList = null;
+				}
+			}
+		}
+		
+		
+		
+		return RankList;
 	}
-	}
+}
