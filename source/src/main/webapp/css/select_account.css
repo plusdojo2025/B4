@@ -1,0 +1,101 @@
+@charset "UTF-8";
+/* 全体背景と文字 */
+body {
+  background-color: #e8f5e9;
+  font-family: "Rounded Mplus 1c", "Hiragino Maru Gothic ProN", sans-serif;
+  color: #00552e;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 40px;
+  font-size: 30px;
+}
+
+/* リスト構成 */
+form ul {
+  list-style: none;
+  padding: 0;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* liを包むlabelがカード */
+.account-card {
+  display: block;
+  width: 180px;
+  height: 200px;
+  border-radius: 16px;
+  border: 3px solid #DC8551;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s, border-color 0.3s;
+}
+
+/* 内部の内容配置 */
+.card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.card-inner i {
+  font-size: 42px;
+  margin-bottom: 12px;
+  color: #00552e;
+  transition: color 0.3s;
+}
+
+.card-inner span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #00552e;
+}
+
+/* 選択用のinputは隠す */
+input[type="radio"] {
+  display: none;
+}
+
+/* 選択中のスタイル（labelに直接） */
+input[type="radio"]:checked + .card-inner {
+  background-color: #FFB347;
+  color: white;
+  border-radius: 16px;
+}
+
+input[type="radio"]:checked + .card-inner i,
+input[type="radio"]:checked + .card-inner span {
+  color: white;
+}
+
+/* ホバー時 */
+.account-card:hover {
+  transform: scale(1.05);
+  border-color: #FFB347;
+}
+
+/* ログインボタン */
+input[type="submit"] {
+  background-color: #FFB347;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+input[type="submit"]:hover {
+  background-color: #fca937;
+  transform: scale(1.03);
+}
