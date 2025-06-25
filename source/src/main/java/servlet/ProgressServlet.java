@@ -46,7 +46,7 @@ public class ProgressServlet extends HttpServlet {
 		
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
@@ -108,7 +108,7 @@ public class ProgressServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
