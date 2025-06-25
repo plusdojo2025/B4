@@ -26,7 +26,7 @@ public class ParentDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT progress.id, user_id, users_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE users_id LIKE ?";
+			String sql = "SELECT progress.id, user_id, users_id, book_id, target_page, read_page, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day FROM progress JOIN users ON progress.user_id = users.id WHERE users_id LIKE ? AND type_id = 3";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

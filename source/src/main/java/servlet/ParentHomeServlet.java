@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import dao.ParentDAO;
-import dao.ProgressDAO;
 import dto.FinishBook;
 import dto.Progress;
 import dto.User;
@@ -53,17 +52,15 @@ public class ParentHomeServlet extends HttpServlet {
        String users_id = user.getUsers_id(); 
 //        int grade = user.getGrade(); // 学年
 //        int schoolClass = user.getSchoolClass(); // クラス
-       
 
        ParentDAO parDao = new ParentDAO();
        List<FinishBook> finishBookNewList = parDao.selectNewParent(users_id);
-       FinishBook currentBook = finishBookNewList.isEmpty() ? null : finishBookNewList.get(0);
+       FinishBook currentBook = finishBookNewList.get(0);
 
        Progress progress = null;
-       if (currentBook != null) {
            int book_id = currentBook.getBook_id();  // ← ここでbook_idを取得
+          
 
-           ProgressDAO proDao = new ProgressDAO();
            List<Progress> selectTodayList = parDao.selectTodayParent(users_id, book_id);
            
            List<Progress> progressList = parDao.selectParent(users_id);
@@ -90,7 +87,7 @@ public class ParentHomeServlet extends HttpServlet {
            if (!selectTodayList.isEmpty()) {
                progress = selectTodayList.get(0); // 1件だけ取得
            }
-       }
+       
        
 
        List<FinishBook> finishBookSelectNewList = parDao.selectNewListParent(users_id);
