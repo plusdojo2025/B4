@@ -24,7 +24,7 @@
 <li><a href="<c:url value='/ParentHomeServlet' />">ホーム</a></li>
 <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
 <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
-<li><button class="logout-btn" onclick="location.href='logout.html'">ログアウト</button></li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
   </ul>
   </nav>
  </header>

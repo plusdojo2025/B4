@@ -27,7 +27,7 @@
     <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
     <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
     <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
-<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
 </ul>
 </nav>
 </header>

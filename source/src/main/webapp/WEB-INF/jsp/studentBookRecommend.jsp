@@ -27,7 +27,7 @@
     <li><a href="<c:url value='/ProgressServlet' />">きろく</a></li>
     <li><a href="<c:url value='/RecordServlet' />">せいせき</a></li>
     <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
-     <li><button class="logout-btn" onclick="location.href='logout.html'">ログアウト</button></li>
+    <li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
   </ul>
   </nav>
  </header>
