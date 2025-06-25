@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.BookDAO;
 import dao.FinishBookDAO;
 import dao.ProgressDAO;
 import dao.RankingDAO;
+import dto.Book;
 import dto.FinishBook;
 import dto.Ranking;
 import dto.Result;
@@ -65,6 +69,28 @@ public class StudentHomeServlet extends HttpServlet {
 	    request.setAttribute("RankList", rankList);
 	    request.setAttribute("rankingType", "class");
 	    request.setAttribute("title", schoolClass + "組の読書ランキング");
+	    
+	    //おすすめ本上位10冊のうちランダムで一つ取得　5時更新
+	    BookDAO bookDAO = new BookDAO();
+	    List<Book> top10Books = bookDAO.searchRecommend("", null, 1, 10);
+	    Book todayRecommendation = null;
+
+	    if (!top10Books.isEmpty()) {
+	        LocalDateTime now = LocalDateTime.now();
+	        if (now.getHour() < 5) {
+	            now = now.minusDays(1);
+	        }
+	        LocalDate targetDate = now.toLocalDate();
+
+	        // ユーザーIDと日付を使ってインデックス決定（ユーザーごとに違うけど日ごとに変わる）
+	        int seed = user_id + targetDate.getDayOfYear();
+	        int index = seed % top10Books.size();
+
+	        todayRecommendation = top10Books.get(index);
+
+	    request.setAttribute("todayRecommendation", todayRecommendation);
+	    }
+
 	    
 	  
 	
