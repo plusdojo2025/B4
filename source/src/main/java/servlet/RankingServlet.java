@@ -72,11 +72,7 @@ public class RankingServlet extends HttpServlet {
 		    
 		    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRanking.jsp");
 		    dispatcher.forward(request, response);
-		    System.out.println("rankingType: " + rankingType);
-		    System.out.println("genre_id: " + genreIdParam);
-		    System.out.println("school_class: " + schoolClassParam);
-		    System.out.println("month: " + month);
-		    System.out.println("取得件数: " + (RankList != null ? RankList.size() : "null"));
+
 		}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

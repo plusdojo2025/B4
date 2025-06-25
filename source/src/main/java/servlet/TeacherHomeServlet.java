@@ -64,7 +64,7 @@ public class TeacherHomeServlet extends HttpServlet {
 		int day = 23;
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectTeacherHome(grade, school_class, month, day);
+		List<Progress> progressList = proDao.selectTeacherHome();
 		
 		session.setAttribute("progressList", progressList);
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);

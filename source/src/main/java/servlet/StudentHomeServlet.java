@@ -1,8 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +14,12 @@ import javax.servlet.http.HttpSession;
 
 import dao.FinishBookDAO;
 import dao.ProgressDAO;
+import dao.RankingDAO;
 import dto.FinishBook;
+import dto.Ranking;
 import dto.Result;
 import dto.User;
+
 
 /**
  * Servlet implementation class StudentHomeServlet
@@ -53,11 +58,38 @@ public class StudentHomeServlet extends HttpServlet {
 		FinishBookDAO finDao = new FinishBookDAO();
 		List<FinishBook> finishBookNewList = finDao.selectNew(user_id);
 		
+		
+		
 		session.setAttribute("finishBookNewList", finishBookNewList);
 		
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
 		
+	}
+
+	protected void doGetGenre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String rankingType = request.getParameter("rankingType"); // class or genre
+	    String genreIdParam = request.getParameter("genre_id");
+	    
+	    RankingDAO dao = new RankingDAO();
+	    List<Ranking> RankList = new ArrayList<>();
+	    String title = "";
+	    if("genre".equals(rankingType)) {
+	        if (genreIdParam != null && !genreIdParam.isEmpty()) {
+	            int genreId = Integer.parseInt(genreIdParam);
+	            RankList = dao.selectByGenre(genreId, title);
+	            title = "ジャンル別ランキング";
+	        } else {
+	            title = "ジャンルが選択されていません";
+	        }
+	   
+
+	    request.setAttribute("RankList", RankList);
+	    request.setAttribute("rankingType", rankingType);
+	    request.setAttribute("title", title);
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRanking.jsp");
+	    dispatcher.forward(request, response);
+	    }
 	}
 
 	/**

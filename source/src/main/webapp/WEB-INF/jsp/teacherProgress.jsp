@@ -17,7 +17,7 @@
 <body>
 <h1>よも～にんぐ</h1>
 <hr>
-<p><a href="/B4/teacherHomeServlet">ホーム</a></p>
+<p><a href="/B4/TeacherHomeServlet">ホーム</a></p>
 <p><a href="/B4/UpdateDeleteServlet">登録</a></p>
 <p><a href="/B4/BookListServlet">一覧</a></p>
 <p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
@@ -93,12 +93,18 @@ function updateChartByMonth(monthStr) {
     const selectedMonth = parseInt(monthStr);
     const filtered = progressList.filter(p => parseInt(p.month) === selectedMonth);
 
+    const dayTarData = Array(31).fill(0);
+    for (const p of filtered) {
+        const dayTarIndex = parseInt(p.day) - 1;
+        if (dayTarIndex >= 0 && dayTarIndex < 31) {
+        	
+            dayTarData[dayTarIndex] = parseInt(p.target_page) || 0;		//read_pageのみ
+            
+        }
+    }
+    
     const dayData = Array(31).fill(0);
     for (const p of filtered) {
-    	const dayTarget = parseInt(p.day) - 1;
-    	if (dayTarget >= 0 && dayTarget < 31) {
-    		dayData[dayTarget] = parseInt(p.read_page) || 0;
-    	}
         const dayIndex = parseInt(p.day) - 1;
         if (dayIndex >= 0 && dayIndex < 31) {
         	
@@ -106,8 +112,9 @@ function updateChartByMonth(monthStr) {
             
         }
     }
-
-    chart.data.datasets[0].data = dayData;
+ 
+	chart.data.datasets[0].data = dayTarData;
+    chart.data.datasets[1].data = dayData;
     chart.update();
 
 }
@@ -126,11 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
-<h3>プロフィール</h3>
-
-
-<h3>読書傾向</h3>
 
 <form id ="form" method="POST" action="/B4/ProgressServlet">
 先生からのコメント<input type="text" name="comment">

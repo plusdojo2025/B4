@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,6 +22,7 @@ import com.google.gson.JsonSerializer;
 import dao.ProgressDAO;
 import dto.Progress;
 import dto.Result;
+import dto.User;
 /**
  * Servlet implementation class ProgressServlet
  */
@@ -43,29 +45,29 @@ public class ProgressServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
+//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 //			return;
 //		}
-//		User user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		
 		
         String view = "/WEB-INF/jsp/teacherProgress.jsp";
         
- //       if(user != null) {
-//        	switch (user.getTypeId()) {
-//        	case 1:
- //       		view = "/WEB-INF/jsp/teacherProgress.jsp";
- //       	case 2:
- //       		view = "/WEB-INF/jsp/parentProgress.jsp";
- //       	case 3:
-  //      		view = "/WEB-INF/jsp/studentProgress.jsp";
- //       		break;
- //       	default: 
- //       		view = "/WEB-INF/jsp/teacherProgress.jsp";
- //       	}
- //       }
+       if(user != null) {
+        	switch (user.getTypeId()) {
+        	case 1:
+        		view = "/WEB-INF/jsp/teacherProgress.jsp";
+        	case 2:
+        		view = "/WEB-INF/jsp/parentProgress.jsp";
+        	case 3:
+        		view = "/WEB-INF/jsp/studentProgress.jsp";
+        		break;
+        	default: 
+        		view = "/WEB-INF/jsp/teacherProgress.jsp";
+        	}
+       }
         
         request.setCharacterEncoding("UTF-8");
         
@@ -74,20 +76,7 @@ public class ProgressServlet extends HttpServlet {
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.select(user_id);
 		
-//        List<Integer> labels = new ArrayList<>();
-//        List<Integer> readData = new ArrayList<>();
-//       List<Integer> targetData = new ArrayList<>();
-		
-//		for(Progress pro : progressList) {
-//			labels.add(pro.getDay());
-//			targetData.add(pro.getTarget_page());
-//			readData.add(pro.getRead_page());
-//		}
-		
-//		Map<String, Object> chartData = new HashMap<>();
-//        chartData.put("labels", labels);
-//        chartData.put("readData", readData);
- //       chartData.put("targetData", targetData);
+
 
         Gson gson = new GsonBuilder()
 			    .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
@@ -109,14 +98,7 @@ public class ProgressServlet extends HttpServlet {
 
         
         request.getRequestDispatcher(view).forward(request, response);
-//        	request.getRequestDispatcher("/WEB-INF/jsp/studentProgress.jsp").forward(request, response);
-//        }
-//        else if("parents".equals(userTypes)) {
-//        	request.getRequestDispatcher("/WEB-INF/jsp/parentProgress.jsp").forward(request, response);
-//        }
-//        else if("teacher".equals(userTypes)) {
-//        	request.getRequestDispatcher("/WEB-INF/jsp/teacherProgress.jsp").forward(request, response);
- //       }
+
 	
 	}
 
@@ -125,11 +107,29 @@ public class ProgressServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
+//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 //			return;
 //		}
+		User user = (User) session.getAttribute("user");
+		
+		String view = "/WEB-INF/jsp/teacherProgress.jsp";
+        
+	       if(user != null) {
+	        	switch (user.getTypeId()) {
+	        	case 1:
+	        		view = "/WEB-INF/jsp/teacherProgress.jsp";
+	        	case 2:
+	        		view = "/WEB-INF/jsp/parentProgress.jsp";
+	        	case 3:
+	        		view = "/WEB-INF/jsp/studentProgress.jsp";
+	        		break;
+	        	default: 
+	        		view = "/WEB-INF/jsp/teacherProgress.jsp";
+	        	}
+	       }
+		
 		request.setCharacterEncoding("UTF-8");
 		
 		String submit = request.getParameter("submit");
@@ -140,7 +140,7 @@ public class ProgressServlet extends HttpServlet {
 			
 			}
 		
-		doGet(request,response);  
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 }

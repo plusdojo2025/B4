@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*, dto.Progress" %>
+<%
+    String jsonProgress = (String) request.getAttribute("jsonProgress");
+    if (jsonProgress == null) jsonProgress = "[]";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,83 +26,114 @@
 <p><a href="/B4/LogoutServlet">ログアウト</a></p>
 
 
-<form id ="form" method="POST" action="/B4/ProgressServlet">
 
-<select id="select_month">
-  <option value="">-- 選択してください --</option>
-  <option value="1">1月</option>
-  <option value="2">2月</option>
-  <option value="3">3月</option>
-  <option value="4">4月</option>
-  <option value="5">5月</option>
-  <option value="6">6月</option>
-  <option value="7">7月</option>
-  <option value="8">8月</option>
-  <option value="9">9月</option>
-  <option value="10">10月</option>
-  <option value="11">11月</option>
-  <option value="12">12月</option>
+<label>月をえらぶ：</label>
+<select name="month" id="monthSelect">
+    <c:forEach var="i" begin="1" end="12">
+        <option value="${i}">${i}月</option>
+    </c:forEach>
 </select>
 
-<h2 id="output"></h2>
+<h3>今までのきろく</h3>
 
-<script src="js/pulldown.js"></script>
-
-<h3>過去の読書記録</h3>
+<canvas id="progressChart" width="800" height="400"></canvas>
 
 <script>
-const chartData = JSON.parse('<%= session.getAttribute("chartData") %>');
+const progressList = JSON.parse('<%= jsonProgress.replace("\\", "\\\\").replace("'", "\\'") %>');
 
-window.onload = function () {
-    let context = document.querySelector("#read_book_chart").getContext('2d')
-    new Chart(context, {
-      type: 'line',
-      data: {
-        labels: chartData.labels,
+const ctx = document.getElementById('progressChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: Array.from({ length: 31 }, (_, i) => i + 1), 
         datasets: [{
-          label: "もくひょう",
-          data: chartData.targetData,
-          borderColor: 'rgba(60, 160, 220, 0.8)'
-        }, {
-          label: "きろく",
-          data: chartData.readData,
-          borderColor: 'rgba(60, 190, 20, 0.8)'
-        }],
-      },
-      options: {
-        responsive: false,
+            label: 'もくひょう',			//凡例のラベル
+            data: Array(31).fill(0),
+            fill: false,
+            tension: 0.1,
+            borderColor: 'rgba(60, 160, 220, 0.8)',
+            pointRadius: 4,
+            pointHoverRadius: 6
+        },{
+            label: 'よんだページ',			//凡例のラベル
+            data: Array(31).fill(0),
+            fill: false,
+            tension: 0.1,
+            borderColor: 'rgba(60, 190, 20, 0.8)',
+            pointRadius: 4,
+            pointHoverRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
         scales: {
-            x: {
-                title: {
-                    display: true,
-                    text: '日にち'
-                }
-            },
             y: {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'ページ'
+                    text: 'ページ数'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: '日付（日）'
+                },
+                ticks: {
+                    autoSkip: false,     // 全部表示（必要に応じて調整）
+                    maxRotation: 0,
+                    minRotation: 0
                 }
             }
         }
-      }
-    })
-  }
-</script>
+    }
+});
+//月によってデータをフィルタリングして、グラフにする処理
+function updateChartByMonth(monthStr) {
+    const selectedMonth = parseInt(monthStr);
+    const filtered = progressList.filter(p => parseInt(p.month) === selectedMonth);
 
-<canvas id="read_book_chart" width="500" height="500"></canvas>
+    const dayTarData = Array(31).fill(0);
+    for (const p of filtered) {
+        const dayTarIndex = parseInt(p.day) - 1;
+        if (dayTarIndex >= 0 && dayTarIndex < 31) {
+        	
+            dayTarData[dayTarIndex] = parseInt(p.target_page) || 0;		//read_pageのみ
+            
+        }
+    }
+    
+    const dayData = Array(31).fill(0);
+    for (const p of filtered) {
+        const dayIndex = parseInt(p.day) - 1;
+        if (dayIndex >= 0 && dayIndex < 31) {
+        	
+            dayData[dayIndex] = parseInt(p.read_page) || 0;		//read_pageのみ
+            
+        }
+    }
+ 
+	chart.data.datasets[0].data = dayTarData;
+    chart.data.datasets[1].data = dayData;
+    chart.update();
 
-<h3>プロフィール</h3>
-
-<h3>好きな○○</h3>
-</form>
-
-<script>
-document.getElementById('form_month').select.onchange = function() {
-	location.href = document.getElementById('form_month').select.value;
 }
+//プルダウンメニューが変更された時の処理
+document.addEventListener("DOMContentLoaded", function () {
+    const monthSelect = document.getElementById("monthSelect");
+
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    monthSelect.value = currentMonth;
+
+    updateChartByMonth(currentMonth);
+
+    monthSelect.addEventListener("change", function () {
+        updateChartByMonth(this.value);
+    });
+});
 </script>
+
 
 </body>
 </html>
