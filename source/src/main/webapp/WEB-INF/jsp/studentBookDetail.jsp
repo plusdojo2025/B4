@@ -61,17 +61,8 @@
   </form>
 </c:if>
 
-<!-- 戻るボタン（一覧ページへ） -->
 <div class="back-button-wrapper">
-  <a href="${pageContext.request.contextPath}/BookListServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}" class="back-button">
-    ← 一覧に戻る
-  </a>
-</div>
-
-</div>
-</div>
-
-
+<div class=back-button>
 <c:choose>
 <c:when test="${sessionScope.lastList == 'RecordServlet'}">
     <a href="${pageContext.request.contextPath}/RecordServlet">
@@ -89,6 +80,10 @@
     </a>
   </c:otherwise>
 </c:choose>
+</div>
+</div>
+</div>
+</div>
 
 <script>
   function hideButton() {

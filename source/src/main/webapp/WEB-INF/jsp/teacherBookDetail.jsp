@@ -59,7 +59,8 @@
   </form>
 </c:if>
 
-
+<div class="back-button-wrapper">
+<div class=back-button>
 <c:choose>
   <c:when test="${sessionScope.lastList == 'BookRecommendServlet'}">
     <a href="${pageContext.request.contextPath}/BookRecommendServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}">
@@ -76,7 +77,8 @@
 </c:choose>
 </div>
 </div>
-
+</div>
+</div>
 
 <script>
   function hideButton() {
