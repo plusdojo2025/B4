@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import dao.FinishBookDAO;
+import dao.ParentDAO;
 import dao.ProgressDAO;
 import dto.FinishBook;
 import dto.Progress;
@@ -51,25 +50,23 @@ public class ParentHomeServlet extends HttpServlet {
         
         User user = (User) session.getAttribute("user");
 
-       int user_id = user.getId(); // ユニークID
+       String users_id = user.getUsers_id(); 
 //        int grade = user.getGrade(); // 学年
 //        int schoolClass = user.getSchoolClass(); // クラス
        
 
-       FinishBookDAO finDao = new FinishBookDAO();
-       List<FinishBook> finishBookNewList = finDao.selectNew(user_id);
+       ParentDAO parDao = new ParentDAO();
+       List<FinishBook> finishBookNewList = parDao.selectNewParent(users_id);
        FinishBook currentBook = finishBookNewList.isEmpty() ? null : finishBookNewList.get(0);
 
        Progress progress = null;
        if (currentBook != null) {
            int book_id = currentBook.getBook_id();  // ← ここでbook_idを取得
-           int currentMonth = LocalDateTime.now().getMonthValue();
-           int currentDay = LocalDateTime.now().getDayOfMonth();
 
            ProgressDAO proDao = new ProgressDAO();
-           List<Progress> selectTodayList = proDao.selectToday(user_id, book_id);
+           List<Progress> selectTodayList = parDao.selectTodayParent(users_id, book_id);
            
-           List<Progress> progressList = proDao.select(user_id);
+           List<Progress> progressList = parDao.selectParent(users_id);
    		
            List<Integer> labels = new ArrayList<>();
            List<Integer> readData = new ArrayList<>();
@@ -96,7 +93,7 @@ public class ParentHomeServlet extends HttpServlet {
        }
        
 
-       List<FinishBook> finishBookSelectNewList = finDao.selectNewList(user_id);
+       List<FinishBook> finishBookSelectNewList = parDao.selectNewListParent(users_id);
        request.setAttribute("finishBookSelectNewList", finishBookSelectNewList);
 		
 
@@ -124,14 +121,14 @@ public class ParentHomeServlet extends HttpServlet {
             return;
         }
         User user = (User) session.getAttribute("user");
-        int user_id = user.getId();
+        String user_id = user.getUsers_id(); 
 
         
       //今日読んだ本の詳細情報の取得
       		String bookIdStr = request.getParameter("book_id");
       		int book_id = Integer.parseInt(bookIdStr);
-      		ProgressDAO proDao = new ProgressDAO();
-      		List<Progress> progressToday = proDao.selectToday(user_id, book_id);
+      		ParentDAO parDao = new ParentDAO();
+      		List<Progress> progressToday = parDao.selectTodayParent(user_id, book_id);
 
 		// 検索結果をセッションスコープに格納する
 		session.setAttribute("progressToday", progressToday);
