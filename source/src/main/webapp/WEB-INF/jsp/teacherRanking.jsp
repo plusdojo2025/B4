@@ -9,14 +9,16 @@
 <meta charset="UTF-8">
 <title>ランキング　｜　管理者ページ</title>
 <link rel="stylesheet" href="<c:url value='/css/techerCommon.css' />">
-<link rel="stylesheet" href="<c:url value='/css/teacherHome.css' />">
+<link rel="stylesheet" href="<c:url value='/css/ranking.css' />">
 </head>
 <body>
 
 <div class="page-frame">
 <!-- ヘッダー　-->
 <header class="header">
-
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
 <!--  <p>リクエスト情報:</p>
 <ul>
   <li>月: ${param.month}</li>
@@ -96,8 +98,10 @@
   window.onload = toggleOptions;
 </script>
 </form>
+
+
 <h3>${title}</h3>
-<table border="1">
+<table class="status-table" border="1">
   <thead>
     <tr>
       <th>順位</th>

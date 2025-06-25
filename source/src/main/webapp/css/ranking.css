@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+.main-content {
+  background-color: #00552e;
+  padding:95px;
+  
+  margin: 0 auto;            /* 横中央配置 */
+  width: fit-content;        /* コンテンツ幅に合わせる */
+  border-radius: 12px
+}
+
+
+html, body {
+  height: 100%;
+   margin: 0;
+   padding: 0;
+   background-color: #00552e;
+}
+
+.page-frame {
+  min-height: 100vh;                 /* 画面の高さまで確保 */
+  border: 3px solid #DC8551;
+  margin: 0;
+  padding: 0px;           
+  box-sizing: border-box;
+  background-color: black green;
+}
+
+
+table {
+  width: 100%;                        /* 幅をページに広げる（必要に応じて80%などでもOK） */
+  max-width: 800px;                   /* 最大幅を制限 */
+  margin: 20px auto;                  /* 中央寄せ */
+  border: 5px double #333;            /* 二重線の外枠 */
+  border-collapse: separate;          /* 二重線をきちんと表示 */
+  background-color: white;            /* 白背景 */
+  padding: 3px;
+}
+
+table th,
+table td {
+  border: 2px double #666;            /* 各セルの二重線 */
+  padding: 16px 24px;                 /* セル内の余白を広めに */
+  font-size: 16px;                    /* テキストを少し大きく */
+  text-align: center;                 /* セル内テキスト中央 */
+  background-color: white;
+}
+
+/* テーブル全体 ── 角丸 & 影付き & 二重枠 */
+table.status-table {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+
+  /* ── デザイン ── */
+  background-color: #fff;          /* 白背景 */
+  border: 2px double #333;         /* 太めの二重線外枠 */
+  border-radius: 8px;             /* 角丸 ◎ */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3); /* ふわっと浮かせる影 */
+
+  /* ── 技術的ポイント ── */
+  border-collapse: separate;       /* 二重線 + 角丸を効かせるため必須 */
+  overflow: hidden;                /* 角からはみ出すセルを隠す */
+  padding: 6px;                    /* 枠とセルの間に少し余白 */
+}
+
+/* ヘッダー行 & データセル共通の線と余白 */
+table.status-table th,
+table.status-table td {
+  border: 0.5px double #666;   /* セル境界も二重線 */
+  padding: 14px 20px;        /* 広めの内側余白 */
+  text-align: center;
+  background-color: #fff;    /* 透過させず白で統一 */
+  font-size: 16px;
+}
+
+
+/* 全体の文字色を白に */
+body, .main-content, h1, h2, h3, p, li, span, div {
+  color: white;
+}
+
+/* テーブル内は背景白＆文字黒に上書き */
+table.status-table {
+  background-color: white;
+  color: black;
+}
+
+table.status-table th,
+table.status-table td {
+  color: black;       /* 文字黒 */
+  background-color: white; /* 背景白 */
+}
+
+
+.main-content > :not(table.status-table) {
+  text-align: center;
+}
