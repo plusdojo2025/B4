@@ -1,10 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,9 +48,9 @@ public class StudentHomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         int user_id = user.getId(); // ユニークID
-//        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
-//        int grade = user.getGrade(); // 学年
-//        int schoolClass = user.getSchoolClass(); // クラス
+        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+        int grade = user.getGrade(); // 学年
+        int schoolClass = user.getSchoolClass(); // クラス
 		request.setCharacterEncoding("UTF-8");
 		
 		FinishBookDAO finDao = new FinishBookDAO();
@@ -62,36 +60,19 @@ public class StudentHomeServlet extends HttpServlet {
 		
 		session.setAttribute("finishBookNewList", finishBookNewList);
 		
-		
+		RankingDAO dao = new RankingDAO();
+	    List<Ranking> rankList = dao.selectBySchool_class(schoolClass);
+	    request.setAttribute("RankList", rankList);
+	    request.setAttribute("rankingType", "class");
+	    request.setAttribute("title", schoolClass + "組の読書ランキング");
+	    
+	  
+	
 		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
 		
 	}
 
-	protected void doGetGenre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String rankingType = request.getParameter("rankingType"); // class or genre
-	    String genreIdParam = request.getParameter("genre_id");
-	    
-	    RankingDAO dao = new RankingDAO();
-	    List<Ranking> RankList = new ArrayList<>();
-	    String title = "";
-	    if("genre".equals(rankingType)) {
-	        if (genreIdParam != null && !genreIdParam.isEmpty()) {
-	            int genreId = Integer.parseInt(genreIdParam);
-	            RankList = dao.selectByGenre(genreId, title);
-	            title = "ジャンル別ランキング";
-	        } else {
-	            title = "ジャンルが選択されていません";
-	        }
-	   
-
-	    request.setAttribute("RankList", RankList);
-	    request.setAttribute("rankingType", rankingType);
-	    request.setAttribute("title", title);
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/teacherRanking.jsp");
-	    dispatcher.forward(request, response);
-	    }
-	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

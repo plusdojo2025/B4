@@ -9,24 +9,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/studentProgress.css' />">
 <meta charset="UTF-8">
 <title>せいせき | 生徒ページ</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
-<h1>よも～にんぐ</h1>
-<hr>
-<p><a href="/B4/CollectionServlet">コレクション</a></p>
-<p><a href="/B4/studentHomeServlet">ホーム</a></p>
-<p><a href="/B4/BookListServlet">ほんだな</a></p>
-<p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
-<p><a href="/B4/RecordServlet">きろく</a></p>
-<p><a href="/B4/ProgressServlet">せいせき</a></p>
-<p><a href="/B4/LogoutServlet">ログアウト</a></p>
+
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+ <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RecordServlet' />">きろく</a></li>
+    <li><a href="<c:url value='/ProgressServlet' />">せいせき</a></li>
+    <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
+
+<main class="main-content"> 
 
 
-
+<div class="wrapper">
 <label>月をえらぶ：</label>
 <select name="month" id="monthSelect">
     <c:forEach var="i" begin="1" end="12">
@@ -135,6 +150,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+</div>
+</main>
+</div>
+
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+
 
 
 </body>

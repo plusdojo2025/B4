@@ -35,7 +35,7 @@ table {
   border-radius: 8px;
   overflow: hidden;
   border: 3px double #444;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   z-index: 10;
   position: relative;
   margin-left: auto;

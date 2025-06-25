@@ -13,6 +13,7 @@
 
 
 <body>
+<div class="page-wrapper">
 <div class="page-frame">
 <!-- ヘッダー　-->
 <header class="header">
@@ -37,6 +38,7 @@
  <footer class="footer">
  <p class="copyright">&copy;-LEGACY-</p>
  </footer>
+</div>
 </div>
 </body>
 </html>
