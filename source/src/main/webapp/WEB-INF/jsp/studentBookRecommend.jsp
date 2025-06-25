@@ -34,7 +34,6 @@
  <!-- ヘッダー　-->
  <main class="main-content"> 
 <div class="search-form-container">
-<h2>おすすめしてる本</h2>
 
 <form action="BookRecommendServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">
