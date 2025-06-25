@@ -40,14 +40,24 @@ public class BookDetailServlet extends HttpServlet {
 //        int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
 //        int grade = user.getGrade(); // 学年
 //        int schoolClass = user.getSchoolClass(); // クラス
-        
-        // パラメータ取得
+
+		// パラメータ取得
 		String bookIdStr = request.getParameter("bookId");
 		int bookId = Integer.parseInt(bookIdStr);
 		String title = request.getParameter("title");
 		String genreIdStr = request.getParameter("genreId");
 		String pageStr = request.getParameter("page");
 		String lastList = request.getParameter("lastList");
+		if (lastList != null && !lastList.isEmpty()) {
+		    session.setAttribute("lastList", lastList);
+		}
+
+
+		// nullチェック(きろく用)
+		if (title != null) session.setAttribute("title", title);
+		if (genreIdStr != null) session.setAttribute("genreId", genreIdStr);
+		if (pageStr != null) session.setAttribute("currentPage", pageStr);
+		if (lastList != null) session.setAttribute("lastList", lastList);
 
 		session.setAttribute("title", title);
 		session.setAttribute("genreId", genreIdStr);
@@ -127,8 +137,6 @@ public class BookDetailServlet extends HttpServlet {
         
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
-        
-		doGet(request, response);
 	}
 }
 

@@ -8,37 +8,68 @@
 <title>きろく | 生徒ページ</title>
 </head>
 <body>
-<h1>よも～にんぐ</h1>
-<hr>
-<p><a href="/B4/CollectionServlet">コレクション</a></p>
-<p><a href="/B4/studentHomeServlet">ホーム</a></p>
-<p><a href="/B4/BookListServlet">ほんだな</a></p>
-<p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
-<p><a href="/B4/RecordServlet">きろく</a></p>
-<p><a href="/B4/ProgressServlet">せいせき</a></p>
-<p><a href="/B4/LogoutServlet">ログアウト</a></p>
+<header class="header">
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+ <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/ProgressServlet' />">きろく</a></li>
+    <li><a href="<c:url value='/RecordServlet' />">せいせき</a></li>
+    <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
+<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
 
-<c:forEach var="pro" items="${progressList}">
-	<input type="hidden" name="id" value="${pro.id}">
-<h2>${pro.user_id}さんのきろく</h2>
+<c:if test="${not empty currentBook}">
+  <c:url value="/img/${currentBook.cover}" var="coverUrl" />
+  <div style="display: flex; align-items: center; margin-bottom: 30px;">
+    
+    <!-- 表紙画像をリンク化して BookDetailServlet へ -->
+    <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${currentBook.book_id}&lastList=RecordServlet">
+    	<img src="${coverUrl}" alt="表紙画像" width="150" style="margin-right: 20px;">
+    </a>
 
-<div id="mask" class="hidden"></div>
-
-<div class="container">
-    <div class="card hidden">
-        <p>よんだ日　6月17日</p>
-        <p>もくひょう　${pro.target_page}</p>
-        <p>よんだページ　${pro.read_page}</p>
-        <p>タイトル　${pro.book_id}</p>
-        <button id="close">とじる！</button>
+    <div>
+      <p>今読んでいる本は「${currentBook.title}」</p>
+      <c:choose>
+        <c:when test="${not empty todayProgress}">
+          <p>${todayProgress.month}月${todayProgress.day}日</p>
+          <p>もくひょう：${todayProgress.target_page}ページ</p>
+          <p>よんだページ：${todayProgress.read_page}ページ</p>
+        </c:when>
+        <c:otherwise>
+          <p style="color: red; font-weight: bold;">きょうはまだよんでないよ！がんばってね！</p>
+        </c:otherwise>
+      </c:choose>
     </div>
+  </div>
+</c:if>
+
+<h2>今までに読んだ本</h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+  <c:forEach var="finbook" items="${finishBookSelectNewList}">
+    <c:url value="/img/${finbook.cover}" var="coverUrl" />
+    
+    <!-- 表紙画像をリンク化 -->
+    <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${finbook.book_id}&lastList=RecordServlet">
+    
+      <img src="${coverUrl}" alt="表紙画像" width="150"><br>
+      <span class="book-title">${finbook.title}</span>
+    </a>
+  </c:forEach>
 </div>
 
-<button id="open">${pro.book_id}</button>
-</c:forEach>
 
+<!--  
 <style>
-
 .container {
     width: 1000px;
     margin: 200px auto;
@@ -90,6 +121,6 @@ close.addEventListener('click', () => {
   open.classList.toggle('hidden');
 });
 </script>
-
+-->
 </body>
 </html>
