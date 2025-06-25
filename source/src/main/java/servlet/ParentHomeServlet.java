@@ -128,8 +128,6 @@ public class ParentHomeServlet extends HttpServlet {
 
         
       //今日読んだ本の詳細情報の取得
-      		int currentMonth = LocalDateTime.now().getMonthValue();
-      		int currentDay = LocalDateTime.now().getDayOfMonth();
       		String bookIdStr = request.getParameter("book_id");
       		int book_id = Integer.parseInt(bookIdStr);
       		ProgressDAO proDao = new ProgressDAO();
