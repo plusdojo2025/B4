@@ -60,7 +60,7 @@
 
 <script src="js/pulldownClass.js"></script>
 
-<h2>6月27日の読書情報</h2>
+<h3><%= month %>月<%= day %>日の読書情報</h3>
 
 <form method="POST" action="/B4/TeacherHomeServlet">
 <table>
