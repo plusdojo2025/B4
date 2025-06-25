@@ -57,66 +57,162 @@ public class ProgressServlet extends HttpServlet {
 		
         String view = "/WEB-INF/jsp/teacherProgress.jsp";
         
+       
        if(user != null) {
-        	switch (user.getTypeId()) {
-        	case 1:
-        		view = "/WEB-INF/jsp/teacherProgress.jsp";
-        		
-        	case 2:
-        		view = "/WEB-INF/jsp/parentProgress.jsp";
+    	   if(user.getTypeId() == 1) {
+        	   view = "/WEB-INF/jsp/teacherProgress.jsp";
+        	   String users_id = user.getUsers_id(); 
+               
+               ParentDAO parDAO = new ParentDAO();
+               List<User> userList = parDAO.selectUser(users_id);
+               
+               ArrayList<Integer> u = new ArrayList<Integer>();
+               
+               for(User stu : userList) {
+          			u.add(stu.getId());
+          		}
+               
+               Integer user_id = u.get(0);
+               
+               request.setCharacterEncoding("UTF-8");
 
-                String users_id = user.getUsers_id(); 
-                
-                ParentDAO parDAO = new ParentDAO();
-                List<User> userList = parDAO.selectUser(users_id);
-                
-                ArrayList<Integer> u = new ArrayList<Integer>();
-                
-                for(User stu : userList) {
-           			u.add(stu.getId());
-           		}
-                
-                Integer user_id = u.get(0);
-        	case 3:
-        		view = "/WEB-INF/jsp/studentProgress.jsp";
-        		break;
-        	default: 
-        		view = "/WEB-INF/jsp/teacherProgress.jsp";
-        	}
+       		
+       		ProgressDAO proDao = new ProgressDAO();
+       		List<Progress> progressList = proDao.select(user_id);
+       		
+               Gson gson = new GsonBuilder()
+       			    .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+       			        @Override
+       			        public JsonElement serialize(LocalDateTime src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+       			            return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+       			        }
+       			    })
+       			    .create();
+               String jsonProgress = gson.toJson(progressList);
+
+       		// 検索結果をセッションスコープに格納する
+//       		List<Progress> progress = (List<Progress>)progressList;
+       		
+       		request.setAttribute("jsonProgress", jsonProgress);
+//       		request.setAttribute("progressList", progressList);
+
+               
+               request.getRequestDispatcher(view).forward(request, response);
+           }
+           else if(user.getTypeId() == 2) {
+        	   view = "/WEB-INF/jsp/parentProgress.jsp";
+        	   String users_id = user.getUsers_id(); 
+               
+               ParentDAO parDAO = new ParentDAO();
+               List<User> userList = parDAO.selectUser(users_id);
+               
+               ArrayList<Integer> u = new ArrayList<Integer>();
+               
+               for(User stu : userList) {
+          			u.add(stu.getId());
+          		}
+               
+               Integer user_id = u.get(0);
+               
+               request.setCharacterEncoding("UTF-8");
+
+       		
+       		ProgressDAO proDao = new ProgressDAO();
+       		List<Progress> progressList = proDao.select(user_id);
+       		
+
+
+               Gson gson = new GsonBuilder()
+       			    .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+       			        @Override
+       			        public JsonElement serialize(LocalDateTime src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+       			            return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+       			        }
+       			    })
+       			    .create();
+               String jsonProgress = gson.toJson(progressList);
+
+       		// 検索結果をセッションスコープに格納する
+//       		List<Progress> progress = (List<Progress>)progressList;
+       		
+       		request.setAttribute("jsonProgress", jsonProgress);
+//       		request.setAttribute("progressList", progressList);
+
+               
+               request.getRequestDispatcher(view).forward(request, response);
+           }
+           else if(user.getTypeId() == 3) {
+        	   view = "/WEB-INF/jsp/studentProgress.jsp";
+        	   int user_id = user.getId();
+        	   
+        	   request.setCharacterEncoding("UTF-8");
+
+       		
+       		ProgressDAO proDao = new ProgressDAO();
+       		List<Progress> progressList = proDao.select(user_id);
+       		
+
+
+               Gson gson = new GsonBuilder()
+       			    .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+       			        @Override
+       			        public JsonElement serialize(LocalDateTime src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+       			            return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+       			        }
+       			    })
+       			    .create();
+               String jsonProgress = gson.toJson(progressList);
+       		// 検索結果をセッションスコープに格納する
+//       		List<Progress> progress = (List<Progress>)progressList;
+       		
+       		request.setAttribute("jsonProgress", jsonProgress);
+//       		request.setAttribute("progressList", progressList);
+
+               
+               request.getRequestDispatcher(view).forward(request, response);
+           }
+           else {
+        	   view = "/WEB-INF/jsp/teacherProgress.jsp";
+        	   String users_id = user.getUsers_id(); 
+               
+               ParentDAO parDAO = new ParentDAO();
+               List<User> userList = parDAO.selectUser(users_id);
+               
+               ArrayList<Integer> u = new ArrayList<Integer>();
+               
+               for(User stu : userList) {
+          			u.add(stu.getId());
+          		}
+               
+               Integer user_id = u.get(0);
+               
+               request.setCharacterEncoding("UTF-8");
+
+       		
+       		ProgressDAO proDao = new ProgressDAO();
+       		List<Progress> progressList = proDao.select(user_id);
+       		
+               Gson gson = new GsonBuilder()
+       			    .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+       			        @Override
+       			        public JsonElement serialize(LocalDateTime src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+       			            return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+       			        }
+       			    })
+       			    .create();
+               String jsonProgress = gson.toJson(progressList);
+
+       		// 検索結果をセッションスコープに格納する
+//       		List<Progress> progress = (List<Progress>)progressList;
+       		
+       		request.setAttribute("jsonProgress", jsonProgress);
+//       		request.setAttribute("progressList", progressList);
+
+               
+               request.getRequestDispatcher(view).forward(request, response);
+           }
        }
- 
-        
-        request.setCharacterEncoding("UTF-8");
-        
-        int user_id = user.getId();
-		
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.select(user_id);
-		
-
-
-        Gson gson = new GsonBuilder()
-			    .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
-			        @Override
-			        public JsonElement serialize(LocalDateTime src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-			            return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-			        }
-			    })
-			    .create();
-        String jsonProgress = gson.toJson(progressList);
-
-        
-
-		// 検索結果をセッションスコープに格納する
-//		List<Progress> progress = (List<Progress>)progressList;
-		
-		request.setAttribute("jsonProgress", jsonProgress);
-//		request.setAttribute("progressList", progressList);
-
-        
-        request.getRequestDispatcher(view).forward(request, response);
-
-	
+       
 	}
 
 	/**
