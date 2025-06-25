@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 /* 背景全体 */
 body {
   margin: 0;
@@ -10,6 +11,7 @@ body {
 /* ログインボックス */
 .page-frame {
   max-width: 700px;
+ 
   margin: 60px auto;
   padding: 40px 30px;
   background-color: #00552e; /* 黒板カラー */
@@ -39,7 +41,7 @@ p {
 form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 10px;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
@@ -86,3 +88,4 @@ input[type="submit"]:hover {
   background-color: #fca937;
   transform: scale(1.02);
 }
+
