@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="<c:url value='/css/common.css' />">
-<link rel="stylesheet" href="<c:url value='/css/studentBook.css' />">
+<link rel="stylesheet" href="<c:url value='/css/parentCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/parentBook.css' />">
   <meta charset="UTF-8">
   <title>おすすめしてる本</title>
 </head>
@@ -31,8 +31,6 @@
  <!-- ヘッダー　-->
  <main class="main-content"> 
 <div class="search-form-container">
-
-<h2>おすすめしてる本</h2>
 
 <form action="BookRecommendServlet" method="get">
   題名：<input type="text" name="title" value="${param.title}">
