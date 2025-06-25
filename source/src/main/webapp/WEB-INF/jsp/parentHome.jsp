@@ -20,22 +20,32 @@
     <input type="date" name="startDate">
 </label>
 
-<c:forEach var="finbook" items="${finishBookList}">
-    <c:url value="/img/${finbook.cover}" var="coverUrl" />
-    <div style="display: inline-block; margin: 10px; text-align: center;"><!-- 一時的なCSS -->
-        <img src="${coverUrl}" alt="表紙画像" width="150"><br>
-        <span style="display: inline-block; max-width: 120px;">${finbook.title}</span>
-    </div>
-  </c:forEach>
+<c:if test="${not empty currentBook}">
+  <c:url value="/img/${currentBook.cover}" var="coverUrl" />
+  <div style="display: flex; align-items: center; margin-bottom: 30px;">
+    
+    <!-- 表紙画像をリンク化して BookDetailServlet へ -->
+    <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${currentBook.book_id}&lastList=RecordServlet">
+    	<img src="${coverUrl}" alt="表紙画像" width="150" style="margin-right: 20px;">
+    </a>
 
-<c:forEach var="pro" items="${progressList}" >
-<p>目標${pro.target_page}ページ</p>
-<p>進捗${pro.read_page}ページ</p>
+    <div>
+      <p>今読んでいる本は「${currentBook.title}」</p>
+      <c:choose>
+        <c:when test="${not empty todayProgress}">
+          <p>${todayProgress.month}月${todayProgress.day}日</p>
+          <p>目標：${todayProgress.target_page}ページ</p>
+          <p>読んだページ：${todayProgress.read_page}ページ</p>
+        </c:when>
+        <c:otherwise>
+          <p style="color: red; font-weight: bold;">今日の読書記録はありません。</p>
+        </c:otherwise>
+      </c:choose>
+    </div>
+  </div>
+</c:if>
 
 <h2><a href="/B4/ProgressServlet">成績表</a></h2>
-	<input type="hidden" name="id" value="${pro.id}">
-	<h3>${pro.month}月の成績表</h3>
-</c:forEach>
 
 <script>
 const chartData = JSON.parse('<%= session.getAttribute("chartData") %>');
@@ -78,7 +88,7 @@ window.onload = function () {
   }
 </script>
 
-<canvas id="read_book_chart" width="500" height="500"></canvas>
+<canvas id="read_book_chart" width="300" height="300"></canvas>
 
    	
 </body>

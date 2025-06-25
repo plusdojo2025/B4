@@ -46,10 +46,10 @@ public class ProgressServlet extends HttpServlet {
 		
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-//			return;
-//		}
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 		User user = (User) session.getAttribute("user");
 		
 		
@@ -71,7 +71,7 @@ public class ProgressServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         
-		int user_id = 1;
+        int user_id = user.getId();
 		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.select(user_id);
@@ -108,10 +108,10 @@ public class ProgressServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-//			return;
-//		}
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 		User user = (User) session.getAttribute("user");
 		
 		String view = "/WEB-INF/jsp/teacherProgress.jsp";

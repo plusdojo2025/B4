@@ -136,7 +136,7 @@ public class StudentHomeServlet extends HttpServlet {
 
 	            int totalRead = proDao.getTotalPagesRead(user_id, book_id);
 	            int totalPages = proDao.getBookTotalPages(book_id);
-	            if (totalRead >= totalPages && !proDao.isAlreadyFinished(user_id, book_id)) {
+	            if (totalRead >= totalPages ) {
 	                proDao.insertFinishedBook(user_id, book_id);
 	            }
 

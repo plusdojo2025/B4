@@ -36,7 +36,7 @@
 <h3>過去の読書記録</h3>
 
         
-<canvas id="progressChart" width="800" height="400"></canvas>
+<canvas id="progressChart" width="600" height="300"></canvas>
 
 <script>
 const progressList = JSON.parse('<%= jsonProgress.replace("\\", "\\\\").replace("'", "\\'") %>');
