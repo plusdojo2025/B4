@@ -5,10 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/parentBook.css' />">
+<link rel="stylesheet" href="<c:url value='/css/bookDetail.css' />">
   <meta charset="UTF-8">
   <title>本の詳細</title>
 </head>
 <body>
+
+<!-- オーバーレイ詳細パネル -->
+<div class="overlay">
+  <div class="detail-panel">
 
 <h2>${book.title}</h2>
 
@@ -37,6 +44,9 @@
     </c:otherwise>
   </c:choose>
 
+
+<div class="back-button-wrapper">
+<div class=back-button>
 <c:choose>
   <c:when test="${sessionScope.lastList == 'BookRecommendServlet'}">
     <a href="${pageContext.request.contextPath}/BookRecommendServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}">
@@ -49,6 +59,12 @@
     </a>
   </c:otherwise>
 </c:choose>
+
+</div>
+</div>
+</div>
+</div>
+
 
 <script>
   function hideButton() {
