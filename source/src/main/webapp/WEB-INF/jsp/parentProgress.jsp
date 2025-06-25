@@ -31,9 +31,9 @@
 
 <h3>過去の読書記録</h3>
 
-        
-<canvas id="progressChart" width="800" height="400"></canvas>
-
+<div style="position:relative;width:800px;height:400px;">
+<canvas id="progressChart"></canvas>
+</div>
 <script>
 const progressList = JSON.parse('<%= jsonProgress.replace("\\", "\\\\").replace("'", "\\'") %>');
 
@@ -43,7 +43,7 @@ const chart = new Chart(ctx, {
     data: {
         labels: Array.from({ length: 31 }, (_, i) => i + 1), 
         datasets: [{
-            label: '目標ページ数',			//凡例のラベル
+            label: 'もくひょう',			//凡例のラベル
             data: Array(31).fill(0),
             fill: false,
             tension: 0.1,
@@ -51,7 +51,7 @@ const chart = new Chart(ctx, {
             pointRadius: 4,
             pointHoverRadius: 6
         },{
-            label: '読了ページ数',			//凡例のラベル
+            label: 'よんだページ',			//凡例のラベル
             data: Array(31).fill(0),
             fill: false,
             tension: 0.1,

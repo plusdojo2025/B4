@@ -36,7 +36,9 @@
 
 <h3>今までのきろく</h3>
 
-<canvas id="progressChart" width="800" height="400"></canvas>
+<div style="position:relative;width:800px;height:400px;">
+<canvas id="progressChart"></canvas>
+</div>
 
 <script>
 const progressList = JSON.parse('<%= jsonProgress.replace("\\", "\\\\").replace("'", "\\'") %>');
