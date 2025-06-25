@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,8 +54,8 @@ public class ParentHomeServlet extends HttpServlet {
        int user_id = user.getId(); // ユニークID
 //        int grade = user.getGrade(); // 学年
 //        int schoolClass = user.getSchoolClass(); // クラス
-		
-		int book_id = 6;
+		String bookIdStr = request.getParameter("book_id");
+  		int book_id = Integer.parseInt(bookIdStr);
 		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.selectToday(user_id, book_id);
@@ -105,14 +106,21 @@ public class ParentHomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		
-		FinishBookDAO finDao = new FinishBookDAO();
-		List<FinishBook> finishBookList = finDao.selectAll();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        User user = (User) session.getAttribute("user");
+        int user_id = user.getId();
 
-		session.setAttribute("finishBookList", finishBookList);
-		
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectAll();
+        
+      //今日読んだ本の詳細情報の取得
+      		int currentMonth = LocalDateTime.now().getMonthValue();
+      		int currentDay = LocalDateTime.now().getDayOfMonth();
+      		String bookIdStr = request.getParameter("book_id");
+      		int book_id = Integer.parseInt(bookIdStr);
+      		ProgressDAO proDao = new ProgressDAO();
+      		List<Progress> progressList = proDao.selectToday(user_id, book_id);
 
 		// 検索結果をセッションスコープに格納する
 		session.setAttribute("progressList", progressList);
