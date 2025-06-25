@@ -95,7 +95,7 @@ public class UserDAO {
         return user;
     }
 
-    // 1件だけを取得（重複なし前提）
+    
     public User findByUsersIdSingle(int usersId) {
         List<User> users = findByUsersId(usersId);
         return users.isEmpty() ? null : users.get(0);
