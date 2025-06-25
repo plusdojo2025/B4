@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.ProgressDAO;
 import dto.Progress;
@@ -35,14 +35,17 @@ public class TeacherHomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 
+		request.setCharacterEncoding("UTF-8");
+		
+		int month = LocalDateTime.now().getMonthValue();
+		int day = LocalDateTime.now().getDayOfMonth();
 		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectAll();
+		List<Progress> progressList = proDao.selectTeacherHome(month, day);
 		
-		session.setAttribute("progressList", progressList);
-		
+		request.setAttribute("progressList", progressList);
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
 	}
 
@@ -51,17 +54,20 @@ public class TeacherHomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 //		if (session.getAttribute("id") == null) {
 //			response.sendRedirect("/webapp/LoginServlet");
 //			return;
 //		}
 		request.setCharacterEncoding("UTF-8");
 		
-		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectTeacherHome();
+		int month = LocalDateTime.now().getMonthValue();
+		int day = LocalDateTime.now().getDayOfMonth();
 		
-		session.setAttribute("progressList", progressList);
+		ProgressDAO proDao = new ProgressDAO();
+		List<Progress> progressList = proDao.selectTeacherHome(month, day);
+		
+		request.setAttribute("progressList", progressList);
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
 	}
 
