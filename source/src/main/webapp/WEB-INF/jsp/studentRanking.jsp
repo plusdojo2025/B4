@@ -7,18 +7,35 @@
 <head>
 <meta charset="UTF-8">
 <title>よも～にんぐ</title>
+<link rel="stylesheet" href="<c:url value='/css/techerCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/ranking.css' />">
 </head>
 <body>
-<h1 id ="logo">よも～にんぐ</h1>
+
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
 <ul>
-<li><a href="home.html">ホーム</a></li>
-    <li><a href="">ほんだな</a></li>
-    <li><a href="">おすすめ</a></li>
-    <li><a href="">きろく</a></li>
-    <li><a href="">せいせき</a></li>
-    <li><a href="">ログアウト</a></li>
-  </ul>
-  <h2>ランキング表示</h2>
+ <li><a href="<c:url value='/TeacherHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+    <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
+
+<main class="main-content"> 
+
+
+ <h2>ランキング表示</h2>
 <!-- ランキング選択フォーム -->
 <form action="RankingServlet" method="get">
   <label for="month">月：</label>
@@ -110,5 +127,18 @@
     </c:if>
   </tbody>
 </table>
+
+</main>
+</div>
+
+
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+ 
+
 </body>
 </html>

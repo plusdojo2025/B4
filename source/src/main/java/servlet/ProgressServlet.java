@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import dao.ParentDAO;
 import dao.ProgressDAO;
 import dto.Progress;
 import dto.Result;
@@ -59,8 +61,22 @@ public class ProgressServlet extends HttpServlet {
         	switch (user.getTypeId()) {
         	case 1:
         		view = "/WEB-INF/jsp/teacherProgress.jsp";
+        		
         	case 2:
         		view = "/WEB-INF/jsp/parentProgress.jsp";
+
+                String users_id = user.getUsers_id(); 
+                
+                ParentDAO parDAO = new ParentDAO();
+                List<User> userList = parDAO.selectUser(users_id);
+                
+                ArrayList<Integer> u = new ArrayList<Integer>();
+                
+                for(User stu : userList) {
+           			u.add(stu.getId());
+           		}
+                
+                Integer user_id = u.get(0);
         	case 3:
         		view = "/WEB-INF/jsp/studentProgress.jsp";
         		break;
@@ -68,6 +84,7 @@ public class ProgressServlet extends HttpServlet {
         		view = "/WEB-INF/jsp/teacherProgress.jsp";
         	}
        }
+ 
         
         request.setCharacterEncoding("UTF-8");
         
