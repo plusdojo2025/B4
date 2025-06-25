@@ -71,7 +71,7 @@ public class RecordServlet extends HttpServlet {
             int currentDay = LocalDateTime.now().getDayOfMonth();
 
             ProgressDAO proDao = new ProgressDAO();
-            List<Progress> selectTodayList = proDao.selectToday(userId, bookId, currentMonth, currentDay);
+            List<Progress> selectTodayList = proDao.selectToday(userId, bookId);
 
             if (!selectTodayList.isEmpty()) {
                 progress = selectTodayList.get(0); // 1件だけ取得
@@ -122,7 +122,7 @@ public class RecordServlet extends HttpServlet {
       		String bookIdStr = request.getParameter("book_id");
       		int bookId = Integer.parseInt(bookIdStr);
       		ProgressDAO proDao = new ProgressDAO();
-      		List<Progress> selectTodayList = proDao.selectToday(userId, bookId, currentMonth, currentDay);
+      		List<Progress> selectTodayList = proDao.selectToday(userId, bookId);
       		session.setAttribute("selectTodayList", selectTodayList);
 //		ProgressDAO proDao = new ProgressDAO();
 //		List<Progress> progressList = proDao.selectAll();
