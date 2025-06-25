@@ -19,6 +19,7 @@ import dao.FinishBookDAO;
 import dao.ProgressDAO;
 import dto.FinishBook;
 import dto.Progress;
+import dto.User;
 
 /**
  * Servlet implementation class ParentHomeServlet
@@ -42,12 +43,19 @@ public class ParentHomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
-		request.setCharacterEncoding("UTF-8");
+		if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
+
+       int user_id = user.getId(); // ユニークID
+       int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）
+//        int grade = user.getGrade(); // 学年
+//        int schoolClass = user.getSchoolClass(); // クラス
 		
-		int user_id = 1;
 		int book_id = 6;
-		int month = 6;
-		int day = 23;
 		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.selectToday(user_id, book_id);

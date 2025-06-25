@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -39,11 +38,8 @@ public class TeacherHomeServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-		int month = LocalDateTime.now().getMonthValue();
-		int day = LocalDateTime.now().getDayOfMonth();
-		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectTeacherHome(month, day);
+		List<Progress> progressList = proDao.selectTeacherHome();
 		
 		request.setAttribute("progressList", progressList);
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
@@ -61,11 +57,8 @@ public class TeacherHomeServlet extends HttpServlet {
 //		}
 		request.setCharacterEncoding("UTF-8");
 		
-		int month = LocalDateTime.now().getMonthValue();
-		int day = LocalDateTime.now().getDayOfMonth();
-		
 		ProgressDAO proDao = new ProgressDAO();
-		List<Progress> progressList = proDao.selectTeacherHome(month, day);
+		List<Progress> progressList = proDao.selectTeacherHome();
 		
 		request.setAttribute("progressList", progressList);
 		request.getRequestDispatcher("/WEB-INF/jsp/teacherHome.jsp").forward(request, response);
