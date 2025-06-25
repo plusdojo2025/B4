@@ -65,9 +65,6 @@ public class BookFinishServlet extends HttpServlet {
 	    int statusId = dao.getTypeId(userId, bookId);
 	    System.out.println("statusId = " + statusId);
 	    
-	    System.out.println("=== BookFinishServlet 到達 ===");
-
-
 //	    if (statusId == 0) {
 //	        boolean success = dao.insert(userId, bookId);
 //	        System.out.println("insert success? → " + success);

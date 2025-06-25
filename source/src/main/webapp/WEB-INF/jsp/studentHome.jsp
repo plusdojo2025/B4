@@ -41,7 +41,6 @@
 <c:forEach var="finbook" items="${finishBookNewList}">
     <c:url value="/img/${finbook.cover}" var="coverUrl" />
         <img src="${coverUrl}" alt="表紙画像" width="150"><br>
-        <span style="display: inline-block; max-width: 120px;">${finbook.title}</span>
 </c:forEach>
 
 <form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
@@ -91,6 +90,19 @@
   </tbody>
 </table>
 <h2>今日のおすすめ</h2>
+
+<c:if test="${not empty todayRecommendation}">
+  <c:url value="/img/${todayRecommendation.cover}" var="recommendCoverUrl" />
+  <div style="text-align: center; margin: 20px;">
+    <img src="${recommendCoverUrl}" alt="おすすめ本の表紙" width="150"><br>
+    <span style="display: inline-block; max-width: 120px;">${todayRecommendation.title}</span>
+  </div>
+</c:if>
+
+<c:if test="${empty todayRecommendation}">
+  <p>今日のおすすめ本は見つかりませんでした。</p>
+</c:if>
+
 
 <h2>今日の先生の本</h2>
 
