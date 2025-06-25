@@ -58,11 +58,6 @@ public class TeacherHomeServlet extends HttpServlet {
 //		}
 		request.setCharacterEncoding("UTF-8");
 		
-		int grade = 3;
-		int school_class = 1;
-		int month = 6;
-		int day = 23;
-		
 		ProgressDAO proDao = new ProgressDAO();
 		List<Progress> progressList = proDao.selectTeacherHome();
 		
