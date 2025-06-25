@@ -17,9 +17,9 @@
 
 .detail-panel {
   background: white;
-  width: 60%;
-  max-width: 450px;
-  height: 70vh;
+  width: 70%;
+  max-width: 500px;
+  height: 83vh;
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
