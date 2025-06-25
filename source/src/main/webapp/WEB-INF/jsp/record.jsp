@@ -4,10 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<c:url value='/css/common.css' />">
+<link rel="stylesheet" href="<c:url value='/css/studentRecord.css' />">
 <meta charset="UTF-8">
 <title>きろく | 生徒ページ</title>
 </head>
 <body>
+<div class="page-frame">
+<!-- ヘッダー　-->
 <header class="header">
 <span>
   <c:out value="${sessionScope.user.name}" /> さん
@@ -21,22 +25,25 @@
     <li><a href="<c:url value='/ProgressServlet' />">きろく</a></li>
     <li><a href="<c:url value='/RecordServlet' />">せいせき</a></li>
     <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
-<li><button class="logout-btn" onclick="location.href="<c:url value='/LogoutServlet'/>">ログアウト</li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
 </ul>
 </nav>
 </header>
 <!-- ヘッダー　-->
 
+<main class="main-content">
+
 <c:if test="${not empty currentBook}">
   <c:url value="/img/${currentBook.cover}" var="coverUrl" />
+ 
   <div style="display: flex; align-items: center; margin-bottom: 30px;">
-    
+  <div class="reading-book">   
     <!-- 表紙画像をリンク化して BookDetailServlet へ -->
     <a href="${pageContext.request.contextPath}/BookDetailServlet?bookId=${currentBook.book_id}&lastList=RecordServlet">
     	<img src="${coverUrl}" alt="表紙画像" width="150" style="margin-right: 20px;">
     </a>
 
-    <div>
+  
       <p>今読んでいる本は「${currentBook.title}」</p>
       <c:choose>
         <c:when test="${not empty todayProgress}">
@@ -52,7 +59,8 @@
   </div>
 </c:if>
 
-<h2>今までに読んだ本</h2>
+<h2 class="read-books-title">今までに読んだ本</h2>
+
 
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
   <c:forEach var="finbook" items="${finishBookSelectNewList}">
@@ -66,7 +74,15 @@
     </a>
   </c:forEach>
 </div>
+</main>
+</div>
 
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
 
 <!--  
 <style>

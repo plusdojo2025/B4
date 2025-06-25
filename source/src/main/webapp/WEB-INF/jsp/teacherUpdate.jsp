@@ -7,22 +7,38 @@
 <head>
 <meta charset="UTF-8">
 <title>本の編集</title>
+<link rel="stylesheet" href="<c:url value='/css/techerCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/teacherUpdate.css' />">
 </head>
 <body>
 
-<header>
+
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
 <span>
   <c:out value="${sessionScope.user.name}" /> さん
 </span>
-<p><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></p>
-<p><a href="<c:url value='/RegistServlet' />">登録</a></p>
-<p><a href="<c:url value='/BookListServlet' />">一覧</a></p>
-<p><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></p>
-<p><a href="<c:url value='/OpinionServlet' />">目安箱</a></p>
-<p><a href="<c:url value='/RankingServlet' />">ランキング</a></p>
-<p><a href="<c:url value='/LogoutServlet' />">ログアウト</a></p>
-</header>
 
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+ <li><a href="<c:url value='/TeacherHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+    <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
+
+<main class="main-content"> 
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <div class="book-detail-box">
 <h2>本の編集フォーム</h2>
 
 <c:if test="${not empty book.cover}">
@@ -65,6 +81,16 @@
 
   <input type="submit" value="更新">
 </form>
+</div>
+</main>
+</div>
+<!-- メイン（ここまで） -->
+
+  <!-- フッター（ここから） -->
+ <footer class="footer">
+ <p class="copyright">&copy;-LEGACY-</p>
+ </footer>
+
 
 </body>
 </html>

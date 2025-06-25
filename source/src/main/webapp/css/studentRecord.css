@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+.main-content {
+  background-color: #00552e;
+  padding:95px;
+}
+
+
+html, body {
+  height: 100%;
+   margin: 0;
+   padding: 0;
+   background-color: #00552e;
+}
+
+.page-frame {
+  min-height: 100vh;                 /* 画面の高さまで確保 */
+  border: 3px solid #DC8551;
+  margin: 0;
+  padding: 0px;           
+  box-sizing: border-box;
+  background-color: black green;
+}
+
+
+.reading-book {
+  display: block;         /* 確実にブロック要素に */
+  width: 100%;            /* 横幅いっぱい使う */
+  text-align: center;     /* テキスト中央揃え */
+  margin: 0 auto;         /* ブロック全体も中央に */
+  font-size: 18px;
+  color: white;
+}
+
+
+h2.read-books-title {
+  color: white;            /* 白背景に合わせて文字色も黒く */
+  padding: 10px 20px;      /* 少し内側に余白を入れると見やすい */
+ 
+}
+
+
+ .book-title{
+  color: white;  
+  text-decoration: none !important;
+  display: inline-block;          /* 幅を指定するときに必須 */
+  max-width: 17ch;               /* 10 文字ぶんの幅で改行させる */
+  word-break: break-all;         /* 英単語や長い文字列でも強制改行 */
+  white-space: normal;           /* 改行を有効に */
+  
+ 
+
+ 
+ .book-title:hover,
+.book-title:active,
+.book-title:focus,
+.book-title:visited {
+  color: white !important;           /* ホバー時も白で固定 */
+  text-decoration: none !important;  /* 下線なども消す */
+}
+
+

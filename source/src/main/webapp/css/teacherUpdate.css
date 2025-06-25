@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+.book-detail-box {
+  border: 2px solid #ccc;      
+  border-radius: 8px;         
+  padding: 20px;               
+  background-color: #fff;      
+  max-width: 600px;            
+  margin: 20px auto;           
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+  text-align: center; /* ← 中央ぞろえを追加 */
+}
