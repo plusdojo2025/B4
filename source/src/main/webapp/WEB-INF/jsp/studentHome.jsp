@@ -35,16 +35,12 @@
 
 <h2><fmt:formatDate value="${today}" pattern="yyyy年M月d日" /></h2>
 
-<form id="opinion_form" method="POST" action="/B4/OpinionServlet">
-<input type="submit" name="submit" value="目安箱">
-</form>
-
 <c:forEach var="finbook" items="${finishBookNewList}">
     <c:url value="/img/${finbook.cover}" var="coverUrl" />
         <img src="${coverUrl}" alt="表紙画像" width="150"><br>
 </c:forEach>
 
-<form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
+<form id="goal_form" method="POST" action="<c:url value='/StudentHomeServlet'/>">
   <c:choose>
     <c:when test="${isAllDone}">
       <p style="color: green; font-weight: bold;">きょうはよみおわったよ！</p>

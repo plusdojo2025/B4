@@ -11,10 +11,12 @@
 <body>
 <h1>よも～にんぐ</h1>
 <hr>
-<p><a href="/B4/ParentHomeServlet">ホーム</a></p>
-<p><a href="/B4/BookListServlet">一覧</a></p>
-<p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
-<p><a href="/B4/LogoutServlet">ログアウト</a></p>
+<ul>
+<li><a href="<c:url value='/ParentHomeServlet' />">ホーム</a></li>
+<li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+<li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
+</ul>
 
 <label>
     <input type="date" name="startDate">
@@ -45,7 +47,7 @@
   </div>
 </c:if>
 
-<h2><a href="/B4/ProgressServlet">成績表</a></h2>
+<h2><a href="<c:url value='/ProgressServlet' />">成績表</a></h2>
 
 <script>
 const chartData = JSON.parse('<%= session.getAttribute("chartData") %>');

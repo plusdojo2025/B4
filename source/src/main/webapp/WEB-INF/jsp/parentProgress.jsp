@@ -14,13 +14,21 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
-<h1>よも～にんぐ</h1>
-<hr>
-<p><a href="/B4/ParentHomeServlet">ホーム</a></p>
-<p><a href="/B4/BookListServlet">一覧</a></p>
-<p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
-<p><a href="/B4/LogoutServlet">ログアウト</a></p>
-
+<header class="header">
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+<li><a href="<c:url value='/ParentHomeServlet' />">ホーム</a></li>
+<li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+<li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
+</ul>
+</nav>
+</header>
+ <!-- ヘッダー　-->
 
 <label>月を選択：</label>
 <select name="month" id="monthSelect">

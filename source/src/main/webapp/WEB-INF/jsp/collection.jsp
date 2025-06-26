@@ -73,7 +73,7 @@
   
   <c:forEach var="coll" items="${trophyList}">
   <div class="locker">
-       <img src="/B4/img/${coll.trophyPhoto}" alt="トロフィー画像">
+       <img src="<c:url value='img/${coll.trophyPhoto}'/>" alt="トロフィー画像">
         <p>${coll.trophyCreatedat}</p>
   </div>
   
