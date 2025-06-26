@@ -9,6 +9,7 @@ public class Progress implements Serializable {
 	private String users_id;
 	private int book_id;
 	private String name;
+	private String title;
 	private int target_page;
 	private int read_page;
 	private int grade;
@@ -49,6 +50,13 @@ public class Progress implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public int getTarget_page() {
 		return target_page;
@@ -106,6 +114,7 @@ public class Progress implements Serializable {
 		this.users_id = "";
 		this.book_id = 0;
 		this.name = "";
+		this.title = "";
 		this.target_page = 0;
 		this.read_page = 0;
 		this.grade = 0;
@@ -139,12 +148,13 @@ public class Progress implements Serializable {
 		this.month = month;
 		this.day = day;
 	}
-	public Progress(int id, int user_id, int book_id, String name, int target_page, int read_page, int grade, int school_class, LocalDateTime created_at,
+	public Progress(int id, int user_id, int book_id, String name, String title, int target_page, int read_page, int grade, int school_class, LocalDateTime created_at,
 			LocalDateTime updated_at, int month, int day) {
 		this.id = id;
 		this.user_id = user_id;
 		this.book_id = book_id;
 		this.name = name;
+		this.title = title;
 		this.target_page = target_page;
 		this.read_page = read_page;
 		this.grade = grade;
