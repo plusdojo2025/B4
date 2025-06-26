@@ -144,7 +144,6 @@ public class StudentHomeServlet extends HttpServlet {
 	            System.out.println("▶ 完読更新結果: " + finished);
 	        }
 
-	        session.setAttribute("result", new Result("登録成功！", "読んだページを登録しました。", "/B4/StudentHomeServlet"));
 	        step = "target";
 	    }
 
@@ -209,15 +208,12 @@ public class StudentHomeServlet extends HttpServlet {
 	                System.out.print("▶ 完読条件を満たしたため insertFinishedBook を実行");
 	                proDao.insertFinishedBook(userId, book_id);
 	            }
-
-
-	            session.setAttribute("result", new Result("登録成功！", "読んだページを登録しました。", "/B4/StudentHomeServlet"));
+	            
 	            step = "target";  // 次はまた目標入力へ
 	        } else if (targetStr != null && !targetStr.isEmpty() && Integer.parseInt(targetStr) > 0) {
 	            int target_page = Integer.parseInt(targetStr);
 	            proDao.insert_target(user_id, book_id, target_page);
 
-	            session.setAttribute("result", new Result("登録成功！", "目標ページを登録しました。", "/B4/StudentHomeServlet"));
 	            step = "record";  // 次は読書記録入力へ
 	        }
 	    } catch (NumberFormatException e) {
