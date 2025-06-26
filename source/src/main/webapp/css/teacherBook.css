@@ -34,6 +34,17 @@
   font-size: 1em;
 }
 
+.search-form-container {
+  text-align: left;
+  margin: 50px 20px;
+  margin-bottom: 10px;
+}
+
+.search-form {
+  display: inline-block; /* フォームをインラインブロックにして自然なサイズに */
+}
+
+
 /* 表全体のデザイン */
 table {
   width: 100%;
