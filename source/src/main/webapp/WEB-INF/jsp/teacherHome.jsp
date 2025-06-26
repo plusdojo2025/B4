@@ -42,7 +42,7 @@
 <tr><th>名前</th><th>読んだ本</th><th>目標ページ数</th><th>読んだページ数</th></tr>
 <c:forEach var="pro" items="${progressList}" >
 	<input type="hidden" name="id" value="${pro.id}">
-	<tr><th><a href="<c:url value='/ProgressServlet'/>">${pro.name}</a></th><th>${pro.book_id}</th><th>${pro.target_page}</th><th>${pro.read_page}</th></tr>
+	<tr><th><a href="<c:url value='/ProgressServlet'/>">${pro.name}</a></th><th>${pro.title}</th><th>${pro.target_page}</th><th>${pro.read_page}</th></tr>
 </c:forEach>
 </table>
 </form>
