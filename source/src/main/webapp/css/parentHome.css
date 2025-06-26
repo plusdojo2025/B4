@@ -4,7 +4,7 @@
 .main-content {
   background-color: #00552e;
   padding:95px;
-  color:white;
+  color:black;
   max-width: 1200px;   /* 適度な横幅を指定（必要に応じて変更） */
   margin: 0 auto;      /* ←左右中央ぞろえにする */
   box-sizing: border-box;

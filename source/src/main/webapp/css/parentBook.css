@@ -59,6 +59,12 @@ html, body {
   
 }
 
+.book-separator {
+  border: none;
+  border-top: 40px solid #A1550D;
+  margin: -10px 100px;
+}
+
 .pagenation {
   display: flex;
   justify-content: center;      /* 横方向中央寄せ */

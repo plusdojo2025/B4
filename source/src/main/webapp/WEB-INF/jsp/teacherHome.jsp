@@ -35,7 +35,7 @@
 <!-- ヘッダー　-->
 
 <main class="main-content"> 
-
+<div class="wrapper">
 <h2><fmt:formatDate value="${today}" pattern="yyyy年M月d日" /></h2>
 
 <form method="POST" action="<c:url value='/TeacherHomeServlet'/>">
@@ -47,9 +47,11 @@
 </c:forEach>
 </table>
 </form>
+
 </div>
 </main>
 </div>
+
 <!-- メイン（ここまで） -->
 
   <!-- フッター（ここから） -->

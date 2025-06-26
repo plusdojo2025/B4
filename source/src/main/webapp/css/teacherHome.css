@@ -28,9 +28,9 @@ html, body {
   background-color: black green;
 }
 
-.wrapper{
+.wrapper {
   text-align: center;
-  color:black;	
+  color: black;	
   border: 2px solid #ccc;      
   border-radius: 8px;         
   padding: 50px;               

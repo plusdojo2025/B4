@@ -89,7 +89,6 @@
   </c:if>
 </c:forEach>
 
- <hr class="book-separator">
  
  <div class="pagenation">
   
