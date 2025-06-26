@@ -50,43 +50,36 @@
 
 <form id="goal_form" method="POST" action="<c:url value='/StudentHomeServlet'/>">
   <c:choose>
-    <c:when test="${isAllDone}">
-      <p style="color: green; font-weight: bold;">きょうはよみおわったよ！</p>
-    </c:when>
-    <c:otherwise>
-      <c:choose>
-        <c:when test="${step == 'record'}">
-          <c:choose>
-            <c:when test="${isRecordDone}">
-              <p>今日はすでに読んだページを記録しました。</p>
-            </c:when>
-            <c:otherwise>
-              <form method="post" action="StudentHomeServlet">
-                <label>読んだページ：</label>
-                <input type="number" name="read_page" value="0" min="1" max="30"><br>
-                <input type="submit" value="きろくする">
-              </form>
-            </c:otherwise>
-          </c:choose>
-        </c:when>
-        <c:otherwise>
-          <c:choose>
-            <c:when test="${isTargetDone}">
-              <p>今日はすでに目標ページを設定しました。</p>
-            </c:when>
-            <c:otherwise>
-              <form method="post" action="StudentHomeServlet">
-                <label>目標ページ：</label>
-                <input type="number" name="target_page" value="0" min="1" max="30"><br>
-                <input type="submit" value="もくひょうをきめる">
-              </form>
-            </c:otherwise>
-          </c:choose>
-        </c:otherwise>
-      </c:choose>
-    </c:otherwise>
-  </c:choose>
+  <c:when test="${isAllDone}">
+    <p style="color: green; font-weight: bold;">きょうはよみおわったよ！</p>
+  </c:when>
+  <c:otherwise>
+    <c:if test="${not empty errorMessage}">
+      <p style="color: red; font-weight: bold;">${errorMessage}</p>
+    </c:if>
+    <c:choose>
+      <c:when test="${step == 'record'}">
+        <form method="post" action="<c:url value='/StudentHomeServlet' />">
+          <label>読んだページ：</label>
+          <input type="number" name="read_page" value="0" min="1" max="30" required><br>
+          <input type="submit" value="きろくする">
+        </form>
+      </c:when>
+      <c:otherwise>
+        <form method="post" action="<c:url value='/StudentHomeServlet' />">
+          <label>目標ページ：</label>
+          <input type="number" name="target_page" value="0" min="1" max="30" required><br>
+          <input type="submit" value="もくひょうをきめる">
+        </form>
+      </c:otherwise>
+    </c:choose>
+  </c:otherwise>
+</c:choose>
 </form>
+<c:if test="${not empty errorMessage}">
+  <p style="color: red; font-weight: bold;">${errorMessage}</p>
+</c:if>
+
 
 <div class="ranking-section">
 <h2>${title}</h2>

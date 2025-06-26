@@ -139,18 +139,11 @@ public class StudentHomeServlet extends HttpServlet {
 	        System.out.println("▶ totalRead: " + totalRead + " / totalPages: " + totalPages);
 
 	        if (totalRead >= totalPages) {
-	            System.out.println("▶ 完読条件を満たしたため insertFinishedBook を実行");
 	            boolean finished = proDao.insertFinishedBook(user_id, latestBookId);
-	            System.out.println("▶ 完読更新結果: " + finished);
 	        }
 
 	        step = "target";
 	    }
-
-	    
-	    
-	    
-	  
 	
 		request.getRequestDispatcher("/WEB-INF/jsp/studentHome.jsp").forward(request, response);
 		
@@ -187,42 +180,58 @@ public class StudentHomeServlet extends HttpServlet {
 
 	    int user_id = userId;
 	    int book_id = latestReadBookId;
-	    
-	    ProgressDAO dao = new ProgressDAO();
-	    List<Progress> todayProgress = dao.selectToday(user_id, book_id);
-	   	    
-	    String step = "target";
+
+	    String targetStr = request.getParameter("target_page");
+	    String readStr = request.getParameter("read_page");
+
+	    String step = "target"; // 初期ステップ
 
 	    try {
-	        String targetStr = request.getParameter("target_page");
-	        String readStr = request.getParameter("read_page");
-	        System.out.print(readStr);
-
-	        if (readStr != null && !readStr.isEmpty() && Integer.parseInt(readStr) > 0) {
+	        if (readStr != null && !readStr.isEmpty()) {
 	            int read_page = Integer.parseInt(readStr);
+	            if (read_page < 1 || read_page > 30) {
+	                request.setAttribute("errorMessage", "読んだページ数は1～30の数値で入力してください。");
+	                doGet(request, response);
+	                return;
+	            }
+
 	            proDao.update_read(user_id, book_id, read_page);
-	            	            
+
 	            int totalRead = proDao.getTotalPagesRead(user_id, book_id);
 	            int totalPages = proDao.getBookTotalPages(book_id);
 	            if (totalRead >= totalPages) {
-	                System.out.print("▶ 完読条件を満たしたため insertFinishedBook を実行");
 	                proDao.insertFinishedBook(userId, book_id);
 	            }
-	            
-	            step = "target";  // 次はまた目標入力へ
-	        } else if (targetStr != null && !targetStr.isEmpty() && Integer.parseInt(targetStr) > 0) {
+
+	            step = "target";  // 次は目標入力へ
+
+	        } else if (targetStr != null && !targetStr.isEmpty()) {
 	            int target_page = Integer.parseInt(targetStr);
+	            if (target_page < 1 || target_page > 30) {
+	                request.setAttribute("errorMessage", "目標ページ数は1～30の数値で入力してください。");
+	                doGet(request, response);
+	                return;
+	            }
+
 	            proDao.insert_target(user_id, book_id, target_page);
-
 	            step = "record";  // 次は読書記録入力へ
-	        }
-	    } catch (NumberFormatException e) {
-	        e.printStackTrace();
-	    }
-	    session.setAttribute("step", step);
 
-	    // ↓ doGet にリダイレクト（再読み込み扱いではなくサーバー内部で呼ぶので forward 的な挙動）
+	        } else {
+	            // どちらも空または無効
+	            request.setAttribute("errorMessage", "1～30の数値を入力してください。");
+	            doGet(request, response);
+	            return;
+	        }
+
+	    } catch (NumberFormatException e) {
+	        request.setAttribute("errorMessage", "数字を入力してください。");
+	        doGet(request, response);
+	        return;
+	    }
+
+	    session.setAttribute("step", step);
 	    doGet(request, response);
 	}
 
-}
+	}
+
