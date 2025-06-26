@@ -1,1 +1,74 @@
 @charset "UTF-8";
+
+
+.main-content {
+  background-color: #00552e;
+  padding:95px;
+  color:white;
+  max-width: 1200px;   /* 適度な横幅を指定（必要に応じて変更） */
+  margin: 0 auto;      /* ←左右中央ぞろえにする */
+  box-sizing: border-box;
+}
+
+
+html, body {
+  height: 100%;
+   margin: 0;
+   padding: 0;
+   background-color: #00552e;
+}
+
+.page-frame {
+  min-height: 100vh;                 /* 画面の高さまで確保 */
+  border: 3px solid #DC8551;
+  margin: 0;
+  padding: 0px;           
+  box-sizing: border-box;
+  background-color: black green;
+}
+
+.wrapper{
+  text-align: center;
+  color:white;
+	
+}
+
+table th,
+table td {
+  text-align: center;
+  vertical-align: middle; /* 縦方向も中央にしたい場合 */
+}
+
+
+.book-detail-box {
+  border: 2px solid #ccc;      
+  border-radius: 8px;         
+  padding: 50px;               
+  background-color: #fff;      
+  max-width: 600px;            
+  margin: 20px auto; 
+  text-align: center;  
+           
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+
+.book-detail-box form {
+  margin: 10px 0; /* 上下に20pxの余白 */
+}
+
+
+.book-chart-box {
+  border: 2px solid #ccc;      
+  border-radius: 8px;         
+  padding: 50px;               
+  background-color: #fff;      
+  max-width: 600px;            
+  margin: 20px auto; 
+  text-align: center;  
+           
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+
+.book-detail-box form {
+  margin: 10px 0; /* 上下に20pxの余白 */
+}

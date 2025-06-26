@@ -9,6 +9,16 @@
   flex-wrap: wrap;             /* 幅狭いときに折り返し対応 */
 }
 
+.pagenation a {
+  color: white;                  /* ← 白文字に */
+  background-color: #00552e;     /* 任意：背景もつけたい場合 */
+  padding: 6px 10px;
+  margin: 0 5px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
 
 .page-select-form {
   margin: 0;

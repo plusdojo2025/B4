@@ -30,3 +30,39 @@ html, body {
 }
 
 
+.book-detail-box {
+  border: 2px solid #ccc;      
+  border-radius: 8px;         
+  padding: 50px;               
+  background-color: #fff;      
+  max-width: 600px;            
+  margin: 20px auto; 
+  text-align: center;  
+           
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+
+.book-detail-box form {
+  margin: 10px 0; /* 上下に20pxの余白 */
+}
+
+
+/* タイトルもテーブルも中央に */
+.ranking-section {
+  text-align: center;          /* 子のインライン要素を中央揃え */
+  margin: 20px 0;              /* 上下余白はお好みで */
+}
+
+/* テーブル自体を中央に据える（幅に合わせて） */
+.ranking-section .ranking-table {
+  margin: 0 auto;              /* 左右マージンを自動＝中央配置 */
+   /* 枠線をきれいに */
+}
+
+/* ついでにセルの文字も中央にする場合 */
+.ranking-section th,
+.ranking-section td {
+  text-align: center;
+  padding: 8px 16px;
+}
+

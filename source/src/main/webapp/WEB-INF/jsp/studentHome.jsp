@@ -31,12 +31,12 @@
  </header>
  <!-- ヘッダー　-->
  <main class="main-content"> 
-
+<div class="book-detail-box">
 <h2>2025年6月23日</h2>
 
-<form id="opinion_form" method="POST" action="/B4/OpinionServlet">
-<input type="submit" name="submit" value="目安箱">
-</form>
+<!--  <form id="opinion_form" method="POST" action="/B4/OpinionServlet"> -->
+<!--  <input type="submit" name="submit" value="目安箱">-->
+<!--  </form> -->
 
 <c:forEach var="finbook" items="${finishBookNewList}">
     <c:url value="/img/${finbook.cover}" var="coverUrl" />
@@ -67,9 +67,10 @@
 
 </form>
 
-
+<div class="ranking-section">
 <h2>${title}</h2>
-<table border="1">
+
+<table class="ranking-table" border="1">
   <thead>
     <tr>
       <th>順位</th>
@@ -89,6 +90,8 @@
     </c:if>
   </tbody>
 </table>
+</div>
+
 <h2>今日のおすすめ</h2>
 
 <c:if test="${not empty todayRecommendation}">
@@ -102,9 +105,9 @@
 <c:if test="${empty todayRecommendation}">
   <p>今日のおすすめ本は見つかりませんでした。</p>
 </c:if>
+</div>
 
-
-<h2>今日の先生の本</h2>
+<!--  <h2>今日の先生の本</h2>-->
 
 
 

@@ -10,13 +10,13 @@
 /*#C0CDDC */
 
 .main-content { 
-  background-color:#F2AA43;
+  background-color:#a5845d;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #F2AA43;
+  background-color: #a5845d;
 }
 
 .book-list {
@@ -48,7 +48,7 @@ html, body {
 
 .book-title {
 	display: inline-block; 
-	max-width: 150px;
+	max-width: 180px;
 	color:white;
 	font-weight: bold;
 	text-shadow:
@@ -59,12 +59,6 @@ html, body {
   
 }
 
-.book-separator {
-  border: none;
-  border-top: 40px solid #A1550D;
-  margin: -10px 100px;
-}
-
 .pagenation {
   display: flex;
   justify-content: center;      /* 横方向中央寄せ */
@@ -72,6 +66,27 @@ html, body {
   gap: 12px;                   /* 要素間のスペース */
   margin: 70px 70px;              /* 上下の余白 */
   flex-wrap: wrap;             /* 幅狭いときに折り返し対応 */
+}
+
+.pagenation a {
+  color: white;                  /* ← 白文字に */
+  background-color: #00552e;     /* 任意：背景もつけたい場合 */
+  padding: 6px 10px;
+  margin: 0 5px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+
+.pagenation a {
+  color: white;                  /* ← 白文字に */
+   background-color: #00552e;
+  padding: 6px 10px;
+  margin: 0 5px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
 }
 
 
@@ -87,6 +102,7 @@ html, body {
 .page-select-form select {
   padding: 4px 8px;
   font-size: 1em;
+  color:white;
 }
 
 

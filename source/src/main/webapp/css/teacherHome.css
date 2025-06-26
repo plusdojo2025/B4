@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-*生徒のホーム用CSS*/
+/*管理者のホーム用CSS*/
 /*背景色*/
 /*生徒用ページは共通背景*/
 
@@ -26,5 +26,34 @@ html, body {
   padding: 0px;           
   box-sizing: border-box;
   background-color: black green;
+}
+
+.wrapper{
+  text-align: center;
+  color:black;	
+  border: 2px solid #ccc;      
+  border-radius: 8px;         
+  padding: 50px;               
+  background-color: #fff;      
+  max-width: 600px;            
+  margin: 20px auto; 
+  text-align: center;  
+           
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+
+.wrapper form {
+  margin: 10px 0; /* 上下に20pxの余白 */
+}
+
+
+
+table, th, td {
+  text-align: center;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
 }
 
