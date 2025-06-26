@@ -9,11 +9,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="<c:url value='/css/parentCommon.css' />">
+<link rel="stylesheet" href="<c:url value='/css/parentProgress.css' />">
 <meta charset="UTF-8">
 <title>成績表 | 保護者ページ</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
+
+<div class="page-frame">
 <header class="header">
 <span>
   <c:out value="${sessionScope.user.name}" /> さん
@@ -29,7 +34,8 @@
 </nav>
 </header>
  <!-- ヘッダー　-->
-
+<main class="main-content">
+<div class="book-detail-box">
 <label>月を選択：</label>
 <select name="month" id="monthSelect">
     <c:forEach var="i" begin="1" end="12">
@@ -137,6 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+</div> 
+</main>
+</div>
 
 </body>
 </html>

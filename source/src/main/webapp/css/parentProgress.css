@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.main-content {
+  background-color: #00552e;
+  padding:95px;
+}
+
+
+html, body {
+  height: 100%;
+   margin: 0;
+   padding: 0;
+   background-color: #00552e;
+}
+
+.wrapper{
+	
+  background-color: white;
+  padding: 20px;          /* 内側の余白（お好みで調整） */
+  border-radius: 20px;     /* 角丸をつける場合 */
+  box-sizing: border-box; /* パディングを含めたサイズ計算に */
+  min-height: 60vh;
+  max-width:110vh;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+}
+
+
+.book-detail-box {
+  border: 2px solid #ccc;      
+  border-radius: 8px;         
+  padding: 50px;               
+  background-color: #fff;      
+  max-width: 800px;            
+  margin: 20px auto; 
+  text-align: center;  
+           
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+
+.book-detail-box form {
+  margin: 10px 0; /* 上下に20pxの余白 */
+}
+

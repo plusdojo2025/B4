@@ -26,8 +26,8 @@
     <li><a href="<c:url value='/StudentHomeServlet' />">ホーム</a></li>
     <li><a href="<c:url value='/BookListServlet' />">ほんだな</a></li>
     <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
-    <li><a href="<c:url value='/ProgressServlet' />">きろく</a></li>
-    <li><a href="<c:url value='/RecordServlet' />">せいせき</a></li>
+    <li><a href="<c:url value='/RecordServlet' />">きろく</a></li>
+    <li><a href="<c:url value='/ProgressServlet' />">せいせき</a></li>
     <li><a href="<c:url value='/CollectionServlet' />">コレクション</a></li>
     <li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
   </ul>
@@ -104,9 +104,7 @@
   </c:forEach>
 </table>
    -->
-   
-  <h2>ランキング</h2>
-  <h3>4～9月のアクションランキング</h3>
+ 
 
 </main>
 </div> 
