@@ -33,7 +33,6 @@
  <!-- ヘッダー　-->
  <main class="main-content"> 
 <div class="book-detail-box">
-<h2>2025年6月23日</h2>
 
 <!--  <form id="opinion_form" method="POST" action="/B4/OpinionServlet"> -->
 <!--  <input type="submit" name="submit" value="目安箱">-->
