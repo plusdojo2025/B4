@@ -29,8 +29,8 @@ html, body {
 
 table {
   width: 100%;                        /* 幅をページに広げる（必要に応じて80%などでもOK） */
-  max-width: 800px;                   /* 最大幅を制限 */
-  margin: 20px auto;                  /* 中央寄せ */
+  max-width:none;                   /* 最大幅を制限 */
+  margin: 0 auto 0 0;                /* 中央寄せ */
   border: 5px double #333;            /* 二重線の外枠 */
   border-collapse: separate;          /* 二重線をきちんと表示 */
   background-color: white;            /* 白背景 */
@@ -48,10 +48,10 @@ table td {
 
 /* テーブル全体 ── 角丸 & 影付き & 二重枠 */
 table.status-table {
+	
   width: 100%;
-  max-width: 800px;
-  margin: 20px auto;
-
+  max-width: none;
+margin: 0 auto 0 0;
   /* ── デザイン ── */
   background-color: #fff;          /* 白背景 */
   border: 2px double #333;         /* 太めの二重線外枠 */
