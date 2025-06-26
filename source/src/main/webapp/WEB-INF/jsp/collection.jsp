@@ -17,6 +17,9 @@
 <div class="page-frame">
 <!-- ヘッダー　-->
 <header class="header">
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
 <div class="logo">よも～にんぐ</div>
  <nav class="nav">
   <ul >
