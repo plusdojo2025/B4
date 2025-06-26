@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -43,6 +45,11 @@ public class TeacherHomeServlet extends HttpServlet {
 		}
 
         User user = (User) session.getAttribute("user");
+        
+        LocalDate today = LocalDate.now();
+		Date date = java.sql.Date.valueOf(today); // LocalDate → java.util.Date に変換
+		request.setAttribute("today", date);
+		
 
         int user_id = user.getId(); // ユニークID
         int typeId = user.getTypeId(); // タイプ（1＝教師、2=保護者、3=生徒）

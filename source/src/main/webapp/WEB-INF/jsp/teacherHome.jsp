@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -35,7 +36,7 @@
 
 <main class="main-content"> 
 
-<h3>6月25日の読書情報</h3>
+<h2><fmt:formatDate value="${today}" pattern="yyyy年M月d日" /></h2>
 
 <form method="POST" action="<c:url value='/TeacherHomeServlet'/>">
 <table>
