@@ -128,7 +128,7 @@ Connection conn = null;
 					"root", "password");
 			
 			//SQL文
-			String sql ="SELECT u.id AS user_id ,u.name,SUM(p.read_page) AS page FROM progress p JOIN users u ON p.user_id = u.id WHERE u.school_class = ?  GROUP BY u.id, u.name ORDER BY SUM(p.read_page) DESC";				
+			String sql ="SELECT u.id AS user_id ,u.name,SUM(p.read_page) AS page FROM progress p JOIN users u ON p.user_id = u.id WHERE u.school_class = ?  GROUP BY u.id, u.name ORDER BY SUM(p.read_page) DESC LIMIT 5";				
 	
 						    
 						
