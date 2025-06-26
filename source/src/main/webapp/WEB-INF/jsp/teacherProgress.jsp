@@ -15,16 +15,26 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<h1>よも～にんぐ</h1>
-<hr>
-<p><a href="/B4/TeacherHomeServlet">ホーム</a></p>
-<p><a href="/B4/UpdateDeleteServlet">登録</a></p>
-<p><a href="/B4/BookListServlet">一覧</a></p>
-<p><a href="/B4/BookRecommendServlet">おすすめ</a></p>
-<p><a href="/B4/OpinionServlet">目安箱</a></p>
-<p><a href="/B4/RankingServlet">ランキング</a></p>
-<p><a href="/B4/LogoutServlet">ログアウト</a></p>
+<div class="page-frame">
+<!-- ヘッダー　-->
+<header class="header">
+<span>
+  <c:out value="${sessionScope.user.name}" /> さん
+</span>
 
+<div class="logo">よも～にんぐ</div>
+<nav class="nav">
+<ul>
+ <li><a href="<c:url value='/TeacherHomeServlet' />">ホーム</a></li>
+    <li><a href="<c:url value='/BookListServlet' />">一覧</a></li>
+    <li><a href="<c:url value='/RegistServlet' />">登録</a></li>
+    <li><a href="<c:url value='/BookRecommendServlet' />">おすすめ</a></li>
+    <li><a href="<c:url value='/RankingServlet' />">ランキング</a></li>
+<li> <button class="logout-btn" onclick="location.href='<c:url value='/LogoutServlet'/>'">ログアウト</button></li>
+</ul>
+</nav>
+</header>
+<!-- ヘッダー　-->
 
 <label>月を選択：</label>
 <select name="month" id="monthSelect">
@@ -136,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<form id ="form" method="POST" action="/B4/ProgressServlet">
+<form id ="form" method="POST" action="<c:url value='/ProgressServlet' />">
 先生からのコメント<input type="text" name="comment">
 <input type="submit" name="submit" value="送信">
 </form>

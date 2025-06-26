@@ -47,22 +47,15 @@ public class BookDetailServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String genreIdStr = request.getParameter("genreId");
 		String pageStr = request.getParameter("page");
-		String lastList = request.getParameter("lastList");
-		if (lastList != null && !lastList.isEmpty()) {
-		    session.setAttribute("lastList", lastList);
-		}
-
 
 		// nullチェック(きろく用)
 		if (title != null) session.setAttribute("title", title);
 		if (genreIdStr != null) session.setAttribute("genreId", genreIdStr);
 		if (pageStr != null) session.setAttribute("currentPage", pageStr);
-		if (lastList != null) session.setAttribute("lastList", lastList);
-
+		
 		session.setAttribute("title", title);
 		session.setAttribute("genreId", genreIdStr);
 		session.setAttribute("currentPage", pageStr);
-		session.setAttribute("lastList", lastList);
 		int userId = user.getId();
 
 		// 読書状態

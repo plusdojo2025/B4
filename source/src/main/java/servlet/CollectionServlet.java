@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CollectionDAO;
 import dto.Collection;
+import dto.User;
 
 
 /**
@@ -31,7 +33,17 @@ public class CollectionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int userId=1;
+		// ログインさせる処理
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+        
+        User user = (User) session.getAttribute("user");
+
+        int userId = user.getId(); // ユニークID
+        request.setCharacterEncoding("UTF-8");
 //		int rankingId=1;
 	//リクエストパラメーターからステータス名を取得
 //	String statusName = request.getParameter("statusName");

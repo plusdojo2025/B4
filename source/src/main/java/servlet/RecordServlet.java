@@ -106,32 +106,25 @@ public class RecordServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ログインさせる処理
-    	HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
-            return;
-        }
-        User user = (User) session.getAttribute("user");
-        int userId = user.getId();
+	    HttpSession session = request.getSession();
+	    if (session.getAttribute("user") == null) {
+	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+	        return;
+	    }
+	    User user = (User) session.getAttribute("user");
+	    int userId = user.getId();
 
-        
-      //今日読んだ本の詳細情報の取得
-      		int currentMonth = LocalDateTime.now().getMonthValue();
-      		int currentDay = LocalDateTime.now().getDayOfMonth();
-      		String bookIdStr = request.getParameter("book_id");
-      		int bookId = Integer.parseInt(bookIdStr);
-      		ProgressDAO proDao = new ProgressDAO();
-      		List<Progress> selectTodayList = proDao.selectToday(userId, bookId);
-      		session.setAttribute("selectTodayList", selectTodayList);
-//		ProgressDAO proDao = new ProgressDAO();
-//		List<Progress> progressList = proDao.selectAll();
-//
-//		// 検索結果をセッションスコープに格納する
-//		session.setAttribute("progressList", progressList);
-//		
-//		// レイアウトページにフォワードする
-//		request.getRequestDispatcher("/WEB-INF/jsp/record.jsp").forward(request, response);
+	    // 今日読んだ本の詳細情報の取得
+	    int currentMonth = LocalDateTime.now().getMonthValue();
+	    int currentDay = LocalDateTime.now().getDayOfMonth();
+	    String bookIdStr = request.getParameter("book_id");
+	    int bookId = Integer.parseInt(bookIdStr);
+
+	    ProgressDAO proDao = new ProgressDAO();
+	    List<Progress> selectTodayList = proDao.selectToday(userId, bookId);
+	    session.setAttribute("selectTodayList", selectTodayList);
+
+	    request.getRequestDispatcher("/WEB-INF/jsp/record.jsp").forward(request, response);
 	}
 
 }

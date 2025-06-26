@@ -69,7 +69,7 @@
       ← せいせき にもどる
     </a>
 </c:when>
-  <c:when test="${sessionScope.lastList == 'BookRecommendServlet'}">
+  <c:when test="${fn:contains(sessionScope.lastList, 'BookRecommendServlet')}">
     <a href="${pageContext.request.contextPath}/BookRecommendServlet?title=${fn:escapeXml(sessionScope.title)}&genreId=${fn:escapeXml(sessionScope.genreId)}&page=${sessionScope.currentPage}">
       ← おすすめ順一覧に戻る
     </a>

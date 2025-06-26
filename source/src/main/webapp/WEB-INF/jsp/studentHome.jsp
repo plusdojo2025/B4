@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,33 +39,51 @@
 <!--  <input type="submit" name="submit" value="目安箱">-->
 <!--  </form> -->
 
+<h2><fmt:formatDate value="${today}" pattern="yyyy年M月d日" /></h2>
+
 <c:forEach var="finbook" items="${finishBookNewList}">
     <c:url value="/img/${finbook.cover}" var="coverUrl" />
         <img src="${coverUrl}" alt="表紙画像" width="150"><br>
 </c:forEach>
 
-<form id="goal_form" method="POST" action="/B4/StudentHomeServlet">
-
-
-<c:choose>
-  <c:when test="${step == 'record'}">
-    <form method="post" action="StudentHomeServlet">
-      <label>読んだページ：</label>
-      <input type="number" name="read_page" value="0"><br>
-      <input type="submit" value="きろくする">
-    </form>
-  </c:when>
-  
-  <c:otherwise>
-    <form method="post" action="StudentHomeServlet">
-      <label>目標ページ：</label>
-      <input type="number" name="target_page" value="0"><br>
-      <input type="submit" value="もくひょうをきめる">
-    </form>
-  </c:otherwise>
-</c:choose>
-
-
+<form id="goal_form" method="POST" action="<c:url value='/StudentHomeServlet'/>">
+  <c:choose>
+    <c:when test="${isAllDone}">
+      <p style="color: green; font-weight: bold;">きょうはよみおわったよ！</p>
+    </c:when>
+    <c:otherwise>
+      <c:choose>
+        <c:when test="${step == 'record'}">
+          <c:choose>
+            <c:when test="${isRecordDone}">
+              <p>今日はすでに読んだページを記録しました。</p>
+            </c:when>
+            <c:otherwise>
+              <form method="post" action="StudentHomeServlet">
+                <label>読んだページ：</label>
+                <input type="number" name="read_page" value="0" min="1" max="30"><br>
+                <input type="submit" value="きろくする">
+              </form>
+            </c:otherwise>
+          </c:choose>
+        </c:when>
+        <c:otherwise>
+          <c:choose>
+            <c:when test="${isTargetDone}">
+              <p>今日はすでに目標ページを設定しました。</p>
+            </c:when>
+            <c:otherwise>
+              <form method="post" action="StudentHomeServlet">
+                <label>目標ページ：</label>
+                <input type="number" name="target_page" value="0" min="1" max="30"><br>
+                <input type="submit" value="もくひょうをきめる">
+              </form>
+            </c:otherwise>
+          </c:choose>
+        </c:otherwise>
+      </c:choose>
+    </c:otherwise>
+  </c:choose>
 </form>
 
 <div class="ranking-section">
@@ -106,10 +125,6 @@
   <p>今日のおすすめ本は見つかりませんでした。</p>
 </c:if>
 </div>
-
-<!--  <h2>今日の先生の本</h2>-->
-
-
 
 </main>
 
