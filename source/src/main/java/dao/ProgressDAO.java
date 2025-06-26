@@ -146,8 +146,9 @@ public class ProgressDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT progress.id, user_id, book_id, users.name, target_page, read_page, grade, school_class, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day"
-					+ " FROM progress JOIN users ON progress.user_id = users.id"
+			String sql = "SELECT progress.id, progress.user_id, progress.book_id, users.name, books.title, target_page, read_page, grade, school_class, progress.created_at, progress.updated_at, MONTH(progress.updated_at) as month, DAY(progress.updated_at) as day"
+					+ " FROM progress INNER JOIN users ON progress.user_id = users.id "
+					+ "INNER JOIN books ON progress.book_id = books.id "
 					+ " WHERE grade =? AND school_class =? AND users.type_id = 3 AND MONTH(progress.updated_at) = MONTH(CURRENT_DATE()) AND DAY(progress.updated_at) = DAY(CURRENT_DATE())";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -165,6 +166,7 @@ public class ProgressDAO {
 						rs.getInt("user_id"), 
 						rs.getInt("book_id"), 
 						rs.getString("name"),
+						rs.getString("title"),						
 						rs.getInt("target_page"), 
 						rs.getInt("read_page"),
 						rs.getInt("grade"),
